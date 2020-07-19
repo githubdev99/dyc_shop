@@ -15,16 +15,6 @@ class Admin_model extends CI_Model {
 		return $generate;
 	}
 
-	public function select_data($param)
-	{
-		$this->db->select($param['field']);
-		$this->db->from($param['table']);
-		if (!empty($param['where'])) {
-			$this->db->where($param['where']);
-		}
-		return $this->db->get();
-	}
-
 	public function get_data($param)
 	{
 		if (!empty($param['where'])) {
@@ -35,6 +25,16 @@ class Admin_model extends CI_Model {
 		}
 		
 		return $this->db->get($param['table']);
+	}
+
+	public function select_data($param)
+	{
+		$this->db->select($param['field']);
+		$this->db->from($param['table']);
+		if (!empty($param['where'])) {
+			$this->db->where($param['where']);
+		}
+		return $this->db->get();
 	}
 
 	public function send_data($param)

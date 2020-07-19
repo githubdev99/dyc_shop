@@ -72,6 +72,28 @@ class Json_model extends CI_Model {
 		return $this->db->count_all_results();
 	}
 
+	public function get_data($param)
+	{
+		if (!empty($param['where'])) {
+			$this->db->where($param['where']);
+		}
+		if (!empty($param['order_by'])) {
+			$this->db->order_by($param['order_by'], $param['order_type']);
+		}
+		
+		return $this->db->get($param['table']);
+	}
+
+	public function select_data($param)
+	{
+		$this->db->select($param['field']);
+		$this->db->from($param['table']);
+		if (!empty($param['where'])) {
+			$this->db->where($param['where']);
+		}
+		return $this->db->get();
+	}
+
 }
 
 /* End of file Json_model.php */

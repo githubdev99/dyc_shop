@@ -11,6 +11,74 @@ class Json_admin extends MY_Controller {
 		$this->load->model('json_model');
 	}
 
+	public function list_kategori_produk()
+	{
+		if (!empty($_REQUEST['draw'])) {
+			$draw = $_REQUEST['draw'];
+		} else {
+			$draw = 0;
+		}
+
+		$this->param['column_search'] = [
+			'id_kategori','nama_kategori','created_datetime'
+		];
+		$this->param['column_order'] = [
+			null,'nama_kategori',null
+		];
+		$this->param['field'] = 'produk_kategori.*';
+		$this->param['table'] = 'produk_kategori';
+		$this->param['order_by'] = [
+			'nama_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->model_json->get_datatable($this->param);
+		$this->data['total_filtered'] = $this->model_json->get_total_filtered($this->param);
+		$this->data['total_data'] = $this->model_json->get_total_data($this->param);
+
+		$get_data = [];
+		if (!empty($this->data['data_parsing'])) {
+			$no = $_REQUEST['start'];
+			foreach ($this->data['data_parsing'] as $key) {
+				$no++;
+				$nested_data = [];
+
+				$get_created = explode(' ', $key->created_datetime);
+
+				$nested_data[] = $no;
+				$nested_data[] = '
+				<a href="javascript:;" onclick="modal_edit('."'".$key->id_kategori."'".')">
+					'.$key->nama_kategori.'
+				</a><br>
+				<span class="text-muted">
+					'.date_indo($get_created[0]).' '.$get_created[1].'
+				</span>';
+				$nested_data[] = $key->icon;
+				$nested_data[] = '
+				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_kategori."'".')">
+					<i class="fas fa-edit"></i>
+				</a>
+				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".$key->id_kategori."'".')"><i class="far fa-trash-alt"></i>
+				</a>';
+
+				$get_data[] = $nested_data;
+			}
+		}
+
+		$this->data['output'] = [
+			'draw' => intval($draw),
+			'recordsTotal' => intval($this->data['total_data']),
+			'recordsFiltered' => intval($this->data['total_filtered']),
+			'data' => $get_data
+		];
+
+		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function get_kategori_produk()
+	{
+		# code...
+	}
+
 }
 
 /* End of file Json_admin.php */
