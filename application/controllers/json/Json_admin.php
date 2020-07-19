@@ -23,7 +23,7 @@ class Json_admin extends MY_Controller {
 			'id_kategori','nama_kategori','created_datetime'
 		];
 		$this->param['column_order'] = [
-			null,'nama_kategori',null
+			null,'nama_kategori',null,null
 		];
 		$this->param['field'] = 'produk_kategori.*';
 		$this->param['table'] = 'produk_kategori';
@@ -31,9 +31,9 @@ class Json_admin extends MY_Controller {
 			'nama_kategori' => 'asc'
 		];
 
-		$this->data['data_parsing'] = $this->model_json->get_datatable($this->param);
-		$this->data['total_filtered'] = $this->model_json->get_total_filtered($this->param);
-		$this->data['total_data'] = $this->model_json->get_total_data($this->param);
+		$this->data['data_parsing'] = $this->json_model->get_datatable($this->param);
+		$this->data['total_filtered'] = $this->json_model->get_total_filtered($this->param);
+		$this->data['total_data'] = $this->json_model->get_total_data($this->param);
 
 		$get_data = [];
 		if (!empty($this->data['data_parsing'])) {
@@ -44,6 +44,12 @@ class Json_admin extends MY_Controller {
 
 				$get_created = explode(' ', $key->created_datetime);
 
+				if ($key->icon != NULL) {
+					$url_icon = base_url().'assets/images/upload/kategori_produk/'.$key->icon;
+				} else {
+					$url_icon = base_url().'assets/images/img-thumbnail.svg';
+				}
+
 				$nested_data[] = $no;
 				$nested_data[] = '
 				<a href="javascript:;" onclick="modal_edit('."'".$key->id_kategori."'".')">
@@ -52,7 +58,10 @@ class Json_admin extends MY_Controller {
 				<span class="text-muted">
 					'.date_indo($get_created[0]).' '.$get_created[1].'
 				</span>';
-				$nested_data[] = $key->icon;
+				$nested_data[] = '
+				<a class="image-popup" href="'.$url_icon.'">
+					<img class="img-thumbnail" width="100" src="'.$url_icon.'" data-holder-rendered="true">
+				</a>';
 				$nested_data[] = '
 				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_kategori."'".')">
 					<i class="fas fa-edit"></i>

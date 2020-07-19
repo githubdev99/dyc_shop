@@ -13,7 +13,8 @@ class Kategori_produk extends MY_Controller {
 		$title = 'Kategori Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['datatable', 'sweetalert', 'magnific-popup']
+			'plugin' => ['datatable', 'sweetalert', 'magnific-popup'],
+			'get_script' => 'script_view'
 		];
 
 		$this->load->view('kategori_produk/view', $data);

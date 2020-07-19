@@ -88,9 +88,18 @@ class Json_model extends CI_Model {
 	{
 		$this->db->select($param['field']);
 		$this->db->from($param['table']);
+		if (!empty($param['join'])) {
+			for ($i=0; $i < count($param['join']); $i++) {
+				$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
+			}
+		}
 		if (!empty($param['where'])) {
 			$this->db->where($param['where']);
 		}
+		if (!empty($param['order_by'])) {
+			$this->db->order_by($param['order_by'], $param['order_type']);
+		}
+
 		return $this->db->get();
 	}
 

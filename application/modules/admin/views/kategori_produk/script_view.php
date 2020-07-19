@@ -13,11 +13,20 @@
 			"order": [],
 			"columnDefs": [
 			{
-				"targets": [ 0, 2 ],
+				"targets": [ 0, 2, 3 ],
 				"orderable": false
 			}],
 			"drawCallback": function (settings) {
 				$('[data-toggle="tooltip"]').tooltip();
+				$('.image-popup').magnificPopup({
+					type:"image", closeOnContentClick:!0, closeBtnInside:!1, fixedContentPos:!0, mainClass:"mfp-no-margins mfp-with-zoom",
+					image: {
+						verticalFit: !0
+					},
+					zoom: {
+						enabled: !0, duration: 300
+					}
+				});
 			},
 			"ajax": {
 				"url": "<?= base_url() ?>json/admin/list-kategori-produk",
