@@ -5,45 +5,47 @@
     <script src="<?= base_url() ?>assets/libs/simplebar/simplebar.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/node-waves/waves.min.js"></script>
 
-    <!-- Plugin JS -->
-    <?php if (array_search('select2', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/select2/js/select2.min.js"></script>
-    <?php endif ?>
+    <?php if (!empty($plugin)): ?>
+        <!-- Plugin JS -->
+        <?php if (array_search('select2', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/select2/js/select2.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('inputmask', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/inputmask/min/jquery.inputmask.bundle.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('inputmask', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('datepicker', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('datepicker', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('datatable', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="<?= base_url() ?>assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('datatable', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+            <script src="<?= base_url() ?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+            <script src="<?= base_url() ?>assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="<?= base_url() ?>assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('sweetalert', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('sweetalert', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/sweetalert2/dist/sweetalert2.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('magnific-popup', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('magnific-popup', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('apexcharts', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/libs/apexcharts/apexcharts.min.js"></script>
-    <?php endif ?>
+        <?php if (array_search('apexcharts', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/libs/apexcharts/apexcharts.min.js"></script>
+        <?php endif ?>
 
-    <?php if (array_search('pages-dashboard', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/js/pages/dashboard.init.js"></script>
-    <?php endif ?>
+        <?php if (array_search('pages-dashboard', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/js/pages/dashboard.init.js"></script>
+        <?php endif ?>
 
-    <!-- Custom JS -->
-    <?php if (array_search('formValidate', $plugin) !== false): ?>
-        <script src="<?= base_url() ?>assets/custom/formValidate.js"></script>
+        <!-- Custom JS -->
+        <?php if (array_search('formValidate', $plugin) !== false): ?>
+            <script src="<?= base_url() ?>assets/custom/formValidate.js"></script>
+        <?php endif ?>
     <?php endif ?>
 
     <!-- App -->

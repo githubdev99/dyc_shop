@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Data_json extends MY_Controller {
+class Json_admin extends MY_Controller {
 	
 	private $data = [];
 	private $param = [];
@@ -8,9 +8,9 @@ class Data_json extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('json_model');
 	}
 
 }
 
-/* End of file Data_json.php */
-/* Location: ./application/controllers/Data_json.php */
+/* End of file Json_admin.php */

@@ -77,4 +77,3 @@ class MY_Controller extends MX_Controller {
 }
 
 /* End of file MY_Controller.php */
-/* Location: ./application/controllers/MY_Controller.php */

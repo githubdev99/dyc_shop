@@ -20,4 +20,3 @@ class Error_404 extends MY_Controller {
 }
 
 /* End of file Error_404.php */
-/* Location: ./application/controllers/Error_404.php */

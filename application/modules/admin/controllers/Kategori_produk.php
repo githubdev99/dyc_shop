@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Dashboard extends MY_Controller {
+class Kategori_produk extends MY_Controller {
 
 	public function __construct()
 	{
@@ -10,15 +10,15 @@ class Dashboard extends MY_Controller {
 
 	public function index()
 	{
-		$title = 'Dashboard';
+		$title = 'Kategori Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['sweetalert', 'apexcharts', 'pages-dashboard']
+			'plugin' => ['datatable', 'sweetalert', 'magnific-popup']
 		];
 
-		$this->load->view('dashboard/view', $data);
+		$this->load->view('kategori_produk/view', $data);
 	}
 
 }
 
-/* End of file Dashboard.php */
+/* End of file Kategori_produk.php */

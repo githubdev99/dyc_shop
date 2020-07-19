@@ -21,4 +21,3 @@ class Register extends MY_Controller {
 }
 
 /* End of file Register.php */
-/* Location: ./application/controllers/Register.php */

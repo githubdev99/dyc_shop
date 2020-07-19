@@ -17,7 +17,7 @@
 
 				<li>
 					<a href="<?= base_url() ?>admin/kategori_produk" class="waves-effect <?= ($this->uri->segment(2) == 'kategori_produk') ? 'mm-active' : ''; ?>">
-						<i class="mdi mdi-monitor-dashboard"></i>
+						<i class="fas fa-bookmark"></i>
 						<span>Kategori Produk</span>
 					</a>
 				</li>
