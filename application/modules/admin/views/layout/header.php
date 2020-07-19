@@ -8,25 +8,27 @@
 	<link rel="shortcut icon" href="<?= $setup_app['main_icon'] ?>">
 
 	<!-- Plugin CSS -->
-	<?php if (array_search('datatable', $plugin) !== false): ?>
-		<link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-		<link href="<?= base_url() ?>assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-	<?php endif ?>
+	<?php if (!empty($plugin)): ?>
+		<?php if (array_search('datatable', $plugin) !== false): ?>
+			<link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+			<link href="<?= base_url() ?>assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+		<?php endif ?>
 
-	<?php if (array_search('select2', $plugin) !== false): ?>
-		<link href="<?= base_url() ?>assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-	<?php endif ?>
+		<?php if (array_search('select2', $plugin) !== false): ?>
+			<link href="<?= base_url() ?>assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+		<?php endif ?>
 
-	<?php if (array_search('datepicker', $plugin) !== false): ?>
-		<link href="<?= base_url() ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
-	<?php endif ?>
+		<?php if (array_search('datepicker', $plugin) !== false): ?>
+			<link href="<?= base_url() ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+		<?php endif ?>
 
-	<?php if (array_search('sweetalert', $plugin) !== false): ?>
-		<link href="<?= base_url() ?>assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-	<?php endif ?>
+		<?php if (array_search('sweetalert', $plugin) !== false): ?>
+			<link href="<?= base_url() ?>assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+		<?php endif ?>
 
-	<?php if (array_search('magnific-popup', $plugin) !== false): ?>
-		<link href="<?= base_url() ?>assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+		<?php if (array_search('magnific-popup', $plugin) !== false): ?>
+			<link href="<?= base_url() ?>assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+		<?php endif ?>
 	<?php endif ?>
 
 	<!-- Main CSS -->
@@ -36,8 +38,4 @@
 
 	<!-- Custom CSS -->
 	<link href="<?= base_url() ?>assets/custom/custom.css" rel="stylesheet" type="text/css" />
-	
-	<?php if (array_search('student-card', $plugin) !== false): ?>
-		<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/custom/custom-student-card.css">
-	<?php endif ?>
 </head>
