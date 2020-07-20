@@ -11,7 +11,6 @@ class Json_model extends CI_Model {
 	public function query_datatable($param)
 	{
 		$column_order = $param['column_order'];
-		$order_by = $param['order_by'];
 
 		$this->db->select($param['field']);
 		$this->db->from($param['table']);
@@ -45,7 +44,7 @@ class Json_model extends CI_Model {
 			$this->db->order_by($column_order[$_REQUEST['order']['0']['column']], $_REQUEST['order']['0']['dir']);
 		}
 		if (!empty($param['order_by'])) {
-			$this->db->order_by(key($order_by), $order_by[key($order_by)]);
+			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
 	}
 
@@ -78,7 +77,7 @@ class Json_model extends CI_Model {
 			$this->db->where($param['where']);
 		}
 		if (!empty($param['order_by'])) {
-			$this->db->order_by($param['order_by'], $param['order_type']);
+			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
 		
 		return $this->db->get($param['table']);
@@ -86,21 +85,30 @@ class Json_model extends CI_Model {
 
 	public function select_data($param)
 	{
-		$this->db->select($param['field']);
-		$this->db->from($param['table']);
-		if (!empty($param['join'])) {
-			for ($i=0; $i < count($param['join']); $i++) {
-				$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
+		try {
+			$this->db->select($param['field']);
+			$this->db->from($param['table']);
+			if (!empty($param['join'])) {
+				for ($i=0; $i < count($param['join']); $i++) {
+					$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
+				}
 			}
-		}
-		if (!empty($param['where'])) {
-			$this->db->where($param['where']);
-		}
-		if (!empty($param['order_by'])) {
-			$this->db->order_by($param['order_by'], $param['order_type']);
-		}
+			if (!empty($param['where'])) {
+				$this->db->where($param['where']);
+			}
+			if (!empty($param['order_by'])) {
+				$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
+			}
 
-		return $this->db->get();
+			return $this->db->get();
+
+			$db_error = $this->db->error();
+			if (!empty($db_error)) {
+				return FALSE;
+			}
+		} catch (Exception $e) {
+			return FALSE;
+		}
 	}
 
 }

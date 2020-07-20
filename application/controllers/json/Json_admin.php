@@ -39,8 +39,8 @@ class Json_admin extends MY_Controller {
 		if (!empty($this->data['data_parsing'])) {
 			$no = $_REQUEST['start'];
 			foreach ($this->data['data_parsing'] as $key) {
-				$no++;
 				$nested_data = [];
+				$no++;
 
 				$get_created = explode(' ', $key->created_datetime);
 
@@ -85,7 +85,47 @@ class Json_admin extends MY_Controller {
 
 	public function get_kategori_produk()
 	{
-		# code...
+		$this->param['field'] = 'produk_kategori.*';
+		$this->param['table'] = 'produk_kategori';
+		$this->param['where'] = array(
+			'produk_kategori.id_kategori' => $this->input->post('id')
+		);
+		$this->param['order_by'] = [
+			'nama_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->result();
+
+		$get_data = [];
+		if (!empty($this->data['data_parsing'])) {
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				foreach ($this->data['data_parsing'] as $key) {
+					$nested_data = [];
+
+					$get_created = explode(' ', $key->created_datetime);
+	
+					$nested_data['id_kategori'] = $key->id_kategori;
+					$nested_data['nama_kategori'] = $key->nama_kategori;
+					$nested_data['icon'] = $key->icon;
+					$nested_data['created_date'] = $get_created[0];
+					$nested_data['created_time'] = $get_created[1];
+	
+					$get_data[] = $nested_data;
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($this->data['output']));
 	}
 
 }
