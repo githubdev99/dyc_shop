@@ -44,12 +44,6 @@ class Json_admin extends MY_Controller {
 
 				$get_created = explode(' ', $key->created_datetime);
 
-				if ($key->icon != NULL) {
-					$url_icon = base_url().'assets/images/upload/kategori_produk/'.$key->icon;
-				} else {
-					$url_icon = base_url().'assets/images/img-thumbnail.svg';
-				}
-
 				$nested_data[] = $no;
 				$nested_data[] = '
 				<a href="javascript:;" onclick="modal_edit('."'".$key->id_kategori."'".')">
@@ -58,10 +52,6 @@ class Json_admin extends MY_Controller {
 				<span class="text-muted">
 					'.date_indo($get_created[0]).' '.$get_created[1].'
 				</span>';
-				$nested_data[] = '
-				<a class="image-popup" href="'.$url_icon.'">
-					<img class="img-thumbnail" width="100" src="'.$url_icon.'" data-holder-rendered="true">
-				</a>';
 				$nested_data[] = '
 				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_kategori."'".')">
 					<i class="fas fa-edit"></i>
@@ -85,38 +75,34 @@ class Json_admin extends MY_Controller {
 
 	public function get_kategori_produk()
 	{
-		$this->param['field'] = 'produk_kategori.*';
+		$this->param['field'] = '*';
 		$this->param['table'] = 'produk_kategori';
 		$this->param['where'] = array(
-			'produk_kategori.id_kategori' => $this->input->post('id')
+			'id_kategori' => $this->input->post('id')
 		);
 		$this->param['order_by'] = [
 			'nama_kategori' => 'asc'
 		];
 
-		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->result();
+		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->row();
 
-		$get_data = [];
 		if (!empty($this->data['data_parsing'])) {
 			if ($this->data['data_parsing'] == FALSE) {
+				$get_data = [];
+
 				$this->data['output'] = [
 					'error' => true,
 					'data' => $get_data
 				];
 			} else {
-				foreach ($this->data['data_parsing'] as $key) {
-					$nested_data = [];
+				$get_data = [];
 
-					$get_created = explode(' ', $key->created_datetime);
-	
-					$nested_data['id_kategori'] = $key->id_kategori;
-					$nested_data['nama_kategori'] = $key->nama_kategori;
-					$nested_data['icon'] = $key->icon;
-					$nested_data['created_date'] = $get_created[0];
-					$nested_data['created_time'] = $get_created[1];
-	
-					$get_data[] = $nested_data;
-				}
+				$get_created = explode(' ', $this->data['data_parsing']->created_datetime);
+
+				$get_data['id_kategori'] = $this->data['data_parsing']->id_kategori;
+				$get_data['nama_kategori'] = $this->data['data_parsing']->nama_kategori;
+				$get_data['created_date'] = $get_created[0];
+				$get_data['created_time'] = $get_created[1];
 
 				$this->data['output'] = [
 					'error' => false,

@@ -13,7 +13,7 @@
 			"order": [],
 			"columnDefs": [
 			{
-				"targets": [ 0, 2, 3 ],
+				"targets": [ 0, 2 ],
 				"orderable": false
 			}],
 			"drawCallback": function (settings) {
@@ -41,14 +41,14 @@
 
 	function modal_edit(id) {
 		$.ajax({
-			url: '<?= base_url() ?>app/kategori/get_data',
+			url: '<?= base_url() ?>json/admin/get-kategori-produk',
 			type: 'POST',
 			dataType: 'json',
-			data: {id_kategori: id},
-			success: function (data, response) {
-				if (response == 'success') {
-					$('form[name="edit_kategori"] input[name="id_kategori"]').val(data.id_kategori);
-					$('form[name="edit_kategori"] input[name="nama_kategori"]').val(data.nama_kategori);
+			data: {id: id},
+			success: function (response) {
+				if (response.error == false) {
+					$('form[name="edit_kategori"] input[name="id_kategori"]').val(response.data.id_kategori);
+					$('form[name="edit_kategori"] input[name="nama_kategori"]').val(response.data.nama_kategori);
 					$('#editData').modal('show');
 				} else {
 					<?= $setup_app['ajax_error'] ?>
@@ -65,9 +65,9 @@
 			data: {id: id},
 			success: function (response) {
 				if (response.error == false) {
-					$('form[name="delete_kategori"] #nama_kategori').text(response.data[0].nama_kategori);
-					$('form[name="delete_kategori"] input[name="id_kategori"]').val(response.data[0].id_kategori);
-					$('form[name="delete_kategori"] input[name="nama_kategori"]').val(response.data[0].nama_kategori);
+					$('form[name="delete_kategori"] #nama_kategori').text(response.data.nama_kategori);
+					$('form[name="delete_kategori"] input[name="id_kategori"]').val(response.data.id_kategori);
+					$('form[name="delete_kategori"] input[name="nama_kategori"]').val(response.data.nama_kategori);
 					$('#deleteData').modal('show');
 				} else {
 					<?= $setup_app['ajax_error'] ?>

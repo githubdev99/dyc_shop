@@ -56,7 +56,6 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Nama Kategori</th>
-                                                <th>Icon</th>
                                                 <th>Opsi</th>
                                             </tr>
                                         </thead>
