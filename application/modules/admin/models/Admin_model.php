@@ -21,7 +21,7 @@ class Admin_model extends CI_Model {
 			$this->db->where($param['where']);
 		}
 		if (!empty($param['order_by'])) {
-			$this->db->order_by($param['order_by'], $param['order_type']);
+			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
 		
 		return $this->db->get($param['table']);
@@ -40,7 +40,7 @@ class Admin_model extends CI_Model {
 			$this->db->where($param['where']);
 		}
 		if (!empty($param['order_by'])) {
-			$this->db->order_by($param['order_by'], $param['order_type']);
+			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
 
 		return $this->db->get();
