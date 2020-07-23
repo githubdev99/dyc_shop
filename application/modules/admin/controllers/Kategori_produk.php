@@ -16,7 +16,7 @@ class Kategori_produk extends MY_Controller {
 			'plugin' => ['datatable', 'sweetalert', 'magnific-popup'],
             'get_script' => 'script_view',
             'modal_add' => '
-            <form action="" method="post" enctype="multipart/form-data" name="add_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="add_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-info">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -52,7 +52,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_edit' => '
-            <form action="" method="post" enctype="multipart/form-data" name="edit_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="edit_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -89,7 +89,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete' => '
-            <form action="" method="post" enctype="multipart/form-data" name="delete_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="delete_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
