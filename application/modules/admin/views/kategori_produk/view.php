@@ -1,10 +1,5 @@
 <?= $this->load->view('layout/header'); ?>
 <body data-topbar="dark">
-    <div id="preloader">
-        <div id="loader"></div>
-        <div id="textloader">Memuat Data...</div>
-    </div>
-
     <?= $this->load->view('layout/modal_popup'); ?>
 
     <!-- Begin page -->
