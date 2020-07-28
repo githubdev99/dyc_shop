@@ -151,6 +151,20 @@ class Kategori_produk extends MY_Controller {
                     ];
                     $this->alert_popup($message);
                     redirect(base_url().'admin/kategori_produk','refresh');
+                } elseif ($this->input->post('update')) {
+                    if ($check_data[0]->nama_kategori == $this->input->post('nama_kategori')) {
+                        $checking = FALSE;
+                        $message = [
+                            'name' => 'failed',
+                            'swal' => [
+                                'title' => 'Failed!',
+                                'text' => 'Data kategori '.$this->input->post('nama_kategori').' sudah pernah disimpan.',
+                                'type' => 'error'
+                            ]
+                        ];
+                        $this->alert_popup($message);
+                        redirect(base_url().'admin/kategori_produk','refresh');
+                    }
                 }
             }
 
