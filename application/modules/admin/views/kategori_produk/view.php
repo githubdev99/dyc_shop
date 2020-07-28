@@ -46,7 +46,7 @@
                                     <h4 class="card-title">List Data</h4>
                                     <p class="card-title-desc">Data yang ditampilkan adalah data seluruh kategori produk.</p>
 
-                                    <table id="table_kategori" class="table table-bordered table-hover dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="datatable" class="table table-bordered table-hover dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead class="table-info">
                                             <tr>
                                                 <th>No.</th>

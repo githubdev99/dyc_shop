@@ -316,6 +316,7 @@ class Kategori_produk extends MY_Controller {
 			'setup_app' => $this->setup_app($title),
 			'plugin' => ['datatable', 'sweetalert'],
             'get_script' => 'script_detail',
+            'get_data' => $get_data,
             'modal_add' => '
             <form action="?" method="post" enctype="multipart/form-data" name="add_sub_kategori">
                 <div class="modal-content" style="border: none;">

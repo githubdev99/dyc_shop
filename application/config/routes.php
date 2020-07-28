@@ -9,3 +9,5 @@ $route['translate_uri_dashes'] = FALSE;
 // Data JSON
 $route['json/admin/kategori-produk/list'] = 'json/json_admin/list_kategori_produk';
 $route['json/admin/kategori-produk/get'] = 'json/json_admin/get_kategori_produk';
+$route['json/admin/sub-kategori-produk/list'] = 'json/json_admin/list_sub_kategori_produk';
+$route['json/admin/sub-kategori-produk/get'] = 'json/json_admin/get_sub_kategori_produk';

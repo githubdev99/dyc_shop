@@ -23,7 +23,7 @@ class Json_admin extends MY_Controller {
 			'id_kategori','nama_kategori','created_datetime'
 		];
 		$this->param['column_order'] = [
-			null,'nama_kategori',null,null
+			null,'nama_kategori',null
 		];
 		$this->param['field'] = 'produk_kategori.*';
 		$this->param['table'] = 'produk_kategori';
@@ -46,7 +46,7 @@ class Json_admin extends MY_Controller {
 
 				$nested_data[] = $no;
 				$nested_data[] = '
-				<a href="javascript:;" onclick="modal_edit('."'".$key->id_kategori."'".')">
+				<a href="'.base_url().'admin/kategori_produk/detail?get='.encrypt_text($key->id_kategori).'">
 					'.$key->nama_kategori.'
 				</a><br>
 				<span class="text-muted">
@@ -103,6 +103,100 @@ class Json_admin extends MY_Controller {
 				$get_data['nama_kategori'] = $this->data['data_parsing']->nama_kategori;
 				$get_data['created_date'] = $get_created[0];
 				$get_data['created_time'] = $get_created[1];
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function list_sub_kategori_produk()
+	{
+		if (!empty($_REQUEST['draw'])) {
+			$draw = $_REQUEST['draw'];
+		} else {
+			$draw = 0;
+		}
+
+		$this->param['column_search'] = [
+			'id_sub_kategori','id_kategori','nama_sub_kategori'
+		];
+		$this->param['column_order'] = [
+			null,'nama_sub_kategori',null
+		];
+		$this->param['field'] = 'produk_sub_kategori.*';
+		$this->param['table'] = 'produk_sub_kategori';
+		$this->param['order_by'] = [
+			'nama_sub_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->json_model->get_datatable($this->param);
+		$this->data['total_filtered'] = $this->json_model->get_total_filtered($this->param);
+		$this->data['total_data'] = $this->json_model->get_total_data($this->param);
+
+		$get_data = [];
+		if (!empty($this->data['data_parsing'])) {
+			$no = $_REQUEST['start'];
+			foreach ($this->data['data_parsing'] as $key) {
+				$nested_data = [];
+				$no++;
+
+				$nested_data[] = $no;
+				$nested_data[] = '
+				<a href="javascript:;" onclick="modal_edit('."'".$key->id_sub_kategori."'".')">
+					'.$key->nama_kategori.'
+				</a>';
+				$nested_data[] = '
+				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_sub_kategori."'".')">
+					<i class="fas fa-edit"></i>
+				</a>
+				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".$key->id_sub_kategori."'".')"><i class="far fa-trash-alt"></i>
+				</a>';
+
+				$get_data[] = $nested_data;
+			}
+		}
+
+		$this->data['output'] = [
+			'draw' => intval($draw),
+			'recordsTotal' => intval($this->data['total_data']),
+			'recordsFiltered' => intval($this->data['total_filtered']),
+			'data' => $get_data
+		];
+
+		$this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function get_sub_kategori_produk()
+	{
+		$this->param['field'] = '*';
+		$this->param['table'] = 'produk_sub_kategori';
+		$this->param['where'] = array(
+			'id_kategori' => $this->input->post('id')
+		);
+		$this->param['order_by'] = [
+			'nama_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->row();
+
+		if (!empty($this->data['data_parsing'])) {
+			if ($this->data['data_parsing'] == FALSE) {
+				$get_data = [];
+
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data = [];
+
+				$get_data['id_sub_kategori'] = $this->data['data_parsing']->id_sub_kategori;
+				$get_data['nama_sub_kategori'] = $this->data['data_parsing']->nama_sub_kategori;
 
 				$this->data['output'] = [
 					'error' => false,
