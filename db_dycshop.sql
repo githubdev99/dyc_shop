@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jul 2020 pada 18.17
+-- Waktu pembuatan: 01 Agu 2020 pada 01.44
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -31,12 +31,20 @@ CREATE TABLE `produk` (
   `id_produk` char(20) NOT NULL,
   `id_kategori` char(20) NOT NULL,
   `id_sub_kategori` char(20) DEFAULT NULL,
+  `kode_sku` varchar(50) NOT NULL,
   `nama_produk` varchar(50) NOT NULL,
   `harga` double NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `stok` int(11) NOT NULL,
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`) VALUES
+('P-202007312514', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Interesting Necklaces - Biru Hitam', 10000, NULL, 30, 'Ini Necklace');
 
 -- --------------------------------------------------------
 
@@ -50,6 +58,17 @@ CREATE TABLE `produk_kategori` (
   `created_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `produk_kategori`
+--
+
+INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime`) VALUES
+('K-202007312495', 'Kalung', '2020-07-31 23:22:59'),
+('K-202007312820', 'Ikat Rambut', '2020-07-31 23:23:08'),
+('K-202007314314', 'Bros', '2020-07-31 23:23:13'),
+('K-202007318991', 'Gelang', '2020-07-31 23:46:30'),
+('K-202007319642', 'Anting', '2020-07-31 23:22:56');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +80,20 @@ CREATE TABLE `produk_sub_kategori` (
   `id_kategori` char(20) NOT NULL,
   `nama_sub_kategori` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `produk_sub_kategori`
+--
+
+INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_kategori`) VALUES
+('KS-202007311787', 'K-202007318991', 'Titanium Bracelets'),
+('KS-202007312650', 'K-202007319642', 'Pretty Earrings'),
+('KS-202007312744', 'K-202007312820', 'Charming Hairbands'),
+('KS-202007314022', 'K-202007312495', 'Interesting Necklaces'),
+('KS-202007316483', 'K-202007318991', 'Beautiful Bracelets'),
+('KS-202007316494', 'K-202007314314', 'Sparkle Broochs'),
+('KS-202007317214', 'K-202007319642', 'Perfect Earrings'),
+('KS-202007319193', 'K-202007312495', 'Stunning Necklaces');
 
 --
 -- Indexes for dumped tables
@@ -86,6 +119,16 @@ ALTER TABLE `produk_kategori`
 ALTER TABLE `produk_sub_kategori`
   ADD PRIMARY KEY (`id_sub_kategori`),
   ADD KEY `id_kategori` (`id_kategori`);
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `produk_sub_kategori`
+--
+ALTER TABLE `produk_sub_kategori`
+  ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
