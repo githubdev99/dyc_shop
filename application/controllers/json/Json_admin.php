@@ -46,7 +46,7 @@ class Json_admin extends MY_Controller {
 
 				$nested_data[] = $no;
 				$nested_data[] = '
-				<a href="'.base_url().'admin/kategori_produk/detail?get='.encrypt_text($key->id_kategori).'">
+				<a href="'.base_url().'admin/kategori_produk/detail/'.encrypt_text($key->id_kategori).'">
 					'.$key->nama_kategori.'
 				</a><br>
 				<span class="text-muted">
@@ -127,6 +127,9 @@ class Json_admin extends MY_Controller {
 		];
 		$this->param['field'] = 'produk_sub_kategori.*';
 		$this->param['table'] = 'produk_sub_kategori';
+		$this->param['where'] = array(
+			'id_sub_kategori' => decrypt_text($this->input->post('id'))
+		);
 		$this->param['order_by'] = [
 			'nama_sub_kategori' => 'asc'
 		];

@@ -16,7 +16,7 @@ class Kategori_produk extends MY_Controller {
 			'plugin' => ['datatable', 'sweetalert'],
             'get_script' => 'script_view',
             'modal_add' => '
-            <form action="" method="post" enctype="multipart/form-data" name="add_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="add_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-info">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -52,7 +52,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_edit' => '
-            <form action="" method="post" enctype="multipart/form-data" name="edit_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="edit_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -89,7 +89,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete' => '
-            <form action="" method="post" enctype="multipart/form-data" name="delete_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="delete_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -270,10 +270,8 @@ class Kategori_produk extends MY_Controller {
         }
     }
     
-    public function detail()
+    public function detail($id)
     {
-        $id = $this->input->get('get');
-
         $param_get_data = [
             'table' => 'produk_kategori',
             'where' => [
@@ -304,7 +302,7 @@ class Kategori_produk extends MY_Controller {
             'get_script' => 'script_detail',
             'get_data' => $get_data,
             'modal_add' => '
-            <form action="" method="post" enctype="multipart/form-data" name="add_sub_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="add_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-info">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -340,7 +338,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_edit' => '
-            <form action="" method="post" enctype="multipart/form-data" name="edit_sub_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="edit_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -377,7 +375,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete' => '
-            <form action="" method="post" enctype="multipart/form-data" name="delete_sub_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="delete_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -407,7 +405,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
             'modal_edit_kategori' => '
-            <form action="" method="post" enctype="multipart/form-data" name="edit_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="edit_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -444,7 +442,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete_kategori' => '
-            <form action="" method="post" enctype="multipart/form-data" name="delete_kategori">
+            <form action="?" method="post" enctype="multipart/form-data" name="delete_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -516,7 +514,7 @@ class Kategori_produk extends MY_Controller {
                         ]
                     ];
                     $this->alert_popup($message);
-                    redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                    redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                 }
             } elseif (!empty($check_data2)) {
                 if ($this->input->post('update_kategori')) {
@@ -530,7 +528,7 @@ class Kategori_produk extends MY_Controller {
                         ]
                     ];
                     $this->alert_popup($message);
-                    redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                    redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                 }
             }
 
@@ -557,7 +555,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -568,7 +566,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('update')) {
@@ -594,7 +592,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -605,7 +603,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('delete')) {
@@ -628,7 +626,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -639,7 +637,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('update_kategori')) {
@@ -666,7 +664,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -677,7 +675,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('delete_kategori')) {
@@ -700,7 +698,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail/'.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
