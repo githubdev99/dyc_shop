@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Jul 2020 pada 01.33
+-- Waktu pembuatan: 31 Jul 2020 pada 18.17
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -24,23 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` char(20) NOT NULL,
+  `id_kategori` char(20) NOT NULL,
+  `id_sub_kategori` char(20) DEFAULT NULL,
+  `nama_produk` varchar(50) NOT NULL,
+  `harga` double NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `stok` int(11) NOT NULL,
+  `deskripsi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `produk_kategori`
 --
 
 CREATE TABLE `produk_kategori` (
-  `id_kategori` char(13) NOT NULL,
+  `id_kategori` char(20) NOT NULL,
   `nama_kategori` varchar(50) NOT NULL,
-  `icon` varchar(255) DEFAULT NULL,
   `created_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `produk_kategori`
---
-
-INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `icon`, `created_datetime`) VALUES
-('1', 'wexzcvb', NULL, '2020-07-13 13:14:05'),
-('2', 'werghjnhgbfvc', NULL, '2020-07-23 13:14:05');
 
 -- --------------------------------------------------------
 
@@ -49,14 +57,22 @@ INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `icon`, `created_
 --
 
 CREATE TABLE `produk_sub_kategori` (
-  `id_sub_kategori` char(14) NOT NULL,
-  `id_kategori` char(13) NOT NULL,
+  `id_sub_kategori` char(20) NOT NULL,
+  `id_kategori` char(20) NOT NULL,
   `nama_sub_kategori` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`),
+  ADD KEY `id_kategori` (`id_kategori`),
+  ADD KEY `id_sub_kategori` (`id_sub_kategori`);
 
 --
 -- Indeks untuk tabel `produk_kategori`
@@ -70,16 +86,6 @@ ALTER TABLE `produk_kategori`
 ALTER TABLE `produk_sub_kategori`
   ADD PRIMARY KEY (`id_sub_kategori`),
   ADD KEY `id_kategori` (`id_kategori`);
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
---
--- Ketidakleluasaan untuk tabel `produk_sub_kategori`
---
-ALTER TABLE `produk_sub_kategori`
-  ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
