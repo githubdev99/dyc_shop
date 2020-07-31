@@ -53,10 +53,10 @@ class Json_admin extends MY_Controller {
 					'.date_indo($get_created[0]).' '.$get_created[1].'
 				</span>';
 				$nested_data[] = '
-				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_kategori."'".')">
+				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".encrypt_text($key->id_kategori)."'".')">
 					<i class="fas fa-edit"></i>
 				</a>
-				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".$key->id_kategori."'".')"><i class="far fa-trash-alt"></i>
+				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".encrypt_text($key->id_kategori)."'".')"><i class="far fa-trash-alt"></i>
 				</a>';
 
 				$get_data[] = $nested_data;
@@ -78,7 +78,7 @@ class Json_admin extends MY_Controller {
 		$this->param['field'] = '*';
 		$this->param['table'] = 'produk_kategori';
 		$this->param['where'] = array(
-			'id_kategori' => $this->input->post('id')
+			'id_kategori' => decrypt_text($this->input->post('id'))
 		);
 		$this->param['order_by'] = [
 			'nama_kategori' => 'asc'
@@ -87,16 +87,13 @@ class Json_admin extends MY_Controller {
 		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->row();
 
 		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
 			if ($this->data['data_parsing'] == FALSE) {
-				$get_data = [];
-
 				$this->data['output'] = [
 					'error' => true,
 					'data' => $get_data
 				];
 			} else {
-				$get_data = [];
-
 				$get_created = explode(' ', $this->data['data_parsing']->created_datetime);
 
 				$get_data['id_kategori'] = $this->data['data_parsing']->id_kategori;
@@ -147,14 +144,14 @@ class Json_admin extends MY_Controller {
 
 				$nested_data[] = $no;
 				$nested_data[] = '
-				<a href="javascript:;" onclick="modal_edit('."'".$key->id_sub_kategori."'".')">
-					'.$key->nama_kategori.'
+				<a href="javascript:;" onclick="modal_edit('."'".encrypt_text($key->id_sub_kategori)."'".')">
+					'.$key->nama_sub_kategori.'
 				</a>';
 				$nested_data[] = '
-				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".$key->id_sub_kategori."'".')">
+				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".encrypt_text($key->id_sub_kategori)."'".')">
 					<i class="fas fa-edit"></i>
 				</a>
-				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".$key->id_sub_kategori."'".')"><i class="far fa-trash-alt"></i>
+				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".encrypt_text($key->id_sub_kategori)."'".')"><i class="far fa-trash-alt"></i>
 				</a>';
 
 				$get_data[] = $nested_data;
@@ -176,25 +173,22 @@ class Json_admin extends MY_Controller {
 		$this->param['field'] = '*';
 		$this->param['table'] = 'produk_sub_kategori';
 		$this->param['where'] = array(
-			'id_kategori' => $this->input->post('id')
+			'id_sub_kategori' => decrypt_text($this->input->post('id'))
 		);
 		$this->param['order_by'] = [
-			'nama_kategori' => 'asc'
+			'nama_sub_kategori' => 'asc'
 		];
 
 		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->row();
 
 		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
 			if ($this->data['data_parsing'] == FALSE) {
-				$get_data = [];
-
 				$this->data['output'] = [
 					'error' => true,
 					'data' => $get_data
 				];
 			} else {
-				$get_data = [];
-
 				$get_data['id_sub_kategori'] = $this->data['data_parsing']->id_sub_kategori;
 				$get_data['nama_sub_kategori'] = $this->data['data_parsing']->nama_sub_kategori;
 

@@ -16,7 +16,7 @@ class Kategori_produk extends MY_Controller {
 			'plugin' => ['datatable', 'sweetalert'],
             'get_script' => 'script_view',
             'modal_add' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="add_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="add_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-info">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -52,7 +52,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_edit' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="edit_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="edit_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -89,7 +89,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="delete_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="delete_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -139,7 +139,7 @@ class Kategori_produk extends MY_Controller {
             $check_data = $this->admin_model->select_data($param)->result();
 
             if (!empty($check_data)) {
-                if ($this->input->post('insert')) {
+                if ($this->input->post('insert') || $this->input->post('update')) {
                     $checking = FALSE;
                     $message = [
                         'name' => 'failed',
@@ -151,20 +151,6 @@ class Kategori_produk extends MY_Controller {
                     ];
                     $this->alert_popup($message);
                     redirect(base_url().'admin/kategori_produk','refresh');
-                } elseif ($this->input->post('update')) {
-                    if ($check_data[0]->nama_kategori == $this->input->post('nama_kategori')) {
-                        $checking = FALSE;
-                        $message = [
-                            'name' => 'failed',
-                            'swal' => [
-                                'title' => 'Failed!',
-                                'text' => 'Data kategori '.$this->input->post('nama_kategori').' sudah pernah disimpan.',
-                                'type' => 'error'
-                            ]
-                        ];
-                        $this->alert_popup($message);
-                        redirect(base_url().'admin/kategori_produk','refresh');
-                    }
                 }
             }
 
@@ -318,7 +304,7 @@ class Kategori_produk extends MY_Controller {
             'get_script' => 'script_detail',
             'get_data' => $get_data,
             'modal_add' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="add_sub_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="add_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-info">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -334,7 +320,7 @@ class Kategori_produk extends MY_Controller {
                                 Kategori <span class="text-danger">*</span>
                                 <br>
                                 <span class="help-block" style="font-weight: normal;">
-                                    <small><i>Nama kategori produk</i></small>
+                                    <small><i>Nama sub kategori produk</i></small>
                                 </span>
                             </label>
                             <div class="col-sm-9 col-md-9 col-xs-12">
@@ -354,7 +340,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_edit' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="edit_sub_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="edit_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-success">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -370,7 +356,7 @@ class Kategori_produk extends MY_Controller {
                                 Kategori <span class="text-danger">*</span>
                                 <br>
                                 <span class="help-block" style="font-weight: normal;">
-                                    <small><i>Nama kategori produk</i></small>
+                                    <small><i>Nama sub kategori produk</i></small>
                                 </span>
                             </label>
                             <div class="col-sm-9 col-md-9 col-xs-12">
@@ -391,7 +377,7 @@ class Kategori_produk extends MY_Controller {
             </form>
             ',
 			'modal_delete' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="delete_sub_kategori">
+            <form action="" method="post" enctype="multipart/form-data" name="delete_sub_kategori">
                 <div class="modal-content" style="border: none;">
                     <div class="modal-header bg-danger">
                         <h4 class="modal-title mt-0 text-white" id="myModalLabel">
@@ -405,12 +391,79 @@ class Kategori_produk extends MY_Controller {
                         <center>
                             <input type="hidden" name="id_sub_kategori">
                             <input type="hidden" name="nama_sub_kategori">
-                            <h4>Anda yakin ingin menghapus data kategori <b>"<span id="nama_sub_kategori"></span>"</b> ?</h4>
+                            <h4>Anda yakin ingin menghapus data sub kategori <b>"<span id="nama_sub_kategori"></span>"</b> ?</h4>
                             <p>Data yang sudah dihapus tidak dapat dikembalikan!</p>
                         </center>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" name="delete" value="delete" class="btn btn-danger waves-effect waves-light">
+                            <i class="far fa-trash-alt mr-2"></i>Hapus Data
+                        </button>
+                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+            ',
+            'modal_edit_kategori' => '
+            <form action="" method="post" enctype="multipart/form-data" name="edit_kategori">
+                <div class="modal-content" style="border: none;">
+                    <div class="modal-header bg-success">
+                        <h4 class="modal-title mt-0 text-white" id="myModalLabel">
+                            <i class="fas fa-bookmark mr-3"></i>Edit Data Kategori
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-md-3 col-xs-12">
+                                Kategori <span class="text-danger">*</span>
+                                <br>
+                                <span class="help-block" style="font-weight: normal;">
+                                    <small><i>Nama kategori produk</i></small>
+                                </span>
+                            </label>
+                            <div class="col-sm-9 col-md-9 col-xs-12">
+                                <input type="hidden" name="id_kategori">
+                                <input name="nama_kategori" type="text" class="form-control" required="" aria-required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="update_kategori" value="update_kategori" class="btn btn-success waves-effect waves-light">
+                            <i class="fas fa-edit mr-2"></i>Edit Data
+                        </button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
+                            <i class="fas fa-times mr-2"></i>Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+            ',
+			'modal_delete_kategori' => '
+            <form action="" method="post" enctype="multipart/form-data" name="delete_kategori">
+                <div class="modal-content" style="border: none;">
+                    <div class="modal-header bg-danger">
+                        <h4 class="modal-title mt-0 text-white" id="myModalLabel">
+                            <i class="fas fa-bookmark mr-3"></i>Konfirmasi Hapus Data Kategori
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            <input type="hidden" name="id_kategori">
+                            <input type="hidden" name="nama_kategori">
+                            <h4>Anda yakin ingin menghapus data kategori <b>"<span id="nama_kategori"></span>"</b> ?</h4>
+                            <p>Data yang sudah dihapus tidak dapat dikembalikan!</p>
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="delete_kategori" value="delete_kategori" class="btn btn-danger waves-effect waves-light">
                             <i class="far fa-trash-alt mr-2"></i>Hapus Data
                         </button>
                         <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">
@@ -440,8 +493,19 @@ class Kategori_produk extends MY_Controller {
 
             $check_data = $this->admin_model->select_data($param)->result();
 
+            $lower_data2 = trim(strtolower($this->input->post('nama_kategori')));
+            $param2 = [
+                'field' => 'nama_kategori',
+                'table' => 'produk_kategori',
+                'where' => [
+                    'LOWER(nama_kategori)' => $lower_data2
+                ]
+            ];
+
+            $check_data2 = $this->admin_model->select_data($param2)->result();
+
             if (!empty($check_data)) {
-                if ($this->input->post('insert')) {
+                if ($this->input->post('insert') || $this->input->post('update')) {
                     $checking = FALSE;
                     $message = [
                         'name' => 'failed',
@@ -452,7 +516,21 @@ class Kategori_produk extends MY_Controller {
                         ]
                     ];
                     $this->alert_popup($message);
-                    redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                    redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                }
+            } elseif (!empty($check_data2)) {
+                if ($this->input->post('update_kategori')) {
+                    $checking = FALSE;
+                    $message = [
+                        'name' => 'failed',
+                        'swal' => [
+                            'title' => 'Failed!',
+                            'text' => 'Data kategori '.$this->input->post('nama_kategori').' sudah pernah disimpan.',
+                            'type' => 'error'
+                        ]
+                    ];
+                    $this->alert_popup($message);
+                    redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                 }
             }
 
@@ -479,7 +557,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -490,7 +568,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('update')) {
@@ -516,7 +594,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -527,7 +605,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                         }
                     }
                 } elseif ($this->input->post('delete')) {
@@ -550,7 +628,7 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
                         } else {
                             $message = [
                                 'name' => 'success',
@@ -561,7 +639,79 @@ class Kategori_produk extends MY_Controller {
                                 ]
                             ];
                             $this->alert_popup($message);
-                            redirect(base_url().'admin/kategori_produk/detail?get'.$id,'refresh');
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                        }
+                    }
+                } elseif ($this->input->post('update_kategori')) {
+                    $param = [
+                        'where' => [
+                            'id_kategori' => $this->input->post('id_kategori')
+                        ],
+                        'data' => [
+                            'nama_kategori' => $this->input->post('nama_kategori'),
+                            'created_datetime' => date('Y-m-d H:i:s')
+                        ],
+                        'table' => 'produk_kategori'
+                    ];
+
+                    if ($process == TRUE) {
+                        $query = $this->admin_model->send_data($param);
+                        if ($query == FALSE) {
+                            $message = [
+                                'name' => 'failed',
+                                'swal' => [
+                                    'title' => 'Failed!',
+                                    'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di edit.',
+                                    'type' => 'error'
+                                ]
+                            ];
+                            $this->alert_popup($message);
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                        } else {
+                            $message = [
+                                'name' => 'success',
+                                'swal' => [
+                                    'title' => 'Successfull!',
+                                    'text' => 'Data kategori '.$this->input->post('nama_kategori').' telah berhasil di edit.',
+                                    'type' => 'success'
+                                ]
+                            ];
+                            $this->alert_popup($message);
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                        }
+                    }
+                } elseif ($this->input->post('delete_kategori')) {
+                    $param = [
+                        'where' => [
+                            'id_kategori' => $this->input->post('id_kategori')
+                        ],
+                        'table' => 'produk_kategori'
+                    ];
+
+                    if ($process == TRUE) {
+                        $query = $this->admin_model->delete_data($param);
+                        if ($query == FALSE) {
+                            $message = [
+                                'name' => 'failed',
+                                'swal' => [
+                                    'title' => 'Failed!',
+                                    'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di hapus.',
+                                    'type' => 'error'
+                                ]
+                            ];
+                            $this->alert_popup($message);
+                            redirect(base_url().'admin/kategori_produk/detail?get='.$id,'refresh');
+                        } else {
+                            $message = [
+                                'name' => 'success',
+                                'swal' => [
+                                    'title' => 'Successfull!',
+                                    'text' => 'Data kategori '.$this->input->post('nama_kategori').' berhasil di hapus.',
+                                    'type' => 'success'
+                                ]
+                            ];
+                            $this->alert_popup($message);
+                            redirect(base_url().'admin/kategori_produk','refresh');
                         }
                     }
                 }
