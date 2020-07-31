@@ -22,6 +22,13 @@
 					</a>
 				</li>
 
+				<li>
+					<a href="<?= base_url() ?>admin/produk" class="waves-effect <?= ($this->uri->segment(2) == 'produk') ? 'mm-active' : ''; ?>">
+						<i class="fas fa-folder-open"></i>
+						<span>Produk</span>
+					</a>
+				</li>
+
 			</ul>
 		</div>
 		<!-- Sidebar -->
