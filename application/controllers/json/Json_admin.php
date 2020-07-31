@@ -128,7 +128,7 @@ class Json_admin extends MY_Controller {
 		$this->param['field'] = 'produk_sub_kategori.*';
 		$this->param['table'] = 'produk_sub_kategori';
 		$this->param['where'] = array(
-			'id_sub_kategori' => decrypt_text($this->input->post('id'))
+			'id_kategori' => decrypt_text($this->input->post('id_kategori'))
 		);
 		$this->param['order_by'] = [
 			'nama_sub_kategori' => 'asc'

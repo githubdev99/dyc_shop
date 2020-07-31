@@ -23,6 +23,9 @@
 				"url": "<?= base_url() ?>json/admin/sub-kategori-produk/list",
 				"type": "POST",
 				"dataType": "json",
+				"data": {
+					id_kategori: '<?= encrypt_text($get_data->id_kategori) ?>'
+				},
 				"error": function () {
 					<?= $setup_app['ajax_error'] ?>
 				}
