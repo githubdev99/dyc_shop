@@ -37,9 +37,11 @@
 			dataType: 'json',
 			data: {id: id},
 			success: function (response) {
+				var data = response.data;
+				
 				if (response.error == false) {
-					$('form[name="edit_kategori"] input[name="id_kategori"]').val(response.data.id_kategori);
-					$('form[name="edit_kategori"] input[name="nama_kategori"]').val(response.data.nama_kategori);
+					$('form[name="edit_kategori"] input[name="id_kategori"]').val(data.id_kategori);
+					$('form[name="edit_kategori"] input[name="nama_kategori"]').val(data.nama_kategori);
 					$('#editData').modal('show');
 				} else {
 					<?= $setup_app['ajax_error'] ?>
@@ -55,10 +57,12 @@
 			dataType: 'json',
 			data: {id: id},
 			success: function (response) {
+				var data = response.data;
+
 				if (response.error == false) {
-					$('form[name="delete_kategori"] #nama_kategori').text(response.data.nama_kategori);
-					$('form[name="delete_kategori"] input[name="id_kategori"]').val(response.data.id_kategori);
-					$('form[name="delete_kategori"] input[name="nama_kategori"]').val(response.data.nama_kategori);
+					$('form[name="delete_kategori"] #nama_kategori').text(data.nama_kategori);
+					$('form[name="delete_kategori"] input[name="id_kategori"]').val(data.id_kategori);
+					$('form[name="delete_kategori"] input[name="nama_kategori"]').val(data.nama_kategori);
 					$('#deleteData').modal('show');
 				} else {
 					<?= $setup_app['ajax_error'] ?>
