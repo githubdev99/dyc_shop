@@ -12,3 +12,6 @@ $route['json/admin/kategori-produk/get'] = 'json/admin/kategori_produk/get_kateg
 
 $route['json/admin/sub-kategori-produk/list'] = 'json/admin/kategori_produk/list_sub_kategori_produk';
 $route['json/admin/sub-kategori-produk/get'] = 'json/admin/kategori_produk/get_sub_kategori_produk';
+
+$route['json/admin/produk/list'] = 'json/admin/produk/list_produk';
+$route['json/admin/produk/get'] = 'json/admin/produk/get_produk';

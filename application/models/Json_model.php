@@ -111,41 +111,6 @@ class Json_model extends CI_Model {
 		}
 	}
 
-	public function generate_code($param)
-	{
-		$code_rand = rand(1111,9999);
-		$generate = $param."-".date("Ymd").$code_rand;
-		return $generate;
-	}
-
-	public function send_data($param)
-	{
-		if (!empty($param['where'])) {
-			try {
-				$this->db->where($param['where']);
-				return $this->db->update($param['table'], $param['data']);
-
-				$db_error = $this->db->error();
-				if (!empty($db_error)) {
-					return FALSE;
-				}
-			} catch (Exception $e) {
-				return FALSE;
-			}
-		} else {
-			try {
-				return $this->db->insert($param['table'], $param['data']);
-				
-				$db_error = $this->db->error();
-				if (!empty($db_error)) {
-					return FALSE;
-				}
-			} catch (Exception $e) {
-				return FALSE;
-			}
-		}
-	}
-
 }
 
 /* End of file Json_model.php */

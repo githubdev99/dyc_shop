@@ -79,3 +79,12 @@ if (!function_exists('date_indo'))
         return $split[2].' '.$month[(int)$split[1]].' '.$split[0];
     }
 }
+
+if (!function_exists('rupiah'))
+{
+    function rupiah($angka)
+    {
+        $rupiah = "Rp. " . number_format($angka,0,'','.');
+        return $rupiah;
+    }
+}

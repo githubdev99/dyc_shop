@@ -13,5 +13,3 @@ class Admin extends MY_Controller {
 	}
 
 }
-
-/* End of file Dashboard.php */

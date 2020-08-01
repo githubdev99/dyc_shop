@@ -20,5 +20,3 @@ class Dashboard extends MY_Controller {
 	}
 
 }
-
-/* End of file Dashboard.php */

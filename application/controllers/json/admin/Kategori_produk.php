@@ -97,12 +97,8 @@ class Kategori_produk extends MY_Controller {
 					'data' => $get_data
 				];
 			} else {
-				$get_created = explode(' ', $this->data['data_parsing']->created_datetime);
-
-				$get_data['id_kategori'] = $this->data['data_parsing']->id_kategori;
+				$get_data['id_kategori'] = encrypt_text($this->data['data_parsing']->id_kategori);
 				$get_data['nama_kategori'] = $this->data['data_parsing']->nama_kategori;
-				$get_data['created_date'] = $get_created[0];
-				$get_data['created_time'] = $get_created[1];
 
 				$this->data['output'] = [
 					'error' => false,
@@ -195,7 +191,7 @@ class Kategori_produk extends MY_Controller {
 					'data' => $get_data
 				];
 			} else {
-				$get_data['id_sub_kategori'] = $this->data['data_parsing']->id_sub_kategori;
+				$get_data['id_sub_kategori'] = encrypt_text($this->data['data_parsing']->id_sub_kategori);
 				$get_data['nama_sub_kategori'] = $this->data['data_parsing']->nama_sub_kategori;
 
 				$this->data['output'] = [

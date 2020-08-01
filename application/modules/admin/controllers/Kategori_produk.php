@@ -194,7 +194,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('update')) {
                     $param = [
                         'where' => [
-                            'id_kategori' => $this->input->post('id_kategori')
+                            'id_kategori' => decrypt_text($this->input->post('id_kategori'))
                         ],
                         'data' => [
                             'nama_kategori' => $this->input->post('nama_kategori'),
@@ -232,7 +232,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('delete')) {
                     $param = [
                         'where' => [
-                            'id_kategori' => $this->input->post('id_kategori')
+                            'id_kategori' => decrypt_text($this->input->post('id_kategori'))
                         ],
                         'table' => 'produk_kategori'
                     ];
@@ -572,7 +572,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('update')) {
                     $param = [
                         'where' => [
-                            'id_sub_kategori' => $this->input->post('id_sub_kategori')
+                            'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori'))
                         ],
                         'data' => [
                             'nama_sub_kategori' => $this->input->post('nama_sub_kategori')
@@ -609,7 +609,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('delete')) {
                     $param = [
                         'where' => [
-                            'id_sub_kategori' => $this->input->post('id_sub_kategori')
+                            'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori'))
                         ],
                         'table' => 'produk_sub_kategori'
                     ];
@@ -643,7 +643,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('update_kategori')) {
                     $param = [
                         'where' => [
-                            'id_kategori' => $this->input->post('id_kategori')
+                            'id_kategori' => decrypt_text($this->input->post('id_kategori'))
                         ],
                         'data' => [
                             'nama_kategori' => $this->input->post('nama_kategori'),
@@ -681,7 +681,7 @@ class Kategori_produk extends MY_Controller {
                 } elseif ($this->input->post('delete_kategori')) {
                     $param = [
                         'where' => [
-                            'id_kategori' => $this->input->post('id_kategori')
+                            'id_kategori' => decrypt_text($this->input->post('id_kategori'))
                         ],
                         'table' => 'produk_kategori'
                     ];
@@ -720,5 +720,3 @@ class Kategori_produk extends MY_Controller {
     }
 
 }
-
-/* End of file Kategori_produk.php */
