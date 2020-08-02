@@ -5,6 +5,8 @@ class Login extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->has_login();
+
 		$this->load->model('admin_model');
 	}
 
@@ -44,7 +46,7 @@ class Login extends MY_Controller {
 						];
 						$this->alert_popup($message);
 						redirect(base_url().'admin/login','refresh');
-					} elseif ($query->username != $this->input->post('username') || $query->password != $this->input->post('password')) {
+					} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
 						$message = [
 							'name' => 'failed',
 							'swal' => [

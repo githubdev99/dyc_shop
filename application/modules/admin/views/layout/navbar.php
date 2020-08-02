@@ -128,7 +128,7 @@
 				<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="rounded-circle header-profile-user" src="<?= base_url() ?>assets/images/avatar_male.png" alt="Header Avatar">
-				<span class="d-none d-xl-inline-block ml-1">Devan</span>
+				<span class="d-none d-xl-inline-block ml-1"><?= $this->session->userdata('nama_admin'); ?></span>
 				<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 				</button>
 				<div class="dropdown-menu dropdown-menu-right">
@@ -138,7 +138,7 @@
 					<a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="bx bx-wrench font-size-16 align-middle mr-1"></i> Settings</a>
 					<a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle mr-1"></i> Lock screen</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item text-danger" href="<?= base_url() ?>admin/login"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> Logout</a>
+					<a class="dropdown-item text-danger" href="<?= base_url() ?>admin/logout"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> Logout</a>
 				</div>
 			</div>
 

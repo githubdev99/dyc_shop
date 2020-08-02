@@ -27,16 +27,16 @@
 								</div>
 							</div>
 							<div class="p-2">
-								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+								<form class="form-horizontal" method="post" action="?" enctype="multipart/form-data">
 
 									<div class="form-group">
 										<label>Username</label>
-										<input type="text" name="username" class="form-control" placeholder="Enter username...">
+										<input type="text" name="username" class="form-control" placeholder="Enter username..." required="" aria-required="true">
 									</div>
 
 									<div class="form-group">
 										<label>Password</label>
-										<input type="password" name="password" class="form-control" placeholder="Enter password...">
+										<input type="password" name="password" class="form-control" placeholder="Enter password..." required="" aria-required="true">
 									</div>
 
 									<div class="mt-3">
