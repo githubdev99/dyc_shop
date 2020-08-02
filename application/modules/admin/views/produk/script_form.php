@@ -53,5 +53,45 @@
 				placeholder: "Pilih salah satu"
 			});
 		});
+
+		$.ajax({
+			url: '<?= base_url() ?>json/admin/produk/option-kategori',
+			type: 'POST',
+			dataType: 'json',
+			success: function (response) {
+				var data = response.data;
+
+				if (response.error == false) {
+					$('select[name="id_kategori"]').html(data.html);
+				} else {
+					<?= $setup_app['ajax_error'] ?>
+				}
+			}
+		});
+
+		$('select[name="id_kategori"]').change(function (e) {
+			e.preventDefault();
+
+			if ($(this).val() != '' || $(this).val() != null) {
+				$.ajax({
+					url: '<?= base_url() ?>json/admin/produk/option-sub-kategori',
+					type: 'POST',
+					data: {id_kategori: $(this).val()},
+					dataType: 'json',
+					success: function (response) {
+						var data = response.data;
+
+						if (response.error == false) {
+							$('#subKategori').css('display', 'block');
+							$('select[name="id_sub_kategori"]').html(data.html);
+						} else {
+							<?= $setup_app['ajax_error'] ?>
+						}
+					}
+				});
+			} else {
+				<?= $setup_app['ajax_error'] ?>
+			}
+		});
     });
 </script>

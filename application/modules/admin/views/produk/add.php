@@ -62,23 +62,12 @@
                                                     <small><i>Kategori untuk produk</i></small>
                                                 </span>
                                             </label>
-                                            <div class="col-sm-9 col-md-9 col-xs-12">
+                                            <div class="col-sm-4 col-md-4 col-xs-12">
                                                 <select class="form-control select2" name="id_kategori" required="" style="width: 100%;">
-                                                    <option value=""></option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row" id="subKategori">
-                                            <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
-                                                Sub Kategori <span class="text-danger">*</span>
-                                                <br>
-                                                <span class="help-block" style="font-weight: normal;">
-                                                    <small><i>Sub Kategori untuk produk</i></small>
-                                                </span>
-                                            </label>
-                                            <div class="col-sm-9 col-md-9 col-xs-12">
+                                            <div class="col-sm-5 col-md-5 col-xs-12" id="subKategori" style="display:none;">
                                                 <select class="form-control select2" name="id_sub_kategori" required="" style="width: 100%;">
-                                                    <option value=""></option>
                                                 </select>
                                             </div>
                                         </div>

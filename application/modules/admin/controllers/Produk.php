@@ -157,8 +157,8 @@ class Produk extends MY_Controller {
                     $param = [
                         'data' => [
                             'id_produk' => $this->admin_model->generate_code('P'),
-                            'id_kategori' => $this->input->post('id_kategori'),
-                            'id_sub_kategori' => $this->input->post('id_sub_kategori'),
+                            'id_kategori' => decrypt_text($this->input->post('id_kategori')),
+                            'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori')),
                             'kode_sku' => $this->input->post('kode_sku'),
                             'nama_produk' => $this->input->post('nama_produk'),
                             'harga' => $this->input->post('harga'),

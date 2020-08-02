@@ -133,4 +133,77 @@ class Produk extends MY_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
 	}
 
+	public function option_kategori()
+	{
+		$this->param['field'] = '*';
+		$this->param['table'] = 'produk_kategori';
+		$this->param['order_by'] = [
+			'nama_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->result();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['html'] = '<option value=""></option>';
+				foreach ($this->data['data_parsing'] as $key) {
+					$get_data['html'] .= '
+					<option value="'.encrypt_text($key->id_kategori).'">'.$key->nama_kategori.'</option>
+					';
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function option_sub_kategori()
+	{
+		$this->param['field'] = '*';
+		$this->param['table'] = 'produk_sub_kategori';
+		$this->param['where'] = [
+			'id_kategori' => decrypt_text($this->input->post('id_kategori'))
+		];
+		$this->param['order_by'] = [
+			'nama_sub_kategori' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->json_model->select_data($this->param)->result();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['html'] = '<option value=""></option>';
+				foreach ($this->data['data_parsing'] as $key) {
+					$get_data['html'] .= '
+					<option value="'.encrypt_text($key->id_sub_kategori).'">'.$key->nama_sub_kategori.'</option>
+					';
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
 }
