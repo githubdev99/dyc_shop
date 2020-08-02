@@ -79,7 +79,7 @@ class Produk extends MY_Controller {
 				<a href="'.base_url().'admin/produk/detail/'.encrypt_text($key->id_produk).'" class="btn btn-info waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Detail Data">
 					<i class="fas fa-info"></i>
 				</a>
-				<a href="javascript:;" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data" onclick="modal_edit('."'".encrypt_text($key->id_produk)."'".')">
+				<a href="'.base_url().'admin/produk/edit/'.encrypt_text($key->id_produk).'" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data">
 					<i class="fas fa-edit"></i>
 				</a>
 				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".encrypt_text($key->id_produk)."'".')"><i class="far fa-trash-alt"></i>
@@ -122,6 +122,7 @@ class Produk extends MY_Controller {
 			} else {
 				$get_data['id_produk'] = encrypt_text($this->data['data_parsing']->id_produk);
 				$get_data['nama_produk'] = $this->data['data_parsing']->nama_produk;
+				$get_data['foto'] = $this->data['data_parsing']->foto;
 
 				$this->data['output'] = [
 					'error' => false,
@@ -153,8 +154,10 @@ class Produk extends MY_Controller {
 			} else {
 				$get_data['html'] = '<option value=""></option>';
 				foreach ($this->data['data_parsing'] as $key) {
+					$selected = (decrypt_text($this->input->post('id_kategori')) == $key->id_kategori) ? 'selected' : '';
+
 					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->id_kategori).'">'.$key->nama_kategori.'</option>
+					<option value="'.encrypt_text($key->id_kategori).'" '.$selected.'>'.$key->nama_kategori.'</option>
 					';
 				}
 
@@ -191,8 +194,10 @@ class Produk extends MY_Controller {
 			} else {
 				$get_data['html'] = '<option value=""></option>';
 				foreach ($this->data['data_parsing'] as $key) {
+					$selected = (decrypt_text($this->input->post('id_sub_kategori')) == $key->id_sub_kategori) ? 'selected' : '';
+
 					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->id_sub_kategori).'">'.$key->nama_sub_kategori.'</option>
+					<option value="'.encrypt_text($key->id_sub_kategori).'" '.$selected.'>'.$key->nama_sub_kategori.'</option>
 					';
 				}
 

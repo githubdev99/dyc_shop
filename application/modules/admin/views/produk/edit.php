@@ -51,7 +51,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-9 col-md-9 col-xs-12">
-                                                <input name="nama_produk" type="text" class="form-control" required="" aria-required="true">
+                                                <input name="nama_produk" type="text" class="form-control" required="" aria-required="true" value="<?= $get_data->nama_produk ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -66,7 +66,7 @@
                                                 <select class="form-control select2" name="id_kategori" required="" style="width: 100%;">
                                                 </select>
                                             </div>
-                                            <div class="col-sm-5 col-md-5 col-xs-12" id="subKategori" style="display:none;">
+                                            <div class="col-sm-5 col-md-5 col-xs-12">
                                                 <select class="form-control select2" name="id_sub_kategori" required="" style="width: 100%;">
                                                 </select>
                                             </div>
@@ -80,7 +80,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-9 col-md-9 col-xs-12">
-                                                <input name="kode_sku" type="text" class="form-control" required="">
+                                                <input name="kode_sku" type="text" class="form-control" required="" value="<?= $get_data->kode_sku ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -92,7 +92,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-4 col-md-4 col-xs-12">
-                                                <input name="harga" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)">
+                                                <input name="harga" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)" value="<?= $get_data->harga ?>">
                                                 <span class="text-muted">Hanya berisi angka (0-9)</span>
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-4 col-md-4 col-xs-12">
-                                                <input name="stok" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)">
+                                                <input name="stok" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)" value="<?= $get_data->stok ?>">
                                                 <span class="text-muted">Hanya berisi angka (0-9)</span>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-9 col-md-9 col-xs-12">
-                                                <textarea name="deskripsi" class="form-control" required="" aria-required="true"></textarea>
+                                                <textarea name="deskripsi" class="form-control" required="" aria-required="true"><?= $get_data->deskripsi ?></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -131,13 +131,20 @@
                                             </label>
                                             <div class="col-sm-9 col-md-9 col-xs-12">
                                                 <div class="custom-file mb-4">
+                                                    <input type="hidden" name="foto_old" id="foto_old" value="<?= $get_data->foto ?>">
                                                     <input type="file" name="foto" id="foto" class="custom-file-input" id="customFile" accept="image/jpg, image/jpeg, image/png" style="cursor: pointer;">
-                                                    <label class="custom-file-label" id="nama_foto"></label>
+                                                    <label class="custom-file-label" id="nama_foto"><?= $get_data->foto ?></label>
                                                     <span class="text-muted">Kosongkan bila tidak ada</span>
                                                 </div>
-                                                <a class="image-popup" href="<?= base_url() ?>assets/images/img-thumbnail.svg">
-                                                    <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/img-thumbnail.svg" data-holder-rendered="true">
-                                                </a>
+                                                <?php if (!empty($get_data->foto)): ?>
+                                                    <a class="image-popup" href="<?= base_url() ?>assets/images/upload/<?= $get_data->foto ?>">
+                                                        <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/upload/<?= $get_data->foto ?>" data-holder-rendered="true">
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a class="image-popup" href="<?= base_url() ?>assets/images/img-thumbnail.svg">
+                                                        <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/img-thumbnail.svg" data-holder-rendered="true">
+                                                    </a>
+                                                <?php endif ?>
                                                 &ensp;
                                                 <button type="button" id="remove_preview" class="btn btn-danger waves-effect waves-light mt-2"><i class="far fa-trash-alt mr-2"></i>Remove Image</button>
                                             </div>
@@ -150,7 +157,7 @@
                         <div class="row">
                             <div class="col-12 text-right">
                                 <div class="form-group">
-                                    <button type="submit" name="insert" value="insert" class="btn btn-lg btn-info waves-effect waves-light mr-3"><i class="fas fa-save mr-2"></i>&ensp;Simpan Data</button>
+                                    <button type="submit" name="update" value="update" class="btn btn-lg btn-success waves-effect waves-light mr-3"><i class="fas fa-edit mr-2"></i>&ensp;Edit Data</button>
                                     <a href="<?= base_url() ?>admin/produk" class="btn btn-lg btn-danger waves-effect waves-light"><i class="fas fa-times mr-2"></i>&ensp;Batal</a>
                                 </div>
                             </div>

@@ -64,6 +64,7 @@
 					$('form[name="delete_produk"] #nama_produk').text(data.nama_produk);
 					$('form[name="delete_produk"] input[name="id_produk"]').val(data.id_produk);
 					$('form[name="delete_produk"] input[name="nama_produk"]').val(data.nama_produk);
+					$('form[name="delete_produk"] input[name="foto"]').val(data.foto);
 					$('#deleteData').modal('show');
 				} else {
 					<?= $setup_app['ajax_error'] ?>
