@@ -12,7 +12,8 @@ class Login extends MY_Controller {
 	{
 		$title = 'Login';
 		$data = [
-			'setup_app' => $this->setup_app($title)
+			'setup_app' => $this->setup_app($title),
+			'plugin' => ['sweetalert']
 		];
 		
 		if (!$this->input->post()) {
@@ -43,7 +44,7 @@ class Login extends MY_Controller {
 						];
 						$this->alert_popup($message);
 						redirect(base_url().'admin/login','refresh');
-					} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
+					} elseif ($query->username != $this->input->post('username') || $query->password != $this->input->post('password')) {
 						$message = [
 							'name' => 'failed',
 							'swal' => [
@@ -65,6 +66,7 @@ class Login extends MY_Controller {
 						];
 
 						$this->session->set_userdata([
+							'get_session' => 'admin',
 							'id_admin' => $query->id_admin,
 							'nama_admin' => $query->nama_admin,
 							'username' => $query->username,

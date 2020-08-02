@@ -12,4 +12,10 @@ class Admin extends MY_Controller {
         redirect('admin/login','refresh');
 	}
 
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('admin/login','refresh');
+	}
+
 }

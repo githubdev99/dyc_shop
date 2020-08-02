@@ -27,32 +27,21 @@
 								</div>
 							</div>
 							<div class="p-2">
-								<form class="form-horizontal" method="post" action="#" enctype="multipart/form-data">
+								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 
 									<div class="form-group">
 										<label>Username</label>
-										<input type="text" class="form-control" placeholder="Enter username...">
+										<input type="text" name="username" class="form-control" placeholder="Enter username...">
 									</div>
 
 									<div class="form-group">
 										<label>Password</label>
-										<input type="password" class="form-control" placeholder="Enter password...">
+										<input type="password" name="password" class="form-control" placeholder="Enter password...">
 									</div>
-
-									<!-- <div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="rememberMe">
-										<label class="custom-control-label" for="rememberMe">Remember me</label>
-									</div> -->
 
 									<div class="mt-3">
-										<a href="<?= base_url() ?>admin/dashboard">
-											<button class="btn btn-primary btn-block waves-effect waves-light" type="button" name="login">Log In</button>
-										</a>
+										<button class="btn btn-primary btn-block waves-effect waves-light" type="submit" name="login" value="login">Log In</button>
 									</div>
-
-									<!-- <div class="mt-4 text-center">
-										<a href="#" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Forgot your password?</a>
-									</div> -->
 								</form>
 							</div>
 						</div>
@@ -65,5 +54,4 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+<?= $this->load->view('layout/footer'); ?>

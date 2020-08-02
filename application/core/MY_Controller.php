@@ -74,6 +74,15 @@ class MY_Controller extends MX_Controller {
 		$this->session->set_flashdata($message['name'], $sweet_alert);
 	}
 
+	public function auth()
+	{
+		if (!$this->session->userdata('get_session') == 'admin') {
+			redirect('admin/login','refresh');
+		} elseif (!$this->session->userdata('get_session') == 'customer') {
+			redirect('auth/login','refresh');
+		}
+	}
+
 }
 
 /* End of file MY_Controller.php */
