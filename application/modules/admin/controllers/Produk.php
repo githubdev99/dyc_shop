@@ -102,7 +102,7 @@ class Produk extends MY_Controller {
 		$data = [
 			'setup_app' => $this->setup_app($title),
 			'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
-            'get_script' => 'script_add'
+            'get_script' => 'script_form'
 		];
 
         if (!$this->input->post()) {

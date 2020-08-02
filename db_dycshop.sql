@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Agu 2020 pada 01.44
+-- Waktu pembuatan: 01 Agu 2020 pada 18.39
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -36,15 +36,9 @@ CREATE TABLE `produk` (
   `harga` double NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `stok` int(11) NOT NULL,
-  `deskripsi` text NOT NULL
+  `deskripsi` text NOT NULL,
+  `created_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `produk`
---
-
-INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`) VALUES
-('P-202007312514', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Interesting Necklaces - Biru Hitam', 10000, NULL, 30, 'Ini Necklace');
 
 -- --------------------------------------------------------
 
@@ -65,7 +59,7 @@ CREATE TABLE `produk_kategori` (
 INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime`) VALUES
 ('K-202007312495', 'Kalung', '2020-07-31 23:22:59'),
 ('K-202007312820', 'Ikat Rambut', '2020-07-31 23:23:08'),
-('K-202007314314', 'Bros', '2020-07-31 23:23:13'),
+('K-202007314314', 'Bros', '2020-08-01 19:10:43'),
 ('K-202007318991', 'Gelang', '2020-07-31 23:46:30'),
 ('K-202007319642', 'Anting', '2020-07-31 23:22:56');
 
@@ -128,7 +122,7 @@ ALTER TABLE `produk_sub_kategori`
 -- Ketidakleluasaan untuk tabel `produk_sub_kategori`
 --
 ALTER TABLE `produk_sub_kategori`
-  ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`);
+  ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

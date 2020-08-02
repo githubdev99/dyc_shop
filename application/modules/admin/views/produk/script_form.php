@@ -1,0 +1,57 @@
+<script>
+    function read_image(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('.image-popup').attr('href', e.target.result);
+				$('#preview_foto').attr('src', e.target.result);
+				$('#remove_preview').show();
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+    $(document).ready(function () {
+        $('#subKategori').hide();
+
+        <?php if (empty($get_data->foto)): ?>
+			$('#remove_preview').hide();
+		<?php endif ?>
+
+		$('input[name="foto"]').change(function() {
+			document.getElementById('nama_foto').innerHTML = this.value.split('\\').pop().split('/').pop();
+			read_image(this);
+			if (this.value == '') {
+				$('#preview_foto').attr('src', '<?= base_url() ?>assets/images/img-thumbnail.svg');
+				$('#remove_preview').hide();
+			}
+		});
+
+		$('#remove_preview').click(function() {
+			document.getElementById('foto').value = '';
+			document.getElementById('nama_foto').innerHTML = '';
+			<?php if (!empty($get_data->foto)): ?>
+				document.getElementById('foto_old').value = '';
+			<?php endif ?>
+			$('.image-popup').attr('href', '<?= base_url() ?>assets/images/img-thumbnail.svg');
+			$('#preview_foto').attr('src', '<?= base_url() ?>assets/images/img-thumbnail.svg');
+			$('#remove_preview').hide();
+		});
+
+        $('.image-popup').magnificPopup({
+			type:"image", closeOnContentClick:!0, closeBtnInside:!1, fixedContentPos:!0, mainClass:"mfp-no-margins mfp-with-zoom",
+			image: {
+				verticalFit: !0
+			},
+			zoom: {
+				enabled: !0, duration: 300
+			}
+		});
+
+		$('.select2').each(function () {
+			$(this).select2({
+				placeholder: "Pilih salah satu"
+			});
+		});
+    });
+</script>
