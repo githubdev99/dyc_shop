@@ -92,7 +92,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-sm-4 col-md-4 col-xs-12">
-                                                <input name="harga" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)" value="<?= $get_data->harga ?>">
+                                                <input name="harga" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)" value="<?= rupiah($get_data->harga) ?>" id="rupiah">
                                                 <span class="text-muted">Hanya berisi angka (0-9)</span>
                                             </div>
                                         </div>

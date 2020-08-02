@@ -157,6 +157,9 @@ class Produk extends MY_Controller {
                         $foto = NULL;
                     }
 
+                    $harga = str_replace('Rp. ', '', $this->input->post('harga'));
+                    $harga = str_replace('.', '', $harga);
+
                     $param = [
                         'data' => [
                             'id_produk' => $this->admin_model->generate_code('P'),
@@ -164,7 +167,7 @@ class Produk extends MY_Controller {
                             'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori')),
                             'kode_sku' => $this->input->post('kode_sku'),
                             'nama_produk' => $this->input->post('nama_produk'),
-                            'harga' => $this->input->post('harga'),
+                            'harga' => $harga,
                             'foto' => $foto,
                             'stok' => $this->input->post('stok'),
                             'deskripsi' => $this->input->post('deskripsi'),
@@ -266,6 +269,9 @@ class Produk extends MY_Controller {
                     }
                 }
 
+                $harga = str_replace('Rp. ', '', $this->input->post('harga'));
+                $harga = str_replace('.', '', $harga);
+
                 $param = [
                     'where' => [
                         'id_produk' => decrypt_text($id),
@@ -275,7 +281,7 @@ class Produk extends MY_Controller {
                         'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori')),
                         'kode_sku' => $this->input->post('kode_sku'),
                         'nama_produk' => $this->input->post('nama_produk'),
-                        'harga' => $this->input->post('harga'),
+                        'harga' => $harga,
                         'foto' => $foto,
                         'stok' => $this->input->post('stok'),
                         'deskripsi' => $this->input->post('deskripsi')
