@@ -89,6 +89,14 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+	public function count_data()
+	{
+		return [
+			'produk_kategori' => $this->db->count_all_results('produk_kategori'),
+			'produk' => $this->db->count_all_results('produk')
+		];
+	}
+
 }
 
 /* End of file Admin_model.php */

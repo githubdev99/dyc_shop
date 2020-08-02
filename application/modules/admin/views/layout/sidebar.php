@@ -24,8 +24,22 @@
 
 				<li>
 					<a href="<?= base_url() ?>admin/produk" class="waves-effect <?= ($this->uri->segment(2) == 'produk') ? 'mm-active' : ''; ?>">
-						<i class="fas fa-folder-open"></i>
+						<i class="bx bxs-archive"></i>
 						<span>Produk</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="<?= base_url() ?>admin/customer" class="waves-effect <?= ($this->uri->segment(2) == 'customer') ? 'mm-active' : ''; ?>">
+						<i class="bx bxs-user-pin"></i>
+						<span>Customer</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="<?= base_url() ?>admin/transaksi" class="waves-effect <?= ($this->uri->segment(2) == 'transaksi') ? 'mm-active' : ''; ?>">
+						<i class="bx bxs-purchase-tag"></i>
+						<span>Transaksi</span>
 					</a>
 				</li>
 

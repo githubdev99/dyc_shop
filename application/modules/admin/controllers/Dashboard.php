@@ -13,7 +13,8 @@ class Dashboard extends MY_Controller {
 		$title = 'Dashboard';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['sweetalert', 'apexcharts', 'pages-dashboard']
+			'plugin' => ['sweetalert'],
+			'count_data' => $this->admin_model->count_data()
 		];
 
 		$this->load->view('dashboard/view', $data);

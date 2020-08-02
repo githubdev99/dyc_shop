@@ -85,3 +85,7 @@
 .dropdown-menu-custom.show {
 	left: -56px !important;
 }
+
+.hover-card:hover {
+	background-color: #cdf0f7;
+}
