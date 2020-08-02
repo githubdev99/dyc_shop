@@ -20,7 +20,7 @@ class Kategori_produk extends MY_Controller {
 		}
 
 		$this->param['column_search'] = [
-			'id_kategori','nama_kategori','created_datetime'
+			'id_kategori','nama_kategori'
 		];
 		$this->param['column_order'] = [
 			null,'nama_kategori',null

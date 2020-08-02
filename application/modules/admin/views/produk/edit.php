@@ -66,7 +66,7 @@
                                                 <select class="form-control select2" name="id_kategori" required="" style="width: 100%;">
                                                 </select>
                                             </div>
-                                            <div class="col-sm-5 col-md-5 col-xs-12">
+                                            <div class="col-sm-5 col-md-5 col-xs-12" id="subKategori">
                                                 <select class="form-control select2" name="id_sub_kategori" required="" style="width: 100%;">
                                                 </select>
                                             </div>

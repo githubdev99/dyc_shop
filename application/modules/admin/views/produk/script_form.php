@@ -106,6 +106,7 @@
 						var data = response.data;
 
 						if (response.error == false) {
+							$('#subKategori').show();
 							$('select[name="id_sub_kategori"]').html(data.html);
 						} else {
 							<?= $setup_app['ajax_error'] ?>
