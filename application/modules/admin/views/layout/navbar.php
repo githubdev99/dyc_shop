@@ -127,7 +127,7 @@
 			<div class="dropdown d-inline-block">
 				<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="rounded-circle header-profile-user" src="<?= base_url() ?>assets/images/avatar_male.png" alt="Header Avatar">
+				<img class="rounded-circle header-profile-user" src="<?= base_url() ?>assets/images/avatar_female.png" alt="Header Avatar">
 				<span class="d-none d-xl-inline-block ml-1"><?= $this->session->userdata('nama_admin'); ?></span>
 				<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 				</button>
