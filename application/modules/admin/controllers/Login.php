@@ -29,53 +29,56 @@ class Login extends MY_Controller {
 					]
 				];
 	
-				$query = $this->admin_model->select_data($param)->row();
+				if ($process == TRUE) {
+					$query = $this->admin_model->select_data($param)->row();
 
-				if ($query == FALSE) {
-					$message = [
-						'name' => 'failed',
-						'swal' => [
-							'title' => 'Not Found!',
-							'text' => 'Akun tidak ditemukan!',
-							'type' => 'warning'
-						]
-					];
-					$this->alert_popup($message);
-					redirect(base_url().'admin/login','refresh');
-				} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
-					$message = [
-						'name' => 'failed',
-						'swal' => [
-							'title' => 'Failed!',
-							'text' => 'Username atau password salah!',
-							'type' => 'error'
-						]
-					];
-					$this->alert_popup($message);
-					redirect(base_url().'admin/login','refresh');
+					if ($query == FALSE) {
+						$message = [
+							'name' => 'failed',
+							'swal' => [
+								'title' => 'Not Found!',
+								'text' => 'Akun tidak ditemukan!',
+								'type' => 'warning'
+							]
+						];
+						$this->alert_popup($message);
+						redirect(base_url().'admin/login','refresh');
+					} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
+						$message = [
+							'name' => 'failed',
+							'swal' => [
+								'title' => 'Failed!',
+								'text' => 'Username atau password salah!',
+								'type' => 'error'
+							]
+						];
+						$this->alert_popup($message);
+						redirect(base_url().'admin/login','refresh');
+					} else {
+						$message = [
+							'name' => 'success',
+							'swal' => [
+								'title' => 'Successfull!',
+								'text' => 'Anda berhasil login!',
+								'type' => 'success'
+							]
+						];
+
+						$this->session->set_userdata([
+							'id_admin' => $query->id_admin,
+							'nama_admin' => $query->nama_admin,
+							'username' => $query->username,
+							'password' => $query->password
+						]);
+
+						$this->alert_popup($message);
+						redirect(base_url().'admin/dashboard','refresh');
+					}
 				} else {
-					$message = [
-						'name' => 'success',
-						'swal' => [
-							'title' => 'Successfull!',
-							'text' => 'Anda berhasil login!',
-							'type' => 'success'
-						]
-					];
-
-					$this->session->set_userdata([
-						'id_admin' => $query->id_admin,
-						'nama_admin' => $query->nama_admin,
-						'username' => $query->username,
-						'password' => $query->password
-					]);
-
-					$this->alert_popup($message);
-					redirect(base_url().'admin/dashboard','refresh');
+					$process = FALSE;
 				}
 			}
 		}
-		
 	}
 
 }
