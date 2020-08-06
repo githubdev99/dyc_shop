@@ -1,4 +1,4 @@
-<?= $this->load->view('master/layout/header'); ?>
+<?= $this->load->view('master/template_admin/layout/header'); ?>
 	<div class="account-pages my-5 pt-sm-5">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -53,4 +53,4 @@
 			</div>
 		</div>
 	</div>
-<?= $this->load->view('master/layout/footer'); ?>
+<?= $this->load->view('master/template_admin/layout/footer'); ?>
