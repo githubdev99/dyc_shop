@@ -78,7 +78,7 @@ class Produk extends MY_Controller {
 		];
 
         if (!$this->input->post()) {
-            $this->load->view('produk/add', $data);
+            $this->master->template_admin($data);
         } else {
             $process = TRUE;
             $checking = TRUE;
@@ -213,7 +213,7 @@ class Produk extends MY_Controller {
 		];
 
         if (!$this->input->post()) {
-            $this->load->view('produk/edit', $data);
+            $this->master->template_admin($data);
         } else {
             $process = TRUE;
 
