@@ -42,7 +42,6 @@ class Kategori_produk extends MY_Controller {
                     $message = [
                         'name' => 'failed',
                         'swal' => [
-                            'title' => 'Failed!',
                             'text' => 'Data kategori '.$this->input->post('nama_kategori').' sudah pernah disimpan.',
                             'type' => 'error'
                         ]
@@ -69,7 +68,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal ditambahkan.',
                                     'type' => 'error'
                                 ]
@@ -80,7 +78,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' telah berhasil ditambahkan.',
                                     'type' => 'success'
                                 ]
@@ -107,7 +104,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di edit.',
                                     'type' => 'error'
                                 ]
@@ -118,7 +114,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' telah berhasil di edit.',
                                     'type' => 'success'
                                 ]
@@ -141,7 +136,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di hapus.',
                                     'type' => 'error'
                                 ]
@@ -152,7 +146,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' berhasil di hapus.',
                                     'type' => 'success'
                                 ]
@@ -184,7 +177,6 @@ class Kategori_produk extends MY_Controller {
             $message = [
                 'name' => 'failed',
                 'swal' => [
-                    'title' => 'Failed!',
                     'text' => 'Ada kesalahan teknis',
                     'type' => 'error'
                 ]
@@ -237,7 +229,6 @@ class Kategori_produk extends MY_Controller {
                     $message = [
                         'name' => 'failed',
                         'swal' => [
-                            'title' => 'Failed!',
                             'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' sudah pernah disimpan.',
                             'type' => 'error'
                         ]
@@ -251,7 +242,6 @@ class Kategori_produk extends MY_Controller {
                     $message = [
                         'name' => 'failed',
                         'swal' => [
-                            'title' => 'Failed!',
                             'text' => 'Data kategori '.$this->input->post('nama_kategori').' sudah pernah disimpan.',
                             'type' => 'error'
                         ]
@@ -278,7 +268,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' gagal ditambahkan.',
                                     'type' => 'error'
                                 ]
@@ -289,7 +278,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' telah berhasil ditambahkan.',
                                     'type' => 'success'
                                 ]
@@ -315,7 +303,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' gagal di edit.',
                                     'type' => 'error'
                                 ]
@@ -326,7 +313,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' telah berhasil di edit.',
                                     'type' => 'success'
                                 ]
@@ -349,7 +335,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' gagal di hapus.',
                                     'type' => 'error'
                                 ]
@@ -360,7 +345,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_sub_kategori').' berhasil di hapus.',
                                     'type' => 'success'
                                 ]
@@ -387,7 +371,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di edit.',
                                     'type' => 'error'
                                 ]
@@ -398,7 +381,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' telah berhasil di edit.',
                                     'type' => 'success'
                                 ]
@@ -421,7 +403,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'failed',
                                 'swal' => [
-                                    'title' => 'Failed!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' gagal di hapus.',
                                     'type' => 'error'
                                 ]
@@ -432,7 +413,6 @@ class Kategori_produk extends MY_Controller {
                             $message = [
                                 'name' => 'success',
                                 'swal' => [
-                                    'title' => 'Successfull!',
                                     'text' => 'Data kategori '.$this->input->post('nama_kategori').' berhasil di hapus.',
                                     'type' => 'success'
                                 ]

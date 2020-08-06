@@ -37,7 +37,6 @@ class Login extends MY_Controller {
 						$message = [
 							'name' => 'failed',
 							'swal' => [
-								'title' => 'Not Found!',
 								'text' => 'Akun tidak ditemukan!',
 								'type' => 'warning'
 							]
@@ -48,7 +47,6 @@ class Login extends MY_Controller {
 						$message = [
 							'name' => 'failed',
 							'swal' => [
-								'title' => 'Failed!',
 								'text' => 'Username atau password salah!',
 								'type' => 'error'
 							]
@@ -59,7 +57,6 @@ class Login extends MY_Controller {
 						$message = [
 							'name' => 'success',
 							'swal' => [
-								'title' => 'Successfull!',
 								'text' => 'Anda berhasil login!',
 								'type' => 'success'
 							]
