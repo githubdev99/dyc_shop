@@ -1,5 +1,4 @@
-<?= $this->load->view('layout/header'); ?>
-<body>
+<?= $this->load->view('master/layout/header'); ?>
 	<div class="account-pages my-5 pt-sm-5">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -48,10 +47,10 @@
 					</div>
 					<div class="text-center">
 						<!-- <p>Don't have an account ? <a href="<?= base_url() ?>auth/register" class="font-weight-medium text-primary"> Register Now! </a> </p> -->
-						<?= $setup_app['copyright_auth'] ?>
+						<p>Copyright &copy; 2020 All Right Reserved <br><?= $setup_app['app_name'] ?>.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?= $this->load->view('layout/footer'); ?>
+<?= $this->load->view('master/layout/footer'); ?>

@@ -8,87 +8,6 @@ class Admin_model extends CI_Model {
 		$this->db->db_debug = FALSE;
 	}
 
-	public function generate_code($param)
-	{
-		$code_rand = rand(1111,9999);
-		$generate = $param."-".date("Ymd").$code_rand;
-		return $generate;
-	}
-
-	public function get_data($param)
-	{
-		if (!empty($param['where'])) {
-			$this->db->where($param['where']);
-		}
-		if (!empty($param['order_by'])) {
-			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
-		}
-		
-		return $this->db->get($param['table']);
-	}
-
-	public function select_data($param)
-	{
-		$this->db->select($param['field']);
-		$this->db->from($param['table']);
-		if (!empty($param['join'])) {
-			for ($i=0; $i < count($param['join']); $i++) {
-				$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
-			}
-		}
-		if (!empty($param['where'])) {
-			$this->db->where($param['where']);
-		}
-		if (!empty($param['order_by'])) {
-			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
-		}
-
-		return $this->db->get();
-	}
-
-	public function send_data($param)
-	{
-		if (!empty($param['where'])) {
-			try {
-				$this->db->where($param['where']);
-				return $this->db->update($param['table'], $param['data']);
-
-				$db_error = $this->db->error();
-				if (!empty($db_error)) {
-					return FALSE;
-				}
-			} catch (Exception $e) {
-				return FALSE;
-			}
-		} else {
-			try {
-				return $this->db->insert($param['table'], $param['data']);
-				
-				$db_error = $this->db->error();
-				if (!empty($db_error)) {
-					return FALSE;
-				}
-			} catch (Exception $e) {
-				return FALSE;
-			}
-		}
-	}
-
-	public function delete_data($param)
-	{
-		try {
-			$this->db->where($param['where']);
-			return $this->db->delete($param['table']);
-
-			$db_error = $this->db->error();
-			if (!empty($db_error)) {
-				return FALSE;
-			}
-		} catch (Exception $e) {
-			return FALSE;
-		}
-	}
-
 	public function count_data()
 	{
 		return [
@@ -98,5 +17,3 @@ class Admin_model extends CI_Model {
 	}
 
 }
-
-/* End of file Admin_model.php */

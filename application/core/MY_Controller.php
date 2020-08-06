@@ -8,6 +8,9 @@ class MY_Controller extends MX_Controller {
 	{
 		parent::__construct();
 		date_default_timezone_set('Asia/Jakarta');
+
+		$this->load->module('master');
+		$this->load->model('master/master_model');
 	}
 
 	public function setup_app($title)
@@ -15,23 +18,6 @@ class MY_Controller extends MX_Controller {
 		$this->data['main_icon'] = base_url().'assets/images/logo-mini.png';
 		$this->data['app_name'] = 'DYC Shop';
 		$this->data['title_page'] = $title.' | '.$this->data['app_name'];
-		$this->data['copyright_auth'] = '<p>Copyright &copy; 2020 All Right Reserved <br>DYC Shop.</p>';
-		$this->data['copyright_app'] = '
-		<footer class="footer">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-6">
-						Copyright &copy; 2020 All Right Reserved
-					</div>
-					<div class="col-sm-6">
-						<div class="text-sm-right d-none d-sm-block">
-							DYC Shop
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		';
 		$this->data['ajax_error'] = '
 		Swal.mixin({
 			toast: true,

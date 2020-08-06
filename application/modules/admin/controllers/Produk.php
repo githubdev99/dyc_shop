@@ -6,8 +6,6 @@ class Produk extends MY_Controller {
 	{
         parent::__construct();
         $this->not_login();
-        
-		$this->load->model('admin_model');
 	}
 
 	public function index()
@@ -15,43 +13,13 @@ class Produk extends MY_Controller {
 		$title = 'Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['datatable', 'sweetalert', 'magnific-popup'],
-            'get_script' => 'script_view',
-			'modal_delete' => '
-            <form action="?" method="post" enctype="multipart/form-data" name="delete_produk">
-                <div class="modal-content" style="border: none;">
-                    <div class="modal-header bg-danger">
-                        <h4 class="modal-title mt-0 text-white" id="myModalLabel">
-                            <i class="fas fa-bookmark mr-3"></i>Konfirmasi Hapus Data Produk
-                        </h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <center>
-                            <input type="hidden" name="id_produk">
-                            <input type="hidden" name="nama_produk">
-                            <input type="hidden" name="foto">
-                            <h4>Anda yakin ingin menghapus data produk <b>"<span id="nama_produk"></span>"</b> ?</h4>
-                            <p>Data yang sudah dihapus tidak dapat dikembalikan!</p>
-                        </center>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" name="delete" value="delete" class="btn btn-danger waves-effect waves-light">
-                            <i class="far fa-trash-alt mr-2"></i>Hapus Data
-                        </button>
-                        <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">
-                            <i class="fas fa-times mr-2"></i>Cancel
-                        </button>
-                    </div>
-                </div>
-            </form>
-            '
+            'plugin' => ['datatable', 'sweetalert', 'magnific-popup'],
+            'get_view' => 'admin/produk/view',
+            'get_script' => 'admin/produk/script_view'
 		];
 
         if (!$this->input->post()) {
-            $this->load->view('produk/view', $data);
+            $this->master->template_admin($data);
         } else {
             $process = TRUE;
 
@@ -64,7 +32,7 @@ class Produk extends MY_Controller {
                 ];
 
                 if ($process == TRUE) {
-                    $query = $this->admin_model->delete_data($param);
+                    $query = $this->master_model->delete_data($param);
                     if ($query == FALSE) {
                         $message = [
                             'name' => 'failed',
@@ -124,7 +92,7 @@ class Produk extends MY_Controller {
                 ]
             ];
 
-            $check_data = $this->admin_model->select_data($param)->result();
+            $check_data = $this->master_model->select_data($param)->result();
 
             if (!empty($check_data)) {
                 if ($this->input->post('insert')) {
@@ -162,7 +130,7 @@ class Produk extends MY_Controller {
 
                     $param = [
                         'data' => [
-                            'id_produk' => $this->admin_model->generate_code('P'),
+                            'id_produk' => $this->master_model->generate_code('P'),
                             'id_kategori' => decrypt_text($this->input->post('id_kategori')),
                             'id_sub_kategori' => decrypt_text($this->input->post('id_sub_kategori')),
                             'kode_sku' => $this->input->post('kode_sku'),
@@ -177,7 +145,7 @@ class Produk extends MY_Controller {
                     ];
 
                     if ($process == TRUE) {
-                        $query = $this->admin_model->send_data($param);
+                        $query = $this->master_model->send_data($param);
                         if ($query == FALSE) {
                             $message = [
                                 'name' => 'failed',
@@ -218,7 +186,7 @@ class Produk extends MY_Controller {
             ]
         ];
 
-        $get_data = $this->admin_model->get_data($param_get_data)->row();
+        $get_data = $this->master_model->get_data($param_get_data)->row();
 
         // Check URL
         if (decrypt_text($id) != $get_data->id_produk) {
@@ -290,7 +258,7 @@ class Produk extends MY_Controller {
                 ];
 
                 if ($process == TRUE) {
-                    $query = $this->admin_model->send_data($param);
+                    $query = $this->master_model->send_data($param);
                     if ($query == FALSE) {
                         $message = [
                             'name' => 'failed',

@@ -39,3 +39,4 @@
 	<!-- Custom CSS -->
 	<link href="<?= base_url() ?>assets/custom/custom.css" rel="stylesheet" type="text/css" />
 </head>
+<body data-topbar="dark">

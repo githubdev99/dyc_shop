@@ -6,8 +6,6 @@ class Login extends MY_Controller {
 	{
 		parent::__construct();
 		$this->has_login();
-
-		$this->load->model('admin_model');
 	}
 
 	public function index()
@@ -33,7 +31,7 @@ class Login extends MY_Controller {
 				];
 	
 				if ($process == TRUE) {
-					$query = $this->admin_model->select_data($param)->row();
+					$query = $this->master_model->select_data($param)->row();
 
 					if ($query == FALSE) {
 						$message = [

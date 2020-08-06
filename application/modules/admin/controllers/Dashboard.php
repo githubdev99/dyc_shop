@@ -16,10 +16,11 @@ class Dashboard extends MY_Controller {
 		$data = [
 			'setup_app' => $this->setup_app($title),
 			'plugin' => ['sweetalert'],
-			'count_data' => $this->admin_model->count_data()
+			'count_data' => $this->admin_model->count_data(),
+			'get_view' => 'admin/dashboard/view'
 		];
 
-		$this->load->view('dashboard/view', $data);
+		$this->master->template_admin($data);
 	}
 
 }
