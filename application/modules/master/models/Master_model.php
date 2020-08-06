@@ -156,7 +156,7 @@ class Master_model extends CI_Model {
 
 	public function count_data($param)
 	{
-		return $this->db->count_all_results($param['table']);
+		return $this->db->count_all_results($param);
 	}
 
 }
