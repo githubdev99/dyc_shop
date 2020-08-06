@@ -45,7 +45,9 @@
 	}
 
     $(document).ready(function () {
-        $('#subKategori').hide();
+        <?php if (empty($get_data->id_kategori)): ?>
+			$('#subKategori').hide();
+		<?php endif ?>
 
         <?php if (empty($get_data->foto)): ?>
 			$('#remove_preview').hide();
