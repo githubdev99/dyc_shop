@@ -72,8 +72,9 @@ class Produk extends MY_Controller {
 		$title = 'Tambah Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
-            'get_script' => 'script_form'
+            'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
+            'get_view' => 'admin/produk/add',
+            'get_script' => 'admin/produk/script_form'
 		];
 
         if (!$this->input->post()) {
@@ -205,8 +206,9 @@ class Produk extends MY_Controller {
 		$title = 'Tambah Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
-            'get_script' => 'script_form',
+            'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
+            'get_view' => 'admin/produk/edit',
+            'get_script' => 'admin/produk/script_form',
             'get_data' => $get_data,
 		];
 
