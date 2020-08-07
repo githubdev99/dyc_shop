@@ -41,7 +41,7 @@
 				});
 			},
 			"ajax": {
-				"url": "<?= base_url() ?>json/admin/produk/list",
+				"url": "<?= base_url() ?>admin/produk/list_produk",
 				"type": "POST",
 				"dataType": "json",
 				"error": function () {
@@ -53,7 +53,7 @@
 
 	function modal_delete(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/produk/get',
+			url: '<?= base_url() ?>admin/produk/get_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},

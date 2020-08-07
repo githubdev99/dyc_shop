@@ -20,7 +20,7 @@
 				$('[data-toggle="tooltip"]').tooltip();
 			},
 			"ajax": {
-				"url": "<?= base_url() ?>json/admin/kategori-produk/list",
+				"url": "<?= base_url() ?>admin/kategori_produk/list_kategori_produk",
 				"type": "POST",
 				"dataType": "json",
 				"error": function () {
@@ -32,7 +32,7 @@
 
 	function modal_edit(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},
@@ -52,7 +52,7 @@
 
 	function modal_delete(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},

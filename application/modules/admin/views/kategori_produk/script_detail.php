@@ -20,7 +20,7 @@
 				$('[data-toggle="tooltip"]').tooltip();
 			},
 			"ajax": {
-				"url": "<?= base_url() ?>json/admin/sub-kategori-produk/list",
+				"url": "<?= base_url() ?>admin/kategori_produk/list_sub_kategori_produk",
 				"type": "POST",
 				"dataType": "json",
 				"data": {
@@ -35,7 +35,7 @@
 
 	function modal_edit(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/sub-kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_sub_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},
@@ -53,7 +53,7 @@
 
 	function modal_delete(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/sub-kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_sub_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},
@@ -72,7 +72,7 @@
 
 	function modal_edit_kategori(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},
@@ -90,7 +90,7 @@
 
 	function modal_delete_kategori(id) {
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/kategori-produk/get',
+			url: '<?= base_url() ?>admin/kategori_produk/get_kategori_produk',
 			type: 'POST',
 			dataType: 'json',
 			data: {id: id},

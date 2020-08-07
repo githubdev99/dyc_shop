@@ -90,7 +90,7 @@
 		});
 
 		$.ajax({
-			url: '<?= base_url() ?>json/admin/produk/option-kategori',
+			url: '<?= base_url() ?>admin/produk/option_kategori',
 			type: 'POST',
 			data: {
 				id_kategori: '<?= (!empty($get_data->id_kategori)) ? encrypt_text($get_data->id_kategori) : ''; ?>'
@@ -109,7 +109,7 @@
 
 		<?php if (!empty($get_data->id_kategori)): ?>
 			$.ajax({
-				url: '<?= base_url() ?>json/admin/produk/option-sub-kategori',
+				url: '<?= base_url() ?>admin/produk/option_sub_kategori',
 				type: 'POST',
 				data: {
 					id_kategori: '<?= encrypt_text($get_data->id_kategori) ?>',
@@ -133,7 +133,7 @@
 
 			if ($(this).val() != '' || $(this).val() != null) {
 				$.ajax({
-					url: '<?= base_url() ?>json/admin/produk/option-sub-kategori',
+					url: '<?= base_url() ?>admin/produk/option_sub_kategori',
 					type: 'POST',
 					data: {id_kategori: $(this).val()},
 					dataType: 'json',
