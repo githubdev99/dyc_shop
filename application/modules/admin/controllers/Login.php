@@ -22,55 +22,46 @@ class Login extends MY_Controller {
 			$process = TRUE;
 
 			if ($this->input->post('login')) {
-				$param = [
-					'field' => '*',
-					'table' => 'admin',
-					'where' => [
-						'username' => $this->input->post('username')
-					]
-				];
-	
 				if ($process == TRUE) {
-					$query = $this->master_model->select_data($param)->row();
+					$query = $this->master_model->select_data([
+							'field' => '*',
+							'table' => 'admin',
+							'where' => [
+								'username' => $this->input->post('username')
+							]
+						])->row();
 
 					if ($query == FALSE) {
-						$message = [
+						$this->alert_popup([
 							'name' => 'failed',
 							'swal' => [
 								'text' => 'Akun tidak ditemukan!',
 								'type' => 'warning'
 							]
-						];
-						$this->alert_popup($message);
+						]);
 						redirect(base_url().'admin/login','refresh');
 					} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
-						$message = [
+						$this->alert_popup([
 							'name' => 'failed',
 							'swal' => [
 								'text' => 'Username atau password salah!',
 								'type' => 'error'
 							]
-						];
-						$this->alert_popup($message);
+						]);
 						redirect(base_url().'admin/login','refresh');
 					} else {
-						$message = [
+						$this->session->set_userdata([
+							'level' => 'admin',
+							'id' => $query->id_admin
+						]);
+
+						$this->alert_popup([
 							'name' => 'success',
 							'swal' => [
 								'text' => 'Anda berhasil login!',
 								'type' => 'success'
 							]
-						];
-
-						$this->session->set_userdata([
-							'get_session' => 'admin',
-							'id_admin' => $query->id_admin,
-							'nama_admin' => $query->nama_admin,
-							'username' => $query->username,
-							'password' => $query->password
 						]);
-
-						$this->alert_popup($message);
 						redirect(base_url().'admin/dashboard','refresh');
 					}
 				} else {

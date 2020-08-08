@@ -35,6 +35,21 @@ class MY_Controller extends MX_Controller {
 		});
 		';
 
+		// Session Admin
+		if ($this->session->userdata('level') == 'admin') {
+			$this->data['data_session'] = $this->master_model->select_data(
+				[
+					'field' => '*',
+					'table' => 'admin',
+					'where' => [
+						'id_admin' => $this->session->userdata('id')
+					]
+				]
+			)->row();
+		} elseif ($this->session->userdata('level') == 'customer') {
+			# code...
+		}
+
 		return $this->data;
 	}
 
@@ -62,22 +77,20 @@ class MY_Controller extends MX_Controller {
 
 	public function has_login()
 	{
-		if ($this->session->userdata('get_session') == 'admin') {
+		if ($this->session->userdata('level') == 'admin') {
 			redirect('admin/dashboard','refresh');
-		} elseif ($this->session->userdata('get_session') == 'customer') {
+		} if ($this->session->userdata('level') == 'customer') {
 			redirect('home','refresh');
 		}
 	}
 
 	public function not_login()
 	{
-		if (!$this->session->userdata('get_session') == 'admin') {
+		if (!$this->session->userdata('level') == 'admin') {
 			redirect('admin/login','refresh');
-		} elseif (!$this->session->userdata('get_session') == 'customer') {
+		} elseif (!$this->session->userdata('level') == 'customer') {
 			redirect('auth/login','refresh');
 		}
 	}
 
 }
-
-/* End of file MY_Controller.php */
