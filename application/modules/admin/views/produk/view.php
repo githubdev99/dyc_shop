@@ -58,26 +58,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="float-left">
-                    <h4 class="card-title">List Data</h4>
-                    <p class="card-title-desc">Data yang ditampilkan adalah data seluruh produk yang ada pada DYC Shop.</p>
-                </div>
-
-                <div class="float-right">
-                    <div class="dropdown">
-                        <a class="btn btn-outline-secondary waves-effect waves-light dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-file-export mr-2"></i>Export Data
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-custom">
-                            <a class="dropdown-item" href="#">PDF</a>
-                            <a class="dropdown-item" href="#">Excel</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+                <h4 class="card-title">List Data</h4>
+                <p class="card-title-desc">Data yang ditampilkan adalah data seluruh produk yang ada pada DYC Shop.</p>
 
                 <table id="datatable" class="table table-bordered table-hover dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead class="table-info">
+                    <thead class="table-pink">
                         <tr>
                             <th>No.</th>
                             <th>Foto</th>

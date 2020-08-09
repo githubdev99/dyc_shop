@@ -1,4 +1,4 @@
-<header id="page-topbar" style="background: linear-gradient(to right, #00b4db, #0083b0);">
+<header id="page-topbar" style="background: linear-gradient(to right, #f261a3, #e83e8c);">
 	<div class="navbar-header">
 		<div class="d-flex">
 			<!-- LOGO -->

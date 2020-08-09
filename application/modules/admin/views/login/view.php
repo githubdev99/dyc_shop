@@ -4,11 +4,11 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8 col-lg-6 col-xl-5">
 					<div class="card overflow-hidden">
-						<div class="bg-soft-primary">
+						<div class="bg-pink">
 							<div class="row">
 								<div class="col-8">
-									<div class="text-primary p-4">
-										<h5 class="text-primary">Log in</h5>
+									<div class="text-white p-4">
+										<h5 class="text-white">Log in</h5>
 										<p>Log in to your account to continue.</p>
 									</div>
 								</div>
@@ -39,14 +39,13 @@
 									</div>
 
 									<div class="mt-3">
-										<button class="btn btn-primary btn-block waves-effect waves-light" type="submit" name="login" value="login">Log In</button>
+										<button class="btn btn-pink btn-block waves-effect waves-light" type="submit" name="login" value="login">Log In</button>
 									</div>
 								</form>
 							</div>
 						</div>
 					</div>
 					<div class="text-center">
-						<!-- <p>Don't have an account ? <a href="<?= base_url() ?>auth/register" class="font-weight-medium text-primary"> Register Now! </a> </p> -->
 						<p>Copyright &copy; 2020 All Right Reserved <br><?= $setup_app['app_name'] ?>.</p>
 					</div>
 				</div>

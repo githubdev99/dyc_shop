@@ -10,6 +10,11 @@ class Master extends MY_Controller {
 	public function template_admin($data)
 	{
         $this->load->view('template_admin/template', $data);
+	}
+	
+	public function template_home($data)
+	{
+        $this->load->view('template_home/template', $data);
     }
 
 }

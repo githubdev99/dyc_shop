@@ -41,6 +41,9 @@
                         }).then(function() {
                             window.location = response.callback;
                         });
+
+                        $('button[name="login"]').addClass('disabled');
+                        $('button[name="login"]').html('<i class="fas fa-circle-notch fa-spin"></i>');
                     }
                 }
             });

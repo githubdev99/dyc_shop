@@ -106,7 +106,7 @@ class Customer extends MY_Controller {
                             'data' => [
                                 'id_customer' => $this->master_model->generate_code('C'),
                                 'username' => $this->input->post('username'),
-                                'password' => $this->input->post('password'),
+                                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                                 'email' => $this->input->post('email'),

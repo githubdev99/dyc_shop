@@ -61,7 +61,7 @@
                 <p class="card-title-desc">Data yang ditampilkan adalah data seluruh customer yang ada pada DYC Shop.</p>
 
                 <table id="datatable" class="table table-bordered table-hover dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead class="table-info">
+                    <thead class="table-pink">
                         <tr>
                             <th>No.</th>
                             <th>Nama Lengkap</th>

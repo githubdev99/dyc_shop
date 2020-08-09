@@ -399,9 +399,9 @@ class Transaksi extends MY_Controller {
                 $get_created = explode(' ', $key->created_datetime);
                 
                 if ($key->foto != NULL) {
-					$url_foto = base_url().'assets/images/upload/'.$key->foto;
+					$url_foto = base_url().'assets/admin/images/upload/'.$key->foto;
 				} else {
-					$url_foto = base_url().'assets/images/img-thumbnail.svg';
+					$url_foto = base_url().'assets/admin/images/img-thumbnail.svg';
 				}
 
                 $nested_data[] = $no;
