@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Agu 2020 pada 01.45
+-- Waktu pembuatan: 09 Agu 2020 pada 22.56
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -70,7 +70,7 @@ CREATE TABLE `produk` (
   `id_sub_kategori` char(20) DEFAULT NULL,
   `kode_sku` varchar(50) NOT NULL,
   `nama_produk` varchar(50) NOT NULL,
-  `harga` double NOT NULL,
+  `harga` int(11) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `stok` int(11) NOT NULL,
   `deskripsi` text NOT NULL,
@@ -111,7 +111,10 @@ INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`,
 ('P-202008028601', 'K-202007312820', 'KS-202007312744', 'CH-800105', 'Ikat Rambut Mixed Colour Wood', 10000, 'IMG-202008026184.jpg', 25, 'Ikat Rambut Mixed Colour Wood', '2020-08-02 11:23:00'),
 ('P-202008028933', 'K-202007319642', 'KS-202007312650', 'PR-122004', 'Anting Oval Merah', 10000, 'IMG-202008024142.jpg', 30, 'Anting Oval Merah', '2020-08-02 10:58:51'),
 ('P-202008029581', 'K-202007319642', 'KS-202007312650', 'PR-122002', 'Anting Matahari Putih', 10000, 'IMG-202008029205.jpg', 30, 'Anting Matahari Putih', '2020-08-02 10:56:27'),
-('P-202008029985', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Batu Druzy Pink', 10000, 'IMG-202008024014.jpg', 34, 'Anting Batu Druzy Pink', '2020-08-02 11:13:08');
+('P-202008029985', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Batu Druzy Pink', 10000, 'IMG-202008024014.jpg', 34, 'Anting Batu Druzy Pink', '2020-08-02 11:13:08'),
+('P-202008103200', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bulan Sabit Biru', 10000, 'IMG-202008105937.jpg', 30, 'Kalung Bulan Sabit Biru', '2020-08-10 00:08:01'),
+('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Batik Merah Coklat', 10000, 'IMG-202008104445.jpg', 20, 'Gelang Batik Merah Coklat', '2020-08-10 00:09:15'),
+('P-202008103433', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Air Laut Bulat', 10000, 'IMG-202008104315.jpg', 30, 'Kalung Air Laut Bulat', '2020-08-10 00:05:28');
 
 -- --------------------------------------------------------
 
@@ -162,6 +165,24 @@ INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_k
 ('KS-202007317214', 'K-202007319642', 'Perfect Earrings'),
 ('KS-202007319193', 'K-202007312495', 'Stunning Necklaces');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` char(20) NOT NULL,
+  `id_customer` char(20) NOT NULL,
+  `id_produk` char(20) NOT NULL,
+  `no_order` varchar(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga_transaksi` int(11) NOT NULL,
+  `harga_ongkir` int(11) NOT NULL,
+  `total_transaksi` int(11) NOT NULL,
+  `status` enum('Belum Dibayar','Sudah Dibayar') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -201,6 +222,14 @@ ALTER TABLE `produk_kategori`
 ALTER TABLE `produk_sub_kategori`
   ADD PRIMARY KEY (`id_sub_kategori`),
   ADD KEY `id_kategori` (`id_kategori`);
+
+--
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`),
+  ADD KEY `id_customer` (`id_customer`),
+  ADD KEY `id_produk` (`id_produk`);
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
