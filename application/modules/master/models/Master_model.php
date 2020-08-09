@@ -107,6 +107,12 @@ class Master_model extends CI_Model {
 		if (!empty($param['order_by'])) {
 			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
+		if (!empty($param['group_by'])) {
+			$this->db->group_by($param['group_by']);
+		}
+		if (!empty($param['limit'])) {
+			$this->db->limit($param['limit']);
+		}
 
 		return $this->db->get();
 	}

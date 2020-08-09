@@ -45,7 +45,7 @@ class Produk extends MY_Controller {
                         redirect(base_url().'admin/produk','refresh');
                     } else {
                         if (!empty($this->input->post('foto'))) {
-                            unlink('assets/images/upload/'.$this->input->post('foto'));
+                            unlink('assets/admin/images/upload/'.$this->input->post('foto'));
                         }
                         $this->alert_popup([
                             'name' => 'success',
@@ -105,7 +105,7 @@ class Produk extends MY_Controller {
             if ($checking == TRUE) {
                 if ($this->input->post('insert')) {
                     $this->upload->initialize([
-                        'upload_path' => 'assets/images/upload/',
+                        'upload_path' => 'assets/admin/images/upload/',
                         'allowed_types' => 'jpg|jpeg|png',
                         'file_name' => "IMG-".date("Ymd").rand(1111,9999)
                     ]);
@@ -200,7 +200,7 @@ class Produk extends MY_Controller {
 
             if ($this->input->post('update')) {
                 $this->upload->initialize([
-                    'upload_path' => 'assets/images/upload/',
+                    'upload_path' => 'assets/admin/images/upload/',
                     'allowed_types' => 'jpg|jpeg|png',
                     'file_name' => "IMG-".date("Ymd").rand(1111,9999)
                 ]);
@@ -209,14 +209,14 @@ class Produk extends MY_Controller {
                     $upload_foto = $this->upload->data();
                     $foto = $upload_foto['file_name'];
                     if (!empty($this->input->post('foto_old'))) {
-                        unlink('assets/images/upload/'.$this->input->post('foto_old'));
+                        unlink('assets/admin/images/upload/'.$this->input->post('foto_old'));
                     }
                 } else {
                     if (!empty($this->input->post('foto_old'))) {
                         $foto = $this->input->post('foto_old');
                     } else {
                         $foto = NULL;
-                        unlink('assets/images/upload/'.$get_data->foto);
+                        unlink('assets/admin/images/upload/'.$get_data->foto);
                     }
                 }
 
@@ -333,7 +333,7 @@ class Produk extends MY_Controller {
                         redirect(base_url().'admin/produk/edit/'.$id,'refresh');
                     } else {
                         if (!empty($this->input->post('foto'))) {
-                            unlink('assets/images/upload/'.$this->input->post('foto'));
+                            unlink('assets/admin/images/upload/'.$this->input->post('foto'));
                         }
                         $this->alert_popup([
                             'name' => 'success',

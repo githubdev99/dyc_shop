@@ -51,6 +51,39 @@ class MY_Controller extends MX_Controller {
 			# code...
 		}
 
+		// Get Data
+		$this->data['produk_kategori'] = $this->master_model->select_data([
+			'field' => '*',
+			'table' => 'produk_kategori',
+			'order_by' => [
+				'nama_kategori' => 'asc'
+			]
+		])->result();
+		$this->data['produk_sub_kategori'] = $this->master_model->select_data([
+			'field' => '*',
+			'table' => 'produk_sub_kategori',
+			'order_by' => [
+				'nama_sub_kategori' => 'asc'
+			]
+		])->result();
+		$this->data['produk_thumbnail'] = $this->master_model->select_data([
+			'field' => '*',
+			'table' => 'produk',
+			'group_by' => 'id_kategori',
+			'order_by' => [
+				'harga' => 'asc'
+			]
+		])->result();
+		$this->data['produk_banner'] = $this->master_model->select_data([
+			'field' => '*',
+			'table' => 'produk',
+			'group_by' => 'id_kategori',
+			'order_by' => [
+				'harga' => 'asc'
+			],
+			'limit' => 3
+		])->result();
+
 		return $this->data;
 	}
 
