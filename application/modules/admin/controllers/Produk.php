@@ -140,7 +140,7 @@ class Produk extends MY_Controller {
                             $this->alert_popup([
                                 'name' => 'failed',
                                 'swal' => [
-                                    'text' => 'Data produk '.$this->input->post('nama_produk').' gagal di edit.',
+                                    'text' => 'Data produk '.$this->input->post('nama_produk').' gagal ditambahkan.',
                                     'type' => 'error'
                                 ]
                             ]);
@@ -149,7 +149,7 @@ class Produk extends MY_Controller {
                             $this->alert_popup([
                                 'name' => 'success',
                                 'swal' => [
-                                    'text' => 'Data produk '.$this->input->post('nama_produk').' telah berhasil di edit.',
+                                    'text' => 'Data produk '.$this->input->post('nama_produk').' telah berhasil di ditambahkan.',
                                     'type' => 'success'
                                 ]
                             ]);
@@ -184,7 +184,7 @@ class Produk extends MY_Controller {
             redirect(base_url().'admin/produk','refresh');
         }
 
-		$title = 'Tambah Produk';
+		$title = 'Edit Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
             'plugin' => ['select2', 'formValidate', 'datepicker', 'sweetalert', 'magnific-popup'],
