@@ -1,6 +1,6 @@
 <script>
     $(document).ready(function () {
-        $('form[name="login"]').submit(function (e) { 
+        $('form[name="login"]').submit(function (e) {
             e.preventDefault();
             
             $.ajax({
@@ -30,7 +30,7 @@
                             position: "top",
                             showCloseButton: !0,
                             showConfirmButton: false,
-                            timer: 1500,
+                            timer: 2000,
                             onOpen: (toast) => {
                                 toast.addEventListener("mouseenter", Swal.stopTimer)
                                 toast.addEventListener("mouseleave", Swal.resumeTimer)
