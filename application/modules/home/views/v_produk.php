@@ -44,9 +44,9 @@
                                             Lihat Detail
                                         </a>
                                         <?php if (empty($this->session->userdata('customer'))): ?>
-                                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-title="Login Required" data-toast-message="Anda harus login terlebih dahulu!">Add to Cart</button>
+                                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!">Add to Cart</button>
                                         <?php else: ?>
-                                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-title="Login Required" data-toast-message="Anda harus login terlebih dahulu!">Add to Cart</button>
+                                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!">Add to Cart</button>
                                         <?php endif ?>
                                     </div>
                                 </div>

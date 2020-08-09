@@ -2,7 +2,7 @@
 <div class="page-title">
     <div class="container">
         <div class="column">
-            <h1>Produk DYC Shop</h1>
+            <h1>Detail Produk</h1>
         </div>
     </div>
 </div>
@@ -42,26 +42,13 @@
                 </div>
                 <div class="col-md-12">
                     <hr class="mt-30 mb-30">
-                    <div class="d-flex flex-wrap justify-content-between mb-30">
-                        <div class="entry-share">
-                            <span class="text-muted">Share:</span>
-                            <div class="share-links">
-                                <a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
-                                    <i class="socicon-facebook"></i>
-                                </a>
-                                <a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
-                                    <i class="socicon-twitter"></i>
-                                </a>
-                                <a class="social-button shape-circle sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instagram">
-                                    <i class="socicon-instagram"></i>
-                                </a>
-                                <a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google +">
-                                    <i class="socicon-googleplus"></i>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="d-flex flex-wrap justify-content-between mb-30 pull-right">
                         <div class="sp-buttons mt-2 mb-2">
-                            <button class="btn btn-primary" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!"><i class="icon-bag"></i> Add to Cart</button>
+                            <?php if (empty($this->session->userdata('customer'))): ?>
+                                <button class="btn btn-primary" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!"><i class="icon-bag"></i> Add to Cart</button>
+                            <?php else: ?>
+                                <button class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!"><i class="icon-bag"></i> Add to Cart</button>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
