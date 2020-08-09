@@ -19,7 +19,7 @@
                         <h3 class="widget-title text-center"><?= $setup_app['app_name'] ?> Contact Info</h3>
                         <p class="text-white"><i class="fa fa-phone"></i> 08211127370</p>
                         <p class="text-white"><i class="fa fa-envelope-o"></i> dyc_shop@gmail.com</p>
-                        <p class="text-white"><i class="fa fa-map-marker"></i> Jl. Cempaka RT 002 RW 002 No 81 Jatibening Baru, Bekasi 17412</p>
+                        <p class="text-white"><i class="fa fa-map-marker"></i> Jakarta Timur, DKI Jakarta, Jawa Barat, 13810</p>
                         <ul class="list-unstyled text-sm text-white">
                             <li><span class="opacity-50">Senin - Sabtu: </span>10:00 - 22:00</li>
                         </ul>

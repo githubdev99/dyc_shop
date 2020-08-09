@@ -45,16 +45,16 @@
                 <a href="<?= base_url() ?>home"><span>Beranda</span></a>
             </li>
             <li <?= ($this->uri->segment(2) == 'produk') ? 'class="active"' : '' ?>>
-                <a href="<?= base_url() ?>home/produk"><span>produk</span></a>
+                <a href="<?= base_url() ?>home/produk"><span>Produk</span></a>
                 <ul class="sub-menu">
                     <?php foreach ($setup_app['produk_kategori'] as $key_kategori): ?>
-                        <li class="has-children">
+                        <li class="has-children <?= ($this->input->get('kategori') == encrypt_text($key_kategori->id_kategori)) ? 'active' : '' ?>">
                             <a href="<?= base_url() ?>home/produk?kategori=<?= encrypt_text($key_kategori->id_kategori) ?>"><span><?= $key_kategori->nama_kategori ?></span></a>
                             
                             <ul class="sub-menu">
                                 <?php foreach ($setup_app['produk_sub_kategori'] as $key_sub_kategori): ?>
                                     <?php if ($key_kategori->id_kategori == $key_sub_kategori->id_kategori): ?>
-                                        <li><a href="<?= base_url() ?>home/produk?kategori=<?= encrypt_text($key_kategori->id_kategori) ?>&sub_kategori=<?= encrypt_text($key_sub_kategori->id_sub_kategori) ?>"><?= $key_sub_kategori->nama_sub_kategori ?></a></li>
+                                        <li <?= ($this->input->get('sub_kategori') == encrypt_text($key_sub_kategori->id_sub_kategori)) ? 'class="active"' : '' ?>><a href="<?= base_url() ?>home/produk?kategori=<?= encrypt_text($key_kategori->id_kategori) ?>&sub_kategori=<?= encrypt_text($key_sub_kategori->id_sub_kategori) ?>"><?= $key_sub_kategori->nama_sub_kategori ?></a></li>
                                     <?php endif ?>
                                 <?php endforeach ?>
                             </ul>
@@ -62,8 +62,12 @@
                     <?php endforeach ?>
                 </ul>
             </li>
-            <li <?= ($this->uri->segment(2) == 'tentang') ? 'class="active"' : '' ?>>
-                <a href="#"><span>Tentang Kami</span></a>
+            <li <?= ($this->uri->segment(2) == 'bantuan') ? 'class="active"' : '' ?>>
+                <a href="#"><span>Bantuan</span></a>
+                <ul class="sub-menu">
+                    <li <?= ($this->uri->segment(3) == 'tentang_kami') ? 'class="active"' : '' ?>><a href="<?= base_url() ?>home/bantuan/tentang_kami">Tentang Kami</a></li>
+                    <li <?= ($this->uri->segment(3) == 'cara_belanja') ? 'class="active"' : '' ?>><a href="<?= base_url() ?>home/bantuan/cara_belanja">Cara Belanja & Metode Pembayaran</a></li>
+                </ul>
             </li>
         </ul>
     </nav>
