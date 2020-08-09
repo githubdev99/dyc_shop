@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="mb-0">Form</h5>
-                <h3 class="mb-0 text-info">Buat Data Produk Baru</h3>
+                <h3 class="mb-0 text-info">Edit Data Produk Baru</h3>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Form Data</h4>
                     <p class="card-title-desc">
-                        Isi data sebagai berikut untuk menambahkan data produk baru.<br>
+                        Edit data sebagai berikut jika terdapat kesalahan input.<br>
                         <i>Tanda <span class="text-danger">*</span> wajib diisi</i>
                     </p>
 

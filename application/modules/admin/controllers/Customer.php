@@ -262,6 +262,9 @@ class Customer extends MY_Controller {
 				$nested_data[] = '
 				<a href="'.base_url().'admin/customer/detail/'.encrypt_text($key->id_customer).'" class="btn btn-info waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Detail Data">
 					<i class="fas fa-info"></i>
+                </a>
+                <a href="javascript:;" class="btn btn-warning waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Ubah Password" onclick="modal_ubah_password('."'".encrypt_text($key->id_customer)."'".')">
+                    <i class="fas fa-key"></i>
 				</a>
 				<a href="'.base_url().'admin/customer/edit/'.encrypt_text($key->id_customer).'" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data">
 					<i class="fas fa-edit"></i>

@@ -17,8 +17,10 @@ class Dashboard extends MY_Controller {
 			'count_data' => [
 				'produk_kategori' => $this->master_model->count_data('produk_kategori'),
 				'produk' => $this->master_model->count_data('produk'),
+				'customer' => $this->master_model->count_data('customer')
 			],
-			'get_view' => 'admin/dashboard/view'
+			'get_view' => 'admin/dashboard/view',
+			'get_script' => 'admin/dashboard/script_view'
 		];
 
 		$this->master->template_admin($data);

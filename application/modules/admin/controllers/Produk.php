@@ -282,14 +282,19 @@ class Produk extends MY_Controller {
 		];
 		$this->param['field'] = 'produk.*, produk_kategori.nama_kategori, produk_sub_kategori.nama_sub_kategori';
         $this->param['table'] = 'produk';
-        
-        $this->param['join'][0]['table'] = 'produk_kategori';
-		$this->param['join'][0]['on'] = 'produk_kategori.id_kategori = produk.id_kategori';
-        $this->param['join'][0]['type'] = 'inner';
-        
-        $this->param['join'][1]['table'] = 'produk_sub_kategori';
-		$this->param['join'][1]['on'] = 'produk_sub_kategori.id_sub_kategori = produk.id_sub_kategori';
-		$this->param['join'][1]['type'] = 'inner';
+
+        $this->param['join'] = [
+            [
+                'table' => 'produk_kategori',
+                'on' => 'produk_kategori.id_kategori = produk.id_kategori',
+                'type' => 'inner'
+            ],
+            [
+                'table' => 'produk_sub_kategori',
+                'on' => 'produk_sub_kategori.id_sub_kategori = produk.id_sub_kategori',
+                'type' => 'inner'
+            ]
+        ];
         
 		$this->param['order_by'] = [
 			'nama_produk' => 'asc'

@@ -26,8 +26,7 @@
                                     <h4 class="mb-0"><?= $count_data['produk_kategori'] ?></h4>
                                 </div>
 
-                                <div
-                                    class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                                     <span class="avatar-title">
                                         <i class="fas fa-bookmark font-size-24"></i>
                                     </span>
@@ -47,8 +46,7 @@
                                     <h4 class="mb-0"><?= $count_data['produk'] ?></h4>
                                 </div>
 
-                                <div
-                                    class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                                     <span class="avatar-title">
                                         <i class="bx bxs-archive font-size-24"></i>
                                     </span>
@@ -65,11 +63,10 @@
                             <div class="media">
                                 <div class="media-body">
                                     <p class="text-muted font-weight-medium">Customer</p>
-                                    <h4 class="mb-0">$35, 723</h4>
+                                    <h4 class="mb-0"><?= $count_data['customer'] ?></h4>
                                 </div>
 
-                                <div
-                                    class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                     <span class="avatar-title rounded-circle bg-primary">
                                         <i class="bx bxs-user-pin font-size-24"></i>
                                     </span>
@@ -89,8 +86,7 @@
                                     <h4 class="mb-0">$16.2</h4>
                                 </div>
 
-                                <div
-                                    class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
                                     <span class="avatar-title rounded-circle bg-primary">
                                         <i class="bx bxs-purchase-tag font-size-24"></i>
                                     </span>

@@ -34,8 +34,8 @@ class Master_model extends CI_Model {
 		}
 
 		if (!empty($param['join'])) {
-			for ($i=0; $i < count($param['join']); $i++) {
-				$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
+			foreach ($param['join'] as $key) {
+				$this->db->join($key['table'], $key['on'], $key['type']);
 			}
 		}
 		if (!empty($param['where'])) {
@@ -97,8 +97,8 @@ class Master_model extends CI_Model {
 		$this->db->select($param['field']);
 		$this->db->from($param['table']);
 		if (!empty($param['join'])) {
-			for ($i=0; $i < count($param['join']); $i++) {
-				$this->db->join($param['join'][$i]['table'], $param['join'][$i]['on'], $param['join'][$i]['type']);
+			foreach ($param['join'] as $key) {
+				$this->db->join($key['table'], $key['on'], $key['type']);
 			}
 		}
 		if (!empty($param['where'])) {

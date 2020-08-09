@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="mb-0">Form</h5>
-                <h3 class="mb-0 text-info">Buat Data Customer Baru</h3>
+                <h3 class="mb-0 text-info">Edit Data Customer Baru</h3>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Form Data</h4>
                     <p class="card-title-desc">
-                        Isi data sebagai berikut untuk menambahkan data customer baru.<br>
+                        Edit data sebagai berikut jika terdapat kesalahan input.<br>
                         <i>Tanda <span class="text-danger">*</span> wajib diisi</i>
                     </p>
 
@@ -32,7 +32,7 @@
                             </span>
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-12">
-                            <input name="nama_lengkap" type="text" class="form-control" required="" aria-required="true">
+                            <input name="nama_lengkap" type="text" class="form-control" required="" aria-required="true" value="<?= $get_data->nama_lengkap ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -44,32 +44,7 @@
                             </span>
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-12">
-                            <input name="username" type="text" class="form-control" required="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
-                            Password <span class="text-danger">*</span>
-                            <br>
-                            <span class="help-block" style="font-weight: normal;">
-                                <small><i>Password untuk customer login</i></small>
-                            </span>
-                        </label>
-                        <div class="col-sm-9 col-md-9 col-xs-12">
-                            <input name="password" type="password" class="form-control" required="">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
-                            Konfirmasi Password <span class="text-danger">*</span>
-                            <br>
-                            <span class="help-block" style="font-weight: normal;">
-                                <small><i>Konfirmasi password customer</i></small>
-                            </span>
-                        </label>
-                        <div class="col-sm-9 col-md-9 col-xs-12">
-                            <input name="konfirmasi_password" type="password" class="form-control" required="" onkeyup="match_password(this.value);">
-                            <span class="text-danger" id="text_not_match" style="display:none;">Password tidak sama</span>
+                            <input name="username" type="text" class="form-control" required="" value="<?= $get_data->username ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -82,13 +57,13 @@
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-12">
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" name="jenis_kelamin" id="Laki-Laki" value="Laki-Laki" class="custom-control-input" required="" checked>
+                                <input type="radio" name="jenis_kelamin" id="Laki-Laki" value="Laki-Laki" class="custom-control-input" required="" <?= ($get_data->jenis_kelamin == 'Laki-Laki') ? 'checked' : '' ; ?>>
                                 <label class="custom-control-label" for="Laki-Laki">
                                     Laki-Laki
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" name="jenis_kelamin" id="Perempuan" value="Perempuan" class="custom-control-input" required="">
+                                <input type="radio" name="jenis_kelamin" id="Perempuan" value="Perempuan" class="custom-control-input" required="" <?= ($get_data->jenis_kelamin == 'Perempuan') ? 'checked' : '' ; ?>>
                                 <label class="custom-control-label" for="Perempuan">
                                     Perempuan
                                 </label>
@@ -104,7 +79,7 @@
                             </span>
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-12">
-                            <input name="email" type="email" class="form-control" required="">
+                            <input name="email" type="email" class="form-control" required="" value="<?= $get_data->email ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -116,7 +91,7 @@
                             </span>
                         </label>
                         <div class="col-sm-4 col-md-4 col-xs-12">
-                            <input name="no_telp" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)">
+                            <input name="no_telp" type="text" class="form-control" required="" aria-required="true" onkeypress="number_only(event)" value="<?= $get_data->no_telp ?>">
                             <span class="text-muted">Hanya berisi angka (0-9)</span>
                         </div>
                     </div>
@@ -129,7 +104,7 @@
                             </span>
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-12">
-                            <textarea name="alamat" class="form-control" required="" aria-required="true"></textarea>
+                            <textarea name="alamat" class="form-control" required="" aria-required="true"><?= $get_data->alamat ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -140,7 +115,7 @@
     <div class="row">
         <div class="col-12 text-right">
             <div class="form-group">
-                <button type="submit" name="insert" value="insert" class="btn btn-lg btn-info waves-effect waves-light mr-3" disabled><i class="fas fa-save mr-2"></i>&ensp;Simpan Data</button>
+                <button type="submit" name="update" value="update" class="btn btn-lg btn-success waves-effect waves-light mr-3"><i class="fas fa-edit mr-2"></i>&ensp;Edit Data</button>
                 <a href="<?= base_url() ?>admin/customer" class="btn btn-lg btn-danger waves-effect waves-light"><i class="fas fa-times mr-2"></i>&ensp;Batal</a>
             </div>
         </div>
