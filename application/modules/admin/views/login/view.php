@@ -13,7 +13,7 @@
 									</div>
 								</div>
 								<div class="col-4 align-self-end">
-									<img src="<?= base_url() ?>assets/images/profile-img.png" alt="" class="img-fluid">
+									<img src="<?= base_url() ?>assets/admin/images/profile-img.png" alt="" class="img-fluid">
 								</div>
 							</div>
 						</div>

@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-right d-none d-sm-block">
-                            DYC Shop
+                            <?= $setup_app['app_name'] ?>
                         </div>
                     </div>
                 </div>

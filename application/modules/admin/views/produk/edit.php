@@ -118,12 +118,12 @@
                                 <span class="text-muted">Kosongkan bila tidak ada</span>
                             </div>
                             <?php if (!empty($get_data->foto)): ?>
-                                <a class="image-popup" href="<?= base_url() ?>assets/images/upload/<?= $get_data->foto ?>">
-                                    <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/upload/<?= $get_data->foto ?>" data-holder-rendered="true">
+                                <a class="image-popup" href="<?= base_url() ?>assets/admin/images/upload/<?= $get_data->foto ?>">
+                                    <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/admin/images/upload/<?= $get_data->foto ?>" data-holder-rendered="true">
                                 </a>
                             <?php else: ?>
-                                <a class="image-popup" href="<?= base_url() ?>assets/images/img-thumbnail.svg">
-                                    <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/img-thumbnail.svg" data-holder-rendered="true">
+                                <a class="image-popup" href="<?= base_url() ?>assets/admin/images/img-thumbnail.svg">
+                                    <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/admin/images/img-thumbnail.svg" data-holder-rendered="true">
                                 </a>
                             <?php endif ?>
                             &ensp;

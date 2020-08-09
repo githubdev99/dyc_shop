@@ -15,7 +15,7 @@ class MY_Controller extends MX_Controller {
 
 	public function setup_app($title)
 	{
-		$this->data['main_icon'] = base_url().'assets/images/logo-mini.png';
+		$this->data['main_icon'] = base_url().'assets/admin/images/logo-mini.png';
 		$this->data['app_name'] = 'DYC Shop';
 		$this->data['title_page'] = $title.' | '.$this->data['app_name'];
 		$this->data['ajax_error'] = '

@@ -116,8 +116,8 @@
                                 <label class="custom-file-label" id="nama_foto"></label>
                                 <span class="text-muted">Kosongkan bila tidak ada</span>
                             </div>
-                            <a class="image-popup" href="<?= base_url() ?>assets/images/img-thumbnail.svg">
-                                <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/images/img-thumbnail.svg" data-holder-rendered="true">
+                            <a class="image-popup" href="<?= base_url() ?>assets/admin/images/img-thumbnail.svg">
+                                <img class="img-thumbnail" id="preview_foto" width="200" src="<?= base_url() ?>assets/admin/images/img-thumbnail.svg" data-holder-rendered="true">
                             </a>
                             &ensp;
                             <button type="button" id="remove_preview" class="btn btn-danger waves-effect waves-light mt-2"><i class="far fa-trash-alt mr-2"></i>Remove Image</button>

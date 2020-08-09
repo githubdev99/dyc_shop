@@ -83,7 +83,7 @@
                             <div class="media">
                                 <div class="media-body">
                                     <p class="text-muted font-weight-medium">Transaksi</p>
-                                    <h4 class="mb-0">$16.2</h4>
+                                    <h4 class="mb-0"><?= $count_data['transaksi'] ?></h4>
                                 </div>
 
                                 <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">

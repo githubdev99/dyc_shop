@@ -169,7 +169,7 @@ class Kategori_produk extends MY_Controller {
             redirect(base_url().'admin/kategori_produk','refresh');
         }
 
-        $title = 'Kategori Produk';
+        $title = 'Detail Kategori Produk';
 		$data = [
 			'setup_app' => $this->setup_app($title),
             'plugin' => ['datatable', 'sweetalert'],

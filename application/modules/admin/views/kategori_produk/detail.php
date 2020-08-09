@@ -210,7 +210,7 @@
             <a href="javascript:;" class="btn btn-lg btn-danger waves-effect waves-light mr-3 mt-2" onclick="modal_delete_kategori('<?= encrypt_text($get_data->id_kategori) ?>')"><i class="far fa-trash-alt mr-2"></i>&ensp;Hapus Data</a>
             <a href="<?= base_url() ?>admin/kategori_produk" class="btn btn-lg btn-info waves-effect waves-light mt-2"><i class="fas fa-arrow-alt-circle-left mr-2"></i>&ensp;Kembali</a>
         </div>
-    </div> <!-- end col -->
+    </div>
 </div>
 <!-- end row -->
 

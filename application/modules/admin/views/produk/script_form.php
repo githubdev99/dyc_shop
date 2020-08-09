@@ -57,7 +57,7 @@
 			document.getElementById('nama_foto').innerHTML = this.value.split('\\').pop().split('/').pop();
 			read_image(this);
 			if (this.value == '') {
-				$('#preview_foto').attr('src', '<?= base_url() ?>assets/images/img-thumbnail.svg');
+				$('#preview_foto').attr('src', '<?= base_url() ?>assets/admin/images/img-thumbnail.svg');
 				$('#remove_preview').hide();
 			}
 		});
@@ -68,8 +68,8 @@
 			<?php if (!empty($get_data->foto)): ?>
 				document.getElementById('foto_old').value = '';
 			<?php endif ?>
-			$('.image-popup').attr('href', '<?= base_url() ?>assets/images/img-thumbnail.svg');
-			$('#preview_foto').attr('src', '<?= base_url() ?>assets/images/img-thumbnail.svg');
+			$('.image-popup').attr('href', '<?= base_url() ?>assets/admin/images/img-thumbnail.svg');
+			$('#preview_foto').attr('src', '<?= base_url() ?>assets/admin/images/img-thumbnail.svg');
 			$('#remove_preview').hide();
 		});
 

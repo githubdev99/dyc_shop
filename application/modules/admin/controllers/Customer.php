@@ -219,6 +219,75 @@ class Customer extends MY_Controller {
         }
     }
 
+    public function detail($id)
+	{
+        $get_data = $this->master_model->get_data([
+            'table' => 'customer',
+            'where' => [
+                'id_customer' => decrypt_text($id)
+            ]
+        ])->row();
+
+        // Check URL
+        if (decrypt_text($id) != $get_data->id_customer) {
+            $this->alert_popup([
+                'name' => 'failed',
+                'swal' => [
+                    'text' => 'Ada kesalahan teknis',
+                    'type' => 'error'
+                ]
+            ]);
+            redirect(base_url().'admin/customer','refresh');
+        }
+
+		$title = 'Detail Customer';
+		$data = [
+			'setup_app' => $this->setup_app($title),
+            'plugin' => ['sweetalert'],
+            'get_view' => 'admin/customer/detail',
+            'get_script' => 'admin/customer/script_detail',
+            'get_data' => $get_data,
+		];
+
+        if (!$this->input->post()) {
+            $this->master->template_admin($data);
+        } else {
+            $process = TRUE;
+
+            if ($this->input->post('delete')) {
+                if ($process == TRUE) {
+                    $query = $this->master_model->delete_data([
+                        'where' => [
+                            'id_customer' => decrypt_text($this->input->post('id_customer'))
+                        ],
+                        'table' => 'customer'
+                    ]);
+                    if ($query == FALSE) {
+                        $this->alert_popup([
+                            'name' => 'failed',
+                            'swal' => [
+                                'text' => 'Data customer '.$this->input->post('username').' gagal di hapus.',
+                                'type' => 'error'
+                            ]
+                        ]);
+                        redirect(base_url().'admin/customer','refresh');
+                    } else {
+                        $this->alert_popup([
+                            'name' => 'success',
+                            'swal' => [
+                                'text' => 'Data customer '.$this->input->post('username').' berhasil di hapus.',
+                                'type' => 'success'
+                            ]
+                        ]);
+                        redirect(base_url().'admin/customer','refresh');
+                    }
+                }
+            } else {
+                $process = FALSE;
+            }
+        }
+    }
+
     public function list_customer()
 	{
 		if (!empty($_REQUEST['draw'])) {
@@ -263,13 +332,11 @@ class Customer extends MY_Controller {
 				<a href="'.base_url().'admin/customer/detail/'.encrypt_text($key->id_customer).'" class="btn btn-info waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Detail Data">
 					<i class="fas fa-info"></i>
                 </a>
-                <a href="javascript:;" class="btn btn-warning waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Ubah Password" onclick="modal_ubah_password('."'".encrypt_text($key->id_customer)."'".')">
-                    <i class="fas fa-key"></i>
-				</a>
 				<a href="'.base_url().'admin/customer/edit/'.encrypt_text($key->id_customer).'" class="btn btn-success waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Edit Data">
 					<i class="fas fa-edit"></i>
 				</a>
-				<a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".encrypt_text($key->id_customer)."'".')"><i class="far fa-trash-alt"></i>
+                <a href="javascript:;" class="btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Hapus Data" onclick="modal_delete('."'".encrypt_text($key->id_customer)."'".')">
+                    <i class="far fa-trash-alt"></i>
 				</a>';
 
 				$get_data[] = $nested_data;

@@ -8,12 +8,12 @@
 	<link rel="shortcut icon" href="<?= $setup_app['main_icon'] ?>">
 
 	<!-- Main CSS -->
-	<link href="<?= base_url() ?>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-	<link href="<?= base_url() ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-	<link href="<?= base_url() ?>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url() ?>assets/admin/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url() ?>assets/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url() ?>assets/admin/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
 	<!-- Custom CSS -->
-	<link href="<?= base_url() ?>assets/custom/custom.css" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url() ?>assets/admin/custom/custom.css" rel="stylesheet" type="text/css" />
 </head>
 <body data-topbar="dark">
 	<div class="account-pages my-5 pt-5">
@@ -32,7 +32,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8 col-xl-6">
 					<div>
-						<img src="<?= base_url() ?>assets/images/error-img.png" alt="" class="img-fluid">
+						<img src="<?= base_url() ?>assets/admin/images/error-img.png" alt="" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -40,10 +40,10 @@
 	</div>
 
 	<!-- Main JS -->
-    <script src="<?= base_url() ?>assets/libs/jquery/jquery.min.js"></script>
-    <script src="<?= base_url() ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url() ?>assets/libs/metismenu/metisMenu.min.js"></script>
-    <script src="<?= base_url() ?>assets/libs/simplebar/simplebar.min.js"></script>
-    <script src="<?= base_url() ?>assets/libs/node-waves/waves.min.js"></script>
+    <script src="<?= base_url() ?>assets/admin/libs/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() ?>assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url() ?>assets/admin/libs/metismenu/metisMenu.min.js"></script>
+    <script src="<?= base_url() ?>assets/admin/libs/simplebar/simplebar.min.js"></script>
+    <script src="<?= base_url() ?>assets/admin/libs/node-waves/waves.min.js"></script>
 </body>
 </html>

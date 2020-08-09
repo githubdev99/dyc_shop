@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Produk extends MY_Controller {
+class Transaksi extends MY_Controller {
 
     private $data = [];
 	private $param = [];
@@ -360,7 +360,7 @@ class Produk extends MY_Controller {
 		}
 
 		$this->param['column_search'] = [
-			'id_produk','nama_kategori','nama_sub_kategori','kode_sku','nama_produk','harga','stok','deskripsi'
+			'id_transaksi','nama_lengkap','nama_produk','no_order','qty','harga_transaksi','harga_ongkir','total_transaksi','status'
 		];
 		$this->param['column_order'] = [
 			null,null,'nama_produk','nama_kategori','harga','stok',null
@@ -468,83 +468,6 @@ class Produk extends MY_Controller {
 				$get_data['id_produk'] = encrypt_text($this->data['data_parsing']->id_produk);
 				$get_data['nama_produk'] = $this->data['data_parsing']->nama_produk;
 				$get_data['foto'] = $this->data['data_parsing']->foto;
-
-				$this->data['output'] = [
-					'error' => false,
-					'data' => $get_data
-				];
-			}
-		}
-
-		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
-	}
-
-	public function option_kategori()
-	{
-		$this->param['field'] = '*';
-		$this->param['table'] = 'produk_kategori';
-		$this->param['order_by'] = [
-			'nama_kategori' => 'asc'
-		];
-
-		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
-
-		if (!empty($this->data['data_parsing'])) {
-			$get_data = [];
-			if ($this->data['data_parsing'] == FALSE) {
-				$this->data['output'] = [
-					'error' => true,
-					'data' => $get_data
-				];
-			} else {
-				$get_data['html'] = '<option value=""></option>';
-				foreach ($this->data['data_parsing'] as $key) {
-					$selected = (decrypt_text($this->input->post('id_kategori')) == $key->id_kategori) ? 'selected' : '';
-
-					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->id_kategori).'" '.$selected.'>'.$key->nama_kategori.'</option>
-					';
-				}
-
-				$this->data['output'] = [
-					'error' => false,
-					'data' => $get_data
-				];
-			}
-		}
-
-		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
-	}
-
-	public function option_sub_kategori()
-	{
-		$this->param['field'] = '*';
-		$this->param['table'] = 'produk_sub_kategori';
-		$this->param['where'] = [
-			'id_kategori' => decrypt_text($this->input->post('id_kategori'))
-		];
-		$this->param['order_by'] = [
-			'nama_sub_kategori' => 'asc'
-		];
-
-		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
-
-		if (!empty($this->data['data_parsing'])) {
-			$get_data = [];
-			if ($this->data['data_parsing'] == FALSE) {
-				$this->data['output'] = [
-					'error' => true,
-					'data' => $get_data
-				];
-			} else {
-				$get_data['html'] = '<option value=""></option>';
-				foreach ($this->data['data_parsing'] as $key) {
-					$selected = (decrypt_text($this->input->post('id_sub_kategori')) == $key->id_sub_kategori) ? 'selected' : '';
-
-					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->id_sub_kategori).'" '.$selected.'>'.$key->nama_sub_kategori.'</option>
-					';
-				}
 
 				$this->data['output'] = [
 					'error' => false,
