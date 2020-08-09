@@ -88,3 +88,15 @@ if (!function_exists('rupiah'))
         return $rupiah;
     }
 }
+
+if (!function_exists('shorten_name'))
+{
+    function shorten_name($string)
+    {
+        if (strlen($string) >= 22) {
+            return substr($string, 0,22).'...';
+        } else {
+            return $string;
+        }
+    }
+}

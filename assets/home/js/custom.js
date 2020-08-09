@@ -30,9 +30,9 @@ document.addEventListener("keydown", function(e) {
     disabledEvent(e);
   }
   // "F12" key
-  if (event.keyCode == 123) {
-    disabledEvent(e);
-  }
+  // if (event.keyCode == 123) {
+  //   disabledEvent(e);
+  // }
 }, false);
 function disabledEvent(e){
   if (e.stopPropagation){

@@ -12,8 +12,7 @@ class Home extends MY_Controller {
 		$title = 'Home';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'get_view' => 'home/v_home',
-			'get_script' => 'home/script_home'
+			'get_view' => 'home/v_home'
 		];
 
 		$this->master->template_home($data);

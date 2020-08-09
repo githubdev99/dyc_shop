@@ -39,7 +39,7 @@
                             <div class="card-body text-center">
                                 <h4 class="card-title"><?= $key_kategori->nama_kategori ?></h4>
                                 <p class="text-muted">Mulai dari <?= rupiah($key_produk_thumbnail->harga) ?></p>
-                                <a class="btn btn-outline-primary btn-sm" href="#">View Products</a>
+                                <a class="btn btn-outline-primary btn-sm" href="<?= base_url() ?>home/produk?kategori=<?= encrypt_text($key_kategori->id_kategori) ?>">View Products</a>
                             </div>
                         <?php endif ?>
                     <?php endforeach ?>
