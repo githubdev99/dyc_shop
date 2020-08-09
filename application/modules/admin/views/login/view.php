@@ -26,7 +26,7 @@
 								</div>
 							</div>
 							<div class="p-2">
-								<form class="form-horizontal" method="post" action="?" enctype="multipart/form-data">
+								<form class="form-horizontal" method="post" action="<?= base_url() ?>admin/login" enctype="multipart/form-data" name="login">
 
 									<div class="form-group">
 										<label>Username</label>

@@ -14,7 +14,14 @@ class Admin extends MY_Controller {
 
 	public function logout()
 	{
-		$this->session->sess_destroy();
+		$this->session->unset_userdata('admin');
+		$this->alert_popup([
+			'name' => 'success',
+			'swal' => [
+				'text' => 'Anda berhasil logout!',
+				'type' => 'success'
+			]
+		]);
 		redirect('admin/login','refresh');
 	}
 

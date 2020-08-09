@@ -36,17 +36,17 @@ class MY_Controller extends MX_Controller {
 		';
 
 		// Session Admin
-		if ($this->session->userdata('level') == 'admin') {
+		if ($this->session->userdata('admin')) {
 			$this->data['data_session'] = $this->master_model->select_data(
 				[
 					'field' => '*',
 					'table' => 'admin',
 					'where' => [
-						'id_admin' => $this->session->userdata('id')
+						'id_admin' => $this->session->userdata('admin')['id']
 					]
 				]
 			)->row();
-		} elseif ($this->session->userdata('level') == 'customer') {
+		} elseif ($this->session->userdata('customer')) {
 			# code...
 		}
 
@@ -75,20 +75,30 @@ class MY_Controller extends MX_Controller {
 		$this->session->set_flashdata($message['name'], $sweet_alert);
 	}
 
-	public function has_login()
+	public function has_login_admin()
 	{
-		if ($this->session->userdata('level') == 'admin') {
+		if (!empty($this->session->userdata('admin'))) {
 			redirect('admin/dashboard','refresh');
-		} if ($this->session->userdata('level') == 'customer') {
+		}
+	}
+
+	public function not_login_admin()
+	{
+		if (empty($this->session->userdata('admin'))) {
+			redirect('admin/login','refresh');
+		}
+	}
+
+	public function has_login_customer()
+	{
+		if (!empty($this->session->userdata('customer'))) {
 			redirect('home','refresh');
 		}
 	}
 
-	public function not_login()
+	public function not_login_customer()
 	{
-		if (!$this->session->userdata('level') == 'admin') {
-			redirect('admin/login','refresh');
-		} elseif (!$this->session->userdata('level') == 'customer') {
+		if (empty($this->session->userdata('customer'))) {
 			redirect('auth/login','refresh');
 		}
 	}

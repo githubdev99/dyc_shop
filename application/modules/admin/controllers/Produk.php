@@ -8,7 +8,7 @@ class Produk extends MY_Controller {
 	public function __construct()
 	{
         parent::__construct();
-        $this->not_login();
+        $this->not_login_admin();
 	}
 
 	public function index()

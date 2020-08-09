@@ -5,7 +5,7 @@ class Login extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->has_login();
+		$this->has_login_admin();
 	}
 
 	public function index()
@@ -13,7 +13,8 @@ class Login extends MY_Controller {
 		$title = 'Login';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-			'plugin' => ['sweetalert']
+			'plugin' => ['sweetalert'],
+            'get_script' => 'admin/login/script_login'
 		];
 		
 		if (!$this->input->post()) {
@@ -21,53 +22,46 @@ class Login extends MY_Controller {
 		} else {
 			$process = TRUE;
 
-			if ($this->input->post('login')) {
-				if ($process == TRUE) {
-					$query = $this->master_model->select_data([
-							'field' => '*',
-							'table' => 'admin',
-							'where' => [
-								'username' => $this->input->post('username')
-							]
-						])->row();
+			if ($process == TRUE) {
+				$query = $this->master_model->select_data([
+					'field' => '*',
+					'table' => 'admin',
+					'where' => [
+						'username' => $this->input->post('username')
+					]
+				])->row();
 
-					if ($query == FALSE) {
-						$this->alert_popup([
-							'name' => 'failed',
-							'swal' => [
-								'text' => 'Akun tidak ditemukan!',
-								'type' => 'warning'
-							]
-						]);
-						redirect(base_url().'admin/login','refresh');
-					} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
-						$this->alert_popup([
-							'name' => 'failed',
-							'swal' => [
-								'text' => 'Username atau password salah!',
-								'type' => 'error'
-							]
-						]);
-						redirect(base_url().'admin/login','refresh');
-					} else {
-						$this->session->set_userdata([
-							'level' => 'admin',
-							'id' => $query->id_admin
-						]);
-
-						$this->alert_popup([
-							'name' => 'success',
-							'swal' => [
-								'text' => 'Anda berhasil login!',
-								'type' => 'success'
-							]
-						]);
-						redirect(base_url().'admin/dashboard','refresh');
-					}
+				if ($query == FALSE) {
+					$output = [
+						'error' => true,
+						'text' => 'Akun tidak ditemukan!',
+						'type' => 'warning'
+					];
+				} elseif ($query->username != $this->input->post('username') || !password_verify($this->input->post('password'), $query->password)) {
+					$output = [
+						'error' => true,
+						'text' => 'Username atau password salah!',
+						'type' => 'error'
+					];
 				} else {
-					$process = FALSE;
+					$this->session->set_userdata([
+						'admin' => [
+							'id' => $query->id_admin
+						]
+					]);
+
+					$output = [
+						'error' => false,
+						'text' => 'Anda berhasil login!<br>Halaman akan otomatis berpindah',
+						'type' => 'success',
+						'callback' => base_url().'admin/dashboard'
+					];
 				}
+			} else {
+				$process = FALSE;
 			}
+
+			$this->output->set_content_type('application/json')->set_output(json_encode($output));
 		}
 	}
 
