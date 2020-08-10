@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Agu 2020 pada 00.19
+-- Waktu pembuatan: 11 Agu 2020 pada 01.47
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -57,6 +57,13 @@ CREATE TABLE `customer` (
   `no_telp` varchar(20) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `customer`
+--
+
+INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `email`, `no_telp`, `alamat`) VALUES
+('C-202008112064', 'devan', '$2y$10$Qf/J5vPE3wQvBtRKkYhhWOS7VYQhvxGWxvbNKwZjr7sBEW4Nalldy', 'Devan Ramadhan', 'Laki-Laki', 'devan@gmail.com', '012345', 'Jl. Bintara');
 
 -- --------------------------------------------------------
 
