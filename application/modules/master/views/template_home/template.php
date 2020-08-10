@@ -17,11 +17,11 @@
                 <div class="col-lg-6">
                     <section class="widget widget-light-skin">
                         <h3 class="widget-title text-center"><?= $setup_app['app_name'] ?> Contact Info</h3>
-                        <p class="text-white"><i class="fa fa-phone"></i> 08211127370</p>
-                        <p class="text-white"><i class="fa fa-envelope-o"></i> dyc_shop@gmail.com</p>
-                        <p class="text-white"><i class="fa fa-map-marker"></i> Jakarta Timur, DKI Jakarta, Jawa Barat, 13810</p>
+                        <p class="text-white"><i class="fa fa-phone"></i> 082112422030</p>
+                        <p class="text-white"><i class="fa fa-envelope-o"></i> dailymoodday@gmail.com</p>
+                        <p class="text-white"><i class="fa fa-map-marker"></i> Lubang Buaya, Cipayung, Jakarta Timur, 13810</p>
                         <ul class="list-unstyled text-sm text-white">
-                            <li><span class="opacity-50">Senin - Sabtu: </span>10:00 - 22:00</li>
+                            <li><span class="opacity-50">Senin - Jumat: </span>09:00 - 20:00</li>
                         </ul>
                         <center>
                             <a class="social-button shape-circle sb-facebook sb-light-skin" href="https://www.facebook.com" target="_blank">

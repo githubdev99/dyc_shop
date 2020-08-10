@@ -8,7 +8,7 @@
 </div>
 <!-- End Page Title -->
 <!-- Start Page Content -->
-<div class="container padding-bottom-10x">
+<div class="container padding-bottom-3x">
     <h2 class="text-center mb-30">Tentang Kami</h2>
     <!-- Start About Us -->
     <p style="font-size: 16px;">Selamat datang di DYC Accessories Shop. Mohon agar dapat dibaca secara cermat & teliti seluruh persyaratan, ketentuan dan peraturan berlaku yang tertera di website ini. Dengan mengakses, menggunakan layanan kami dan atau memesan produk di Webstore ini, Kami anggap setuju dengan Peraturan dan Persyaratan yang kami lampirkan di website ini. Sebelum melakukan pemesanan, bila ada yang ingin ditanyakan mengenai peraturan dan persyaratan ini, silahkan hubungi DYC Accessories Shop melalui kontak yang sudah tertera di Website ini.</p>

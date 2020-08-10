@@ -1,9 +1,9 @@
 <!-- Start TopBar -->
 <div class="topbar" style="background-color: #f2c2d8;">
     <div class="topbar-column">
-        <a class="hidden-md-down"><i class="fa fa-phone"></i>&nbsp;08211127370</a>
-        <a class="hidden-md-down"><i class="fa fa-envelope-o"></i>&nbsp;dyc_shop@gmail.com</a>
-        <a class="hidden-md-down"><i class="fa fa-map-marker"></i>&nbsp;Jl. Cempaka RT 002 RW 002 No 81 Jatibening Baru, Bekasi 17412</a>
+        <a class="hidden-md-down"><i class="fa fa-phone"></i>&nbsp;082112422030</a>
+        <a class="hidden-md-down"><i class="fa fa-envelope-o"></i>&nbsp;dailymoodday@gmail.com</a>
+        <a class="hidden-md-down"><i class="fa fa-map-marker"></i>&nbsp;Lubang Buaya, Cipayung, Jakarta Timur, 13810</a>
     </div>
     <div class="topbar-column">
         <?php if (empty($this->session->userdata('customer'))): ?>
