@@ -38,7 +38,7 @@ class MY_Controller extends MX_Controller {
 
 		// Session Admin
 		if ($this->session->userdata('admin')) {
-			$this->data['data_session'] = $this->master_model->select_data(
+			$this->data['admin_session'] = $this->master_model->select_data(
 				[
 					'field' => '*',
 					'table' => 'admin',
@@ -47,8 +47,18 @@ class MY_Controller extends MX_Controller {
 					]
 				]
 			)->row();
-		} elseif ($this->session->userdata('customer')) {
-			# code...
+		}
+		
+		if ($this->session->userdata('customer')) {
+			$this->data['customer_session'] = $this->master_model->select_data(
+				[
+					'field' => '*',
+					'table' => 'customer',
+					'where' => [
+						'id_customer' => $this->session->userdata('customer')['id']
+					]
+				]
+			)->row();
 		}
 
 		// Get Data
@@ -109,6 +119,22 @@ class MY_Controller extends MX_Controller {
 		$this->session->set_flashdata($message['name'], $sweet_alert);
 	}
 
+	public function alert_popup2($message)
+	{
+		$sweet_alert = '
+
+		Swal.fire({
+			title: "'.$message['swal']['title'].'",
+			icon: "'.$message['swal']['type'].'",
+			text: "'.$message['swal']['text'].'",
+			showCloseButton: true,
+			showConfirmButton: false
+		});
+		';
+		
+		$this->session->set_flashdata($message['name'], $sweet_alert);
+	}
+
 	public function has_login_admin()
 	{
 		if (!empty($this->session->userdata('admin'))) {
@@ -133,7 +159,7 @@ class MY_Controller extends MX_Controller {
 	public function not_login_customer()
 	{
 		if (empty($this->session->userdata('customer'))) {
-			redirect('auth/login','refresh');
+			redirect('home/login','refresh');
 		}
 	}
 

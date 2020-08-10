@@ -19,17 +19,7 @@
 
     <!-- Plugin CSS -->
     <link href="<?= base_url() ?>assets/home/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="<?= base_url() ?>assets/home/css/custom.css">
 </head>
 <body>
-<!-- Start Page Preloader -->
-<div id="loading">
-    <div id="loading-center">
-        <div id="loading-center-absolute">
-            <div class="object" id="object_four"></div>
-            <div class="object" id="object_three"></div>
-            <div class="object" id="object_two"></div>
-            <div class="object" id="object_one"></div>
-        </div>
-    </div>
-</div>
-<!-- End Page Preloader -->

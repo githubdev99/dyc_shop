@@ -8053,4 +8053,82 @@ video {
     }
 }
 
-
+.custom-box [type="checkbox"]:checked,
+.custom-box [type="checkbox"]:not(:checked),
+.custom-box [type="radio"]:not(:checked),
+.custom-box [type="radio"]:checked {
+  /*Hide radio & checkbox*/
+  position: absolute;
+  left: -9999px;
+}
+.custom-box [type="checkbox"]:checked + label,
+.custom-box [type="checkbox"]:not(:checked) + label,
+.custom-box [type="radio"]:not(:checked) + label,
+.custom-box [type="radio"]:checked + label {
+  /*styling label*/
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 1em;
+  line-height: 22px;
+}
+.custom-box [type="checkbox"]:checked + label:before,
+.custom-box [type="checkbox"]:not(:checked) + label:before,
+.custom-box [type="radio"]:not(:checked) + label:before,
+.custom-box [type="radio"]:checked + label:before {
+  /*styling label*/
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-right: .5em;
+  background: #ccc;
+  vertical-align: middle;
+  color: transparent;
+  font-size: 1em;
+  transition: .6s;
+  text-align: center;
+}
+.custom-box [type="checkbox"]:checked + label:hover:before,
+.custom-box [type="checkbox"]:not(:checked) + label:hover:before,
+.custom-box [type="radio"]:not(:checked) + label:hover:before,
+.custom-box [type="radio"]:checked + label:hover:before {
+  background: #999999;
+}
+.custom-box [type="checkbox"]:checked:disabled + label:before,
+.custom-box [type="checkbox"]:not(:checked):disabled + label:before,
+.custom-box [type="radio"]:not(:checked):disabled + label:before,
+.custom-box [type="radio"]:checked:disabled + label:before {
+  /*styling label - disabled */
+  background: #f2f2f2;
+}
+.custom-box [type="checkbox"]:checked + label:before,
+.custom-box [type="radio"]:checked + label:before {
+  /*styling label - checked*/
+  color: #fff;
+  background: #2aa1c0;
+}
+.custom-box [type="checkbox"]:checked + label:hover:before,
+.custom-box [type="radio"]:checked + label:hover:before {
+  background: #185b6c;
+}
+.custom-box [type="checkbox"]:checked:disabled + label:before,
+.custom-box [type="radio"]:checked:disabled + label:before {
+  /*styling label - disabled + checked */
+  background: #f2f2f2;
+  color: #ccc;
+}
+.custom-box [type="radio"]:not(:checked) + label:before,
+.custom-box [type="radio"]:checked + label:before {
+  /*styling label -radio*/
+  border-radius: 50%;
+  font-size: 150%;
+}
+.custom-box [type="radio"]:checked + label:before {
+  /*mark - radio*/
+  content: '\2022';
+}
+.custom-box [type="checkbox"]:checked + label:before {
+  /*mark - checkbox*/
+  content: '\2714';
+}

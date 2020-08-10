@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Agu 2020 pada 15.25
+-- Waktu pembuatan: 11 Agu 2020 pada 00.19
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -82,39 +82,35 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`, `created_datetime`) VALUES
-('P-202008021196', 'K-202007319642', 'KS-202007317214', 'PE-1233002', 'Anting Bulat Corak Macan Tutul', 10000, 'IMG-202008028225.jpg', 34, 'Anting Bulat Corak Macan Tutul', '2020-08-02 11:10:00'),
-('P-202008021278', 'K-202007314314', 'KS-202007316494', 'SK-55235905', 'Bros Flower Circle', 10000, 'IMG-202008021131.jpg', 10, 'Bros Flower Circle', '2020-08-02 11:18:18'),
-('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Spiral Cat', 10000, 'IMG-202008028282.jpg', 25, 'Ikat Rambut Spiral Cat', '2020-08-02 11:20:32'),
-('P-202008021826', 'K-202007319642', 'KS-202007312650', 'PR-122005', 'Anting Panjang Gradasi Coklat Biru', 10000, 'IMG-202008026664.jpg', 30, 'Anting Panjang Gradasi Coklat Biru', '2020-08-02 10:59:36'),
-('P-202008022019', 'K-202007319642', 'KS-202007312650', 'PR-122002', 'Anting Matahari Kuning', 10000, 'IMG-202008023277.jpg', 30, 'Anting Matahari Kuning', '2020-08-02 10:55:40'),
-('P-202008022024', 'K-202007319642', 'KS-202007317214', 'PE-1233002', 'Anting Bunga Corak Macan Tutul', 10000, 'IMG-202008026160.jpg', 34, 'Anting Bunga Corak Macan Tutul', '2020-08-02 11:09:34'),
-('P-202008022490', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Heart', 10000, 'IMG-202008026403.jpg', 34, 'Anting Drop Heart', '2020-08-02 11:11:44'),
-('P-202008023302', 'K-202007314314', 'KS-202007316494', 'SK-55235904', 'Bros Butterfly', 10000, 'IMG-202008021320.jpg', 10, 'Bros Butterfly', '2020-08-02 11:17:46'),
-('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Cameo Vintage', 10000, 'IMG-202008024724.jpg', 10, 'Bros Cameo Vintage', '2020-08-02 11:16:38'),
-('P-202008023788', 'K-202007319642', 'KS-202007312650', 'PR-122004', 'Anting Oval Ungu', 10000, 'IMG-202008028289.jpg', 30, 'Anting Oval Ungu', '2020-08-02 10:58:28'),
-('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Blue Flower', 10000, 'IMG-202008026927.jpg', 10, 'Bros Blue Flower', '2020-08-02 11:16:06'),
-('P-202008024698', 'K-202007319642', 'KS-202007312650', 'PR-122003', 'Anting Huruf T', 10000, 'IMG-202008027460.jpg', 30, 'Anting Huruf T', '2020-08-02 10:57:16'),
-('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Balon Kerlip Ungu', 10000, 'IMG-202008025886.jpg', 34, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
-('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Balon Kerlip Pink', 10000, 'IMG-202008021768.jpg', 34, 'Anting Balon Kerlip Pink', '2020-08-02 11:14:54'),
-('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Cutie', 10000, 'IMG-202008021341.png', 25, 'Ikat Rambut Cutie', '2020-08-02 11:19:53'),
-('P-202008025954', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Belimbing', 10000, 'IMG-202008027330.jpg', 30, 'Anting Belimbing', '2020-08-02 10:53:06'),
-('P-202008026160', 'K-202007312820', 'KS-202007312744', 'CH-800103', 'Ikat Rambut Kristal', 10000, 'IMG-202008023828.jpg', 25, 'Ikat Rambut Kristal', '2020-08-02 11:21:13'),
-('P-202008026377', 'K-202007314314', 'KS-202007316494', 'SK-55235903', 'Bros Cartoon Love', 10000, 'IMG-202008026651.jpg', 10, 'Bros Cartoon Love', '2020-08-02 11:17:08'),
-('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Batu Druzy Hijau', 10000, 'IMG-202008022461.jpg', 34, 'Anting Batu Druzy Hijau', '2020-08-02 11:13:31'),
-('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bawang', 10000, 'IMG-202008027371.jpg', 30, 'Anting Bawang', '2020-08-02 10:54:45'),
-('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 10000, 'IMG-202008024800.jpg', 34, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
-('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 10000, 'IMG-202008025461.jpg', 34, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
-('P-202008027809', 'K-202007319642', 'KS-202007312650', 'PR-122003', 'Anting Huruf F', 10000, 'IMG-202008029634.jpg', 30, 'Anting Huruf F', '2020-08-02 10:57:45'),
-('P-202008028080', 'K-202007319642', 'KS-202007312650', 'PR-122005', 'Anting Segitiga Gradasi Coklat Hijau', 10000, 'IMG-202008021592.jpg', 30, 'Anting Panjang Gradasi Coklat Hijau', '2020-08-02 11:00:13'),
-('P-202008028396', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Oval Love', 10000, 'IMG-202008022489.jpg', 34, 'Anting Oval Love', '2020-08-02 11:08:32'),
-('P-202008028485', 'K-202007312820', 'KS-202007312744', 'CH-800104', 'Ikat Rambut Love Sea', 10000, 'IMG-202008023253.jpg', 25, 'Ikat Rambut Love Sea', '2020-08-02 11:21:51'),
-('P-202008028601', 'K-202007312820', 'KS-202007312744', 'CH-800105', 'Ikat Rambut Mixed Colour Wood', 10000, 'IMG-202008026184.jpg', 25, 'Ikat Rambut Mixed Colour Wood', '2020-08-02 11:23:00'),
-('P-202008028933', 'K-202007319642', 'KS-202007312650', 'PR-122004', 'Anting Oval Merah', 10000, 'IMG-202008024142.jpg', 30, 'Anting Oval Merah', '2020-08-02 10:58:51'),
-('P-202008029581', 'K-202007319642', 'KS-202007312650', 'PR-122002', 'Anting Matahari Putih', 10000, 'IMG-202008029205.jpg', 30, 'Anting Matahari Putih', '2020-08-02 10:56:27'),
-('P-202008029985', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Batu Druzy Pink', 10000, 'IMG-202008024014.jpg', 34, 'Anting Batu Druzy Pink', '2020-08-02 11:13:08'),
-('P-202008103200', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bulan Sabit Biru', 10000, 'IMG-202008105937.jpg', 30, 'Kalung Bulan Sabit Biru', '2020-08-10 00:08:01'),
-('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Batik Merah Coklat', 10000, 'IMG-202008104445.jpg', 20, 'Gelang Batik Merah Coklat', '2020-08-10 00:09:15'),
-('P-202008103433', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Air Laut Bulat', 10000, 'IMG-202008104315.jpg', 30, 'Kalung Air Laut Bulat', '2020-08-10 00:05:28');
+('P-202008021278', 'K-202007318991', 'KS-202007311787', 'TN-1994502', 'Gelang Bandul Bening', 31000, 'IMG-202008118516.jpg', 50, 'Gelang Titanium dengan bandul resin bening.', '2020-08-02 11:18:18'),
+('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Oval Orange', 37500, 'IMG-202008116607.jpeg', 40, 'Ikat Rambut dengan bandul resin yang berbentuk oval dengan gliter warna orange.', '2020-08-02 11:20:32'),
+('P-202008021826', 'K-202007312495', 'KS-202007314022', 'IN-173405', 'Kalung Coklat Bunga Hitam', 30000, 'IMG-202008106382.jpg', 20, 'Kalung Resin dengan warna coklat dihiasi manik bunga hitam.', '2020-08-02 10:59:36'),
+('P-202008022019', 'K-202007318991', 'KS-202007311787', 'TN-1994503', 'Gelang Bulat Merah dan Bening', 31000, 'IMG-202008113977.jpeg', 50, 'Gelang Titanium dengan bandul resin bening dan didalamnya ditambahkan gradasi warna merah dan orange.', '2020-08-02 10:55:40'),
+('P-202008023302', 'K-202007318991', 'KS-202007311787', 'TN-1994501', 'Gelang Bintang Biru', 31000, 'IMG-202008111687.jpg', 55, 'Gelang Titanium dengan bandul resin bintang yang berwarna biru.', '2020-08-02 11:17:46'),
+('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Kipas Sakura', 21500, 'IMG-202008118670.jpeg', 50, 'Bros Resin dengan bingkai kipas sakura jepang.', '2020-08-02 11:16:38'),
+('P-202008023788', 'K-202007312495', 'KS-202007314022', 'IN-173404', 'Kalung Love Pink', 30000, 'IMG-202008102682.jpg', 20, 'Kalung Resin dengan Bentuk Love dengan Manik bibir menambah kesan cute dan feminin.', '2020-08-02 10:58:28'),
+('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Batu Kristal', 21500, 'IMG-202008117279.jpeg', 80, 'Bros resin dengan bingkai batu kristal dan dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:16:06'),
+('P-202008024698', 'K-202007318991', 'KS-202007316483', 'BF-561440403', 'Gelang Daun Bening', 29000, 'IMG-202008117380.jpg', 30, 'Gelang Rantai dengan bandul resin yang berbentuk daun berwarna bening dan didalamnya terdapat tangkai/ranting tanaman.', '2020-08-02 10:57:16'),
+('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Balon Kerlip Ungu', 42500, 'IMG-202008025886.jpg', 34, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
+('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Batu Permata', 42500, 'IMG-202008109405.jpeg', 45, 'Anting Resin dengan desain bingkai batu permata dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:14:54'),
+('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Glassy', 37500, 'IMG-202008116443.jpg', 40, 'Ikat Rambut dengan bandul resin yang perpaduan gradasi warna merah dan kuning.', '2020-08-02 11:19:53'),
+('P-202008025954', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Bening', 32000, 'IMG-202008102710.jpeg', 30, 'Anting Resin bening yang dihiasi dengan bunga kering berwarna pink yang cantik.', '2020-08-02 10:53:06'),
+('P-202008026160', 'K-202007312495', 'KS-202007319193', 'ST-188903', 'Kalung Bunga Sakura', 34500, 'IMG-202008111166.jpg', 20, 'Kalung Resin dengan desain bingkai bunga sakura membuat penampilan terlihat semakin menawan.', '2020-08-02 11:21:13'),
+('P-202008026377', 'K-202007312820', 'KS-202007312744', 'CH-800106', 'Ikat Rambut Bulan Sabit Kerlip', 37500, 'IMG-202008115409.jpeg', 30, 'Ikat Rambut dengan bandul resin bentuk bulan sabit dengan hiasan pernak-pernik permata.', '2020-08-02 11:17:08'),
+('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233006', 'Anting Daun Pelangi', 42500, 'IMG-202008103224.jpeg', 35, 'Anting Resin dengan bingkai daun dan dihiasi berbagai macam warna seperti pelangi.', '2020-08-02 11:13:31'),
+('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Rantai Panjang', 32000, 'IMG-202008108160.jpeg', 85, 'Anting Resin dengan desain panjang dan dihiasi manik bunga', '2020-08-02 10:54:45'),
+('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 42500, 'IMG-202008024800.jpg', 35, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
+('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 42500, 'IMG-202008025461.jpg', 35, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
+('P-202008027809', 'K-202007318991', 'KS-202007316483', 'BF-561440402', 'Gelang Segitiga Biru', 29000, 'IMG-202008117874.jpg', 30, 'Gelang Rantai dengan bandul resin berbentuk segitiga yang berwarna biru.', '2020-08-02 10:57:45'),
+('P-202008028080', 'K-202007312495', 'KS-202007319193', 'ST-188901', 'Kalung Kunci Bintang Biru', 34500, 'IMG-202008104183.jpeg', 20, 'Kalung Resin dengan desain kunci bulan sabit dengan gradasi warna biru dan hijau.', '2020-08-02 11:00:13'),
+('P-202008028396', 'K-202007312495', 'KS-202007314022', 'IN-173402', 'Kalung Love', 30000, 'IMG-202008104752.jpg', 20, 'Kalung Resin dengan bentuk Love.', '2020-08-02 11:08:32'),
+('P-202008028485', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Oval Batu Bening', 29000, 'IMG-202008111890.jpeg', 30, 'Gelang Rantai Resin dengan bandul oval bening.', '2020-08-02 11:21:51'),
+('P-202008028601', 'K-202007312495', 'KS-202007319193', 'ST-188902', 'Kalung Kunci Bintang', 34500, 'IMG-202008107470.jpeg', 20, 'Kalung Resin dengan desain kunci bintang', '2020-08-02 11:23:00'),
+('P-202008028933', 'K-202007312495', 'KS-202007314022', 'IN-173403', 'Kalung Oval Langit', 30000, 'IMG-202008106296.jpg', 20, 'Kalung Resin dengan warna biru seperti langit.', '2020-08-02 10:58:51'),
+('P-202008029581', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bunga Biru', 30000, 'IMG-202008101119.jpg', 50, 'Anting Resin bulat dengan warna biru muda dihiasi dengan manik bunga.', '2020-08-02 10:56:27'),
+('P-202008103200', 'K-202007312495', 'KS-202007319193', 'ST-188904', 'Kalung Kunci Bulan Sabit Cutie', 34500, 'IMG-202008117819.jpg', 20, 'Kalung Resin dengan bingkai kunci bulan sabit dan perpaduan warna pink dan biru.', '2020-08-10 00:08:01'),
+('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Bunga Hijau', 29000, 'IMG-202008111375.jpeg', 40, 'Gelang Rantai Resin dengan bandul bunga hijau', '2020-08-10 00:09:15'),
+('P-202008103433', 'K-202007312495', 'KS-202007319193', 'ST-188905', 'Kalung Kunci Love', 34500, 'IMG-202008111976.jpg', 20, 'Kalung Resin dengan bingkai kunci love dan perpaduan warna biru dan pink.', '2020-08-10 00:05:28');
 
 -- --------------------------------------------------------
 

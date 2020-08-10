@@ -83,15 +83,19 @@
                         <ul class="toolbar-dropdown">
                             <li class="sub-menu-user">
                                 <div class="user-ava">
-                                    <img src="<?= base_url() ?>assets/admin/images/avatar_female.png" alt="Tony Stark">
+                                    <?php if ($setup_app['customer_session']->jenis_kelamin == 'Laki-Laki'): ?>
+                                        <img src="<?= base_url() ?>assets/admin/images/avatar_male.png">
+                                    <?php else: ?>
+                                        <img src="<?= base_url() ?>assets/admin/images/avatar_female.png">
+                                    <?php endif ?>
                                 </div>
                                 <div class="user-info">
-                                    <h6 class="user-name">Tony Stark</h6>
+                                    <h6 class="user-name"><?= $setup_app['customer_session']->nama_lengkap; ?></h6>
                                     <span class="text-xs text-muted">Customer</span>
                                 </div>
                             </li>
                             <li class="sub-menu-separator"></li>
-                            <li><a href="#"><i class="fa fa-lock"></i> Sign Out</a></li>
+                            <li><a href="<?= base_url() ?>home/logout"><i class="fa fa-lock"></i> Sign Out</a></li>
                         </ul>
                     </div>
                     <!-- End Account -->

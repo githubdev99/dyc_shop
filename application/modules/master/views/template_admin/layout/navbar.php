@@ -42,7 +42,7 @@
 				<button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="rounded-circle header-profile-user" src="<?= base_url() ?>assets/admin/images/avatar_female.png" alt="Header Avatar">
-				<span class="d-none d-xl-inline-block ml-1"><?= $setup_app['data_session']->nama_admin; ?></span>
+				<span class="d-none d-xl-inline-block ml-1"><?= $setup_app['admin_session']->nama_admin; ?></span>
 				<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 				</button>
 				<div class="dropdown-menu dropdown-menu-right">
