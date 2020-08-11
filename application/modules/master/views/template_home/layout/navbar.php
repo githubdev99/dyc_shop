@@ -2,7 +2,7 @@
 <div class="topbar" style="background-color: #f2c2d8;">
     <div class="topbar-column">
         <a class="hidden-md-down"><i class="fa fa-phone"></i>&nbsp;082112422030</a>
-        <a class="hidden-md-down"><i class="fa fa-envelope-o"></i>&nbsp;dailymoodday@gmail.com</a>
+        <a href="mailto:dailymoodday@gmail.com" class="hidden-md-down"><i class="fa fa-envelope-o"></i>&nbsp;dailymoodday@gmail.com</a>
         <a class="hidden-md-down"><i class="fa fa-map-marker"></i>&nbsp;Lubang Buaya, Cipayung, Jakarta Timur, 13810</a>
     </div>
     <div class="topbar-column">
@@ -23,9 +23,7 @@
                 </div>
             </div>
         <?php endif ?>
-        <a class="social-button sb-facebook shape-none sb-dark soc-border" href="https://www.facebook.com" target="_blank"><i class="socicon-facebook"></i></a>
-        <a class="social-button sb-twitter shape-none sb-dark" href="http://www.twitter.com" target="_blank"><i class="socicon-twitter"></i></a>
-        <a class="social-button sb-instagram shape-none sb-dark" href="https://www.instagram.com" target="_blank"><i class="socicon-instagram"></i></a>
+        <a class="social-button sb-instagram shape-none sb-dark" href="https://www.instagram.com/aksesoris_dyc/" target="_blank"><i class="socicon-instagram"></i></a>
     </div>
 </div>
 <!-- End TopBar -->
