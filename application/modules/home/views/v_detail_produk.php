@@ -41,9 +41,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <button class="btn btn-rounded btn-sm btn-secondary" type="button"><i class="fa fa-minus"></i></button>
                                 <input type="number" class="form-control" name="quantity" value="1" min="1" max="<?= $get_data->stok ?>">
-                                <button class="btn btn-rounded btn-sm btn-secondary" type="button"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
