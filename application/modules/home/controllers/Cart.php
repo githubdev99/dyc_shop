@@ -228,13 +228,21 @@ class Cart extends MY_Controller {
 
 		if ($this->input->post('submit') == 'update') {
 			if ($process == TRUE) {
+				if (!empty($this->input->post('qty'))) {
+					$data_update = [
+						'qty' => $this->input->post('qty')
+					];
+				} elseif (!empty($this->input->post('status_pilih'))) {
+					$data_update = [
+						'status_pilih' => $this->input->post('status_pilih')
+					];
+				}
+
 				$query = $this->master_model->send_data([
 					'where' => [
 						'id_cart' => decrypt_text($this->input->post('id_cart')),
 					],
-					'data' => [
-						'qty' => $this->input->post('qty')
-					],
+					'data' => $data_update,
 					'table' => 'cart'
 				]);
 				if ($query == FALSE) {
@@ -364,9 +372,16 @@ class Cart extends MY_Controller {
 					';
 
 					foreach ($this->data['data_parsing']->result() as $key) {
+						$checked = ($key->status_pilih == 'Y') ? 'checked' : '';
+
 						$get_data['html'] .= '
 						<tr>
-							<td>a</td>
+							<td>
+								<div class="custom-control custom-checkbox">
+									<input class="custom-control-input" type="checkbox" id="check_'.encrypt_text($key->id_cart).'" '.$checked.' onclick="check('."'".encrypt_text($key->id_cart)."'".');">
+									<label class="custom-control-label" for="check_'.encrypt_text($key->id_cart).'"></label>
+								</div>
+							</td>
 							<td>
 								<div class="product-item">
 									<a class="product-thumb" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">

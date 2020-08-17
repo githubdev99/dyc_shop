@@ -184,4 +184,40 @@
 
         load_cart();
     }
+
+    function check(id_cart) {
+        if ($('#check_'+id_cart).is(':checked')) {
+            var status_pilih = 'Y';
+        } else {
+            var status_pilih = 'T';
+        }
+
+        $.ajax({
+            type: "post",
+            url: "<?= base_url() ?>home/cart/all",
+            data: {
+                submit: 'update',
+                id_cart: id_cart,
+                status_pilih: status_pilih
+            },
+            dataType: "json",
+            success: function (response) {
+                var data = response.data;
+
+                if (response.error == true) {
+                    Swal.fire({
+                        title: response.title,
+                        icon: response.type,
+                        html: response.text,
+                        showCloseButton: true,
+                        showConfirmButton: false
+                    });
+                } else {
+                    // Do Nothing
+                }
+            }
+        });
+
+        load_cart();
+    }
 </script>
