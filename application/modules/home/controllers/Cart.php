@@ -8,12 +8,11 @@ class Cart extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->not_login_customer();
 	}
 
 	public function index()
 	{
-		$this->not_login_customer();
-
 		$title = 'Keranjang Belanja';
 		$data = [
 			'setup_app' => $this->setup_app($title),
@@ -70,8 +69,7 @@ class Cart extends MY_Controller {
 					];
 				} else {
 					$output = [
-						'error' => false,
-						'message' => 'berhasil'
+						'error' => false
 					];
 				}
 			} else {
@@ -80,7 +78,7 @@ class Cart extends MY_Controller {
 
 			$this->output->set_content_type('application/json')->set_output(json_encode($output));
         }
-    }
+	}
 
     public function mini()
 	{
@@ -212,6 +210,212 @@ class Cart extends MY_Controller {
 					Keranjang belanja kosong...
 				</div>
 				</div>
+				';
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function all()
+	{
+		$process = TRUE;
+
+		if ($this->input->post('submit') == 'update') {
+			if ($process == TRUE) {
+				$query = $this->master_model->send_data([
+					'where' => [
+						'id_cart' => decrypt_text($this->input->post('id_cart')),
+					],
+					'data' => [
+						'qty' => $this->input->post('qty')
+					],
+					'table' => 'cart'
+				]);
+				if ($query == FALSE) {
+					$this->data['output'] = [
+						'error' => true,
+						'title' => 'Failed!',
+						'text' => 'Ada kesalahan teknis!',
+						'type' => 'warning'
+					];
+				} else {
+					$this->data['output'] = [
+						'error' => false
+					];
+				}
+			} else {
+				$process = FALSE;
+			}
+		} elseif ($this->input->post('submit') == 'delete') {
+			if ($process == TRUE) {
+				$query = $this->master_model->delete_data([
+					'where' => [
+						'id_cart' => decrypt_text($this->input->post('id_cart'))
+					],
+					'table' => 'cart'
+				]);
+				if ($query == FALSE) {
+					$this->data['output'] = [
+						'error' => true,
+						'title' => 'Failed!',
+						'text' => 'Ada kesalahan teknis!',
+						'type' => 'error'
+					];
+				} else {
+					$this->data['output'] = [
+						'error' => false,
+						'title' => 'Successfull!',
+						'text' => 'Produk berhasil dihapus dari keranjang',
+						'type' => 'success'
+					];
+				}
+			} else {
+				$process = FALSE;
+			}
+		} elseif ($this->input->post('submit') == 'delete_all') {
+			if ($process == TRUE) {
+				$query = $this->master_model->delete_data([
+					'where' => [
+						'id_customer' => decrypt_text($this->input->post('id_customer'))
+					],
+					'table' => 'cart'
+				]);
+				if ($query == FALSE) {
+					$this->data['output'] = [
+						'error' => true,
+						'title' => 'Failed!',
+						'text' => 'Ada kesalahan teknis!',
+						'type' => 'error'
+					];
+				} else {
+					$this->data['output'] = [
+						'error' => false,
+						'title' => 'Successfull!',
+						'text' => 'Produk berhasil dihapus dari keranjang',
+						'type' => 'success'
+					];
+				}
+			} else {
+				$process = FALSE;
+			}
+		} else {
+			$this->param['field'] = 'cart.*, produk.nama_produk, produk.harga, produk.stok, produk.foto';
+			$this->param['table'] = 'cart';
+			$this->param['join'] = [
+				[
+					'table' => 'produk',
+					'on' => 'produk.id_produk = cart.id_produk',
+					'type' => 'inner'
+				]
+			];
+			$this->param['where'] = [
+				'id_customer' => decrypt_text($this->input->post('id_customer'))
+			];
+			$this->param['order_by'] = [
+				'nama_produk' => 'asc'
+			];
+
+			$this->data['data_parsing'] = $this->master_model->select_data($this->param);
+
+			$get_data = [];
+			if (!empty($this->data['data_parsing']->result())) {
+				if ($this->data['data_parsing'] == FALSE) {
+					$this->data['output'] = [
+						'error' => true,
+						'data' => $get_data
+					];
+				} else {
+					$this->data['subtotal'] = $this->master_model->select_data([
+						'field' => 'SUM(cart.qty * produk.harga) AS subtotal',
+						'table' => 'cart',
+						'join' => [
+							[
+								'table' => 'produk',
+								'on' => 'produk.id_produk = cart.id_produk',
+								'type' => 'inner'
+							]
+						],
+						'where' => [
+							'id_customer' => decrypt_text($this->input->post('id_customer'))
+						]
+					])->row()->subtotal;
+
+					$get_data['html'] = '
+					<div class="table-responsive shopping-cart">
+						<table class="table">
+							<thead>
+							<tr>
+								<th></th>
+								<th>Nama Produk</th>
+								<th class="text-center">Quantity</th>
+								<th class="text-center">Subtotal</th>
+								<th class="text-center">
+									<button type="button" class="btn btn-sm btn-outline-danger" onclick="delete_cart_all();">Empty Cart</button>
+								</th>
+							</tr>
+							</thead>
+							<tbody>
+					';
+
+					foreach ($this->data['data_parsing']->result() as $key) {
+						$get_data['html'] .= '
+						<tr>
+							<td>a</td>
+							<td>
+								<div class="product-item">
+									<a class="product-thumb" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">
+										<img src="'.base_url().'assets/admin/images/upload/'.$key->foto.'">
+									</a>
+									<div class="product-info">
+										<h4 class="product-title"><a href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">'.$key->nama_produk.'</a></h4>
+										<span><em>Harga Satuan:</em> '.rupiah($key->harga).'</span><span><em>Stok Tersisa:</em> '.$key->stok.'</span>
+									</div>
+								</div>
+							</td>
+							<td class="text-center">
+								<button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('."'minus'".", '".encrypt_text($key->id_cart)."', ".$key->stok.", ".$key->qty.')" style="margin-right: 20px;"><i class="fa fa-minus"></i></button>
+								<span style="font-size: large;" id="qty_'.encrypt_text($key->id_cart).'">'.$key->qty.'</span>
+								<button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('."'plus'".", '".encrypt_text($key->id_cart)."', ".$key->stok.", ".$key->qty.')" style="margin-left: 20px;"><i class="fa fa-plus"></i></button>
+							</td>
+							<td class="text-center text-lg text-medium">'.rupiah($key->qty * $key->harga).'</td>
+							<td class="text-center">
+								<a class="remove-from-cart" href="javascript:;" data-toggle="tooltip" title="Remove item" onclick="delete_cart('."'".encrypt_text($key->id_cart)."'".');"><i class="icon-cross"></i></a>
+							</td>
+						</tr>
+						';
+					}
+					
+					$get_data['html'] .= '
+					</tbody>
+						</table>
+					</div>
+					<div class="shopping-cart-footer">
+						<div class="column text-lg">Total: <span class="text-medium">'.rupiah($this->data['subtotal']).'</span></div>
+					</div>
+					<div class="shopping-cart-footer">
+						<div class="column">
+							<a class="btn btn-outline-secondary" href="'.base_url().'home/produk"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a>
+						</div>
+						<div class="column">
+							<a class="btn btn-success" href="'.base_url().'home/checkout">Checkout</a>
+						</div>
+					</div>
+					';
+
+					$this->data['output'] = [
+						'error' => false,
+						'data' => $get_data
+					];
+				}
+			} else {
+				$get_data['html'] = '
+				<h4>Keranjang Belanja Anda Kosong...</h4>
 				';
 
 				$this->data['output'] = [
