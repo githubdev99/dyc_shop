@@ -26,7 +26,33 @@
             <?php elseif (!empty($this->session->flashdata('failed'))): ?>
                 <?= $this->session->flashdata('failed'); ?>
             <?php endif ?>
+
+            <?php if ($this->session->userdata('customer')): ?>
+                load_cart_mini();
+            <?php endif ?>
         });
+
+        <?php if ($this->session->userdata('customer')): ?>
+            function load_cart_mini() {
+                $.ajax({
+                    type: "post",
+                    url: "<?= base_url() ?>home/cart/mini",
+                    data: {
+                        id_customer: '<?= encrypt_text($setup_app['customer_session']->id_customer) ?>'
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        var data = response.data;
+
+                        if (response.error == false) {
+                            $('.cart').html(data.html);
+                        } else {
+                            <?= $setup_app['ajax_error'] ?>
+                        }
+                    }
+                });
+            }
+        <?php endif ?>
     </script>
 
     <?php if (!empty($get_script)): ?>

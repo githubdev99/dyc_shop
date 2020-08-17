@@ -59,7 +59,13 @@
                                         <?php if (empty($this->session->userdata('customer'))): ?>
                                             <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!">Add to Cart</button>
                                         <?php else: ?>
-                                            <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!">Add to Cart</button>
+                                            <form method="post" action="<?= base_url() ?>home/cart" enctype="multipart/form-data" name="add_cart">
+                                                <input type="hidden" name="id_produk" value="<?= encrypt_text($key->id_produk) ?>">
+                                                <input type="hidden" name="id_customer" value="<?= encrypt_text($setup_app['customer_session']->id_customer) ?>">
+                                                <input type="hidden" class="form-control" name="qty" value="1">
+
+                                                <button class="btn btn-outline-primary btn-sm" type="submit" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!">Add to Cart</button>
+                                            </form>
                                         <?php endif ?>
                                     </div>
                                 </div>

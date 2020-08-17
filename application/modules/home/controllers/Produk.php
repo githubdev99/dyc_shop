@@ -48,6 +48,7 @@ class Produk extends MY_Controller {
 		$data = [
 			'setup_app' => $this->setup_app($title),
 			'get_view' => 'home/v_produk',
+			'get_script' => 'home/script_produk',
 			'get_data' => [
 				'produk' => $produk
 			]
@@ -82,6 +83,7 @@ class Produk extends MY_Controller {
 		$data = [
 			'setup_app' => $this->setup_app($title),
 			'get_view' => 'home/v_detail_produk',
+			'get_script' => 'home/script_detail_produk',
 			'get_data' => $get_data
 		];
 

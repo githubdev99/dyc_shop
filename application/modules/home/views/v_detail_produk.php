@@ -37,13 +37,12 @@
                     <h2 class="text-normal with-side"><?= $get_data->nama_produk ?></h2>
                     <span class="h2 d-block with-side"><?= rupiah($get_data->harga) ?></span>
                     <p><?= $get_data->deskripsi ?></p>
-                    <div class="row margin-top-1x">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="quantity">Quantity</label>
-                                <input type="number" class="form-control" name="quantity" value="1" min="1" max="<?= $get_data->stok ?>">
-                            </div>
-                        </div>
+                    <div class="pt-1 mb-2">
+                        <label for="quantity">Quantity</label>
+                        <br>
+                        <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('minus')" style="margin-right: 20px;"><i class="fa fa-minus"></i></button>
+                        <span style="font-size: large;" id="qty">1</span>
+                        <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('plus')" style="margin-left: 20px;"><i class="fa fa-plus"></i></button>
                     </div>
                     <div class="pt-1 mb-2"><span class="text-medium">SKU (Stock Keeping Unit):</span> <?= $get_data->kode_sku ?></div>
                     <div class="pt-1 mb-2"><span class="text-medium">Stok Tersedia:</span> <?= $get_data->stok ?></div>
@@ -60,7 +59,13 @@
                             <?php if (empty($this->session->userdata('customer'))): ?>
                                 <button class="btn btn-primary" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!"><i class="icon-bag"></i> Add to Cart</button>
                             <?php else: ?>
-                                <button class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!"><i class="icon-bag"></i> Add to Cart</button>
+                                <form method="post" action="<?= base_url() ?>home/cart" enctype="multipart/form-data" name="add_cart">
+                                    <input type="hidden" name="id_produk" value="<?= encrypt_text($get_data->id_produk) ?>">
+                                    <input type="hidden" name="id_customer" value="<?= encrypt_text($setup_app['customer_session']->id_customer) ?>">
+                                    <input type="hidden" class="form-control" name="qty" value="1">
+
+                                    <button class="btn btn-primary" type="submit" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Berhasil!" data-toast-message="Produk berhasil di tambahkan ke keranjang!"><i class="icon-bag"></i> Add to Cart</button>
+                                </form>
                             <?php endif ?>
                         </div>
                     </div>

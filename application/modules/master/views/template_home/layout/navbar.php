@@ -99,58 +99,6 @@
                     <!-- End Account -->
                     <!-- Start Cart -->
                     <div class="cart">
-                        <a href="#"></a>
-                        <i class="icon-bag"></i>
-                        <span class="count">3</span>
-                        <span class="subtotal">$1920</span>
-                        <div class="toolbar-dropdown">
-                            <div class="dropdown-product-item">
-                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                <a class="dropdown-product-thumb" href="shop-single-1.html">
-                                    <img src="<?= base_url() ?>assets/home/images/cart-dropdown/01.jpg" alt="Product">
-                                </a>
-                                <div class="dropdown-product-info">
-                                    <a class="dropdown-product-title" href="shop-single-1.html">Samsung Galaxy A8</a>
-                                    <span class="dropdown-product-details">1 x $520</span>
-                                </div>
-                            </div>
-                            <div class="dropdown-product-item">
-                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                <a class="dropdown-product-thumb" href="shop-single-2.html">
-                                    <img src="<?= base_url() ?>assets/home/images/cart-dropdown/02.jpg" alt="Product">
-                                </a>
-                                <div class="dropdown-product-info">
-                                    <a class="dropdown-product-title" href="shop-single-2.html">Panasonic TX-32</a>
-                                    <span class="dropdown-product-details">2 x $400</span>
-                                </div>
-                            </div>
-                            <div class="dropdown-product-item">
-                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                <a class="dropdown-product-thumb" href="shop-single-3.html">
-                                    <img src="<?= base_url() ?>assets/home/images/cart-dropdown/03.jpg" alt="Product">
-                                </a>
-                                <div class="dropdown-product-info">
-                                    <a class="dropdown-product-title" href="shop-single-3.html">Acer Aspire 15.6 i3</a>
-                                    <span class="dropdown-product-details">1 x $600</span>
-                                </div>
-                            </div>
-                            <div class="toolbar-dropdown-group">
-                                <div class="column">
-                                    <span class="text-lg">Total:</span>
-                                </div>
-                                <div class="column text-right">
-                                    <span class="text-lg text-medium">$1920 </span>
-                                </div>
-                            </div>
-                            <div class="toolbar-dropdown-group">
-                                <div class="column">
-                                    <a class="btn btn-sm btn-block btn-secondary" href="cart.html">View Cart</a>
-                                </div>
-                                <div class="column">
-                                    <a class="btn btn-sm btn-block btn-success" href="checkout-address.html">Checkout</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- End Cart -->
                 <?php endif ?>

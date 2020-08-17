@@ -24,21 +24,4 @@
             });
         });
     });
-
-    function set_qty(param) {
-        var qty = $('input[name="qty"]').val();
-        if (param == 'plus') {
-            if (qty < <?= $get_data->stok ?>) {
-                qty++;
-            }
-            $('input[name="qty"]').val(qty);
-            $('#qty').text(qty);
-        } else {
-            if (qty > 1) {
-                qty--;
-            }
-            $('input[name="qty"]').val(qty);
-            $('#qty').text(qty);
-        }
-    }
 </script>
