@@ -52,6 +52,55 @@
                     }
                 });
             }
+
+            function delete_cart_mini(id_cart) {
+                Swal.fire({
+                    title: 'Anda Yakin?',
+                    text: "Ingin menghapus produk ini di keranjang?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#8a8a8a',
+                    confirmButtonText: 'Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            type: "post",
+                            url: "<?= base_url() ?>home/cart/mini",
+                            data: {
+                                submit: 'delete',
+                                id_cart: id_cart
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                var data = response.data;
+
+                                if (response.error == true) {
+                                    Swal.fire({
+                                        title: response.title,
+                                        icon: response.type,
+                                        html: response.text,
+                                        showCloseButton: true,
+                                        showConfirmButton: false
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: response.title,
+                                        icon: response.type,
+                                        html: response.text,
+                                        timer: 2000,
+                                        showCloseButton: true,
+                                        showConfirmButton: false
+                                    });
+                                    
+                                    load_cart_mini();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         <?php endif ?>
     </script>
 

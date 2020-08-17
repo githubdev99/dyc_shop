@@ -40,9 +40,15 @@
                     <div class="pt-1 mb-2">
                         <label for="quantity">Quantity</label>
                         <br>
-                        <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('minus')" style="margin-right: 20px;"><i class="fa fa-minus"></i></button>
-                        <span style="font-size: large;" id="qty">1</span>
-                        <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('plus')" style="margin-left: 20px;"><i class="fa fa-plus"></i></button>
+                        <?php if (empty($this->session->userdata('customer'))): ?>
+                            <button class="btn btn-rounded btn-sm btn-secondary" type="button" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!" style="margin-right: 20px;"><i class="fa fa-minus"></i></button>
+                            <span style="font-size: large;" id="qty">1</span>
+                            <button class="btn btn-rounded btn-sm btn-secondary" type="button" data-toast data-toast-type="danger" data-toast-position="topRight" data-toast-icon="icon-ban" data-toast-title="Gagal!" data-toast-message="Anda harus login terlebih dahulu!" style="margin-left: 20px;"><i class="fa fa-plus"></i></button>
+                        <?php else: ?>
+                            <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('minus')" style="margin-right: 20px;"><i class="fa fa-minus"></i></button>
+                            <span style="font-size: large;" id="qty">1</span>
+                            <button class="btn btn-rounded btn-sm btn-secondary" type="button" onclick="set_qty('plus')" style="margin-left: 20px;"><i class="fa fa-plus"></i></button>
+                        <?php endif ?>
                     </div>
                     <div class="pt-1 mb-2"><span class="text-medium">SKU (Stock Keeping Unit):</span> <?= $get_data->kode_sku ?></div>
                     <div class="pt-1 mb-2"><span class="text-medium">Stok Tersedia:</span> <?= $get_data->stok ?></div>
