@@ -2,7 +2,7 @@
 <div class="page-title">
     <div class="container">
         <div class="column">
-            <h1>Shopping Cart</h1>
+            <h1>Keranjang Belanja</h1>
         </div>
     </div>
 </div>
