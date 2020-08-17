@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Agu 2020 pada 01.47
+-- Waktu pembuatan: 17 Agu 2020 pada 21.16
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -44,6 +44,30 @@ INSERT INTO `admin` (`id_admin`, `nama_admin`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `cart`
+--
+
+CREATE TABLE `cart` (
+  `id_cart` char(20) CHARACTER SET utf8mb4 NOT NULL,
+  `id_produk` char(20) CHARACTER SET utf8mb4 NOT NULL,
+  `id_customer` char(20) CHARACTER SET utf8mb4 NOT NULL,
+  `qty` int(11) NOT NULL,
+  `status_pilih` enum('Y','T') CHARACTER SET utf8mb4 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `cart`
+--
+
+INSERT INTO `cart` (`id_cart`, `id_produk`, `id_customer`, `qty`, `status_pilih`) VALUES
+('PC-202008182413', 'P-202008025954', 'C-202008112064', 4, 'T'),
+('PC-202008185591', 'P-202008025183', 'C-202008112064', 1, 'T'),
+('PC-202008188510', 'P-202008021278', 'C-202008112064', 1, 'T'),
+('PC-202008188614', 'P-202008027504', 'C-202008112064', 3, 'T');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `customer`
 --
 
@@ -63,7 +87,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `email`, `no_telp`, `alamat`) VALUES
-('C-202008112064', 'devan', '$2y$10$Qf/J5vPE3wQvBtRKkYhhWOS7VYQhvxGWxvbNKwZjr7sBEW4Nalldy', 'Devan Ramadhan', 'Laki-Laki', 'devan@gmail.com', '012345', 'Jl. Bintara');
+('C-202008112064', 'devan', '$2y$10$Qf/J5vPE3wQvBtRKkYhhWOS7VYQhvxGWxvbNKwZjr7sBEW4Nalldy', 'Devan Ramadhan', 'Laki-Laki', 'devan@gmail.com', '012345', 'Jl. Bintara'),
+('C-202008117553', 'dycyeni', '$2y$10$iuVfHNirHM3ownA.KBhcN.dE5KlOwg64lEkBKT8l9Ca1D4byxUcVu', 'Yeni Anggraini', 'Perempuan', 'ayeni0566@gmail.com', '082112422030', 'Jl. Bintara 14 Rt 001/Rw 014, Bekasi Barat');
 
 -- --------------------------------------------------------
 
@@ -198,6 +223,14 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indeks untuk tabel `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id_cart`),
+  ADD KEY `id_produk` (`id_produk`),
+  ADD KEY `id_customer` (`id_customer`);
+
+--
 -- Indeks untuk tabel `customer`
 --
 ALTER TABLE `customer`
@@ -239,10 +272,24 @@ ALTER TABLE `transaksi`
 --
 
 --
+-- Ketidakleluasaan untuk tabel `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
+
+--
 -- Ketidakleluasaan untuk tabel `produk_sub_kategori`
 --
 ALTER TABLE `produk_sub_kategori`
   ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
+  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
