@@ -220,4 +220,18 @@
 
         load_cart();
     }
+
+    function checkout(count) {
+        if (count == 0) {
+            Swal.fire({
+                title: 'Warning!',
+                icon: 'warning',
+                html: 'Pilih produk sebelum ke checkout',
+                showCloseButton: true,
+                showConfirmButton: false
+            });
+        } else {
+            window.location.href = '<?= base_url() ?>home/checkout';
+        }
+    }
 </script>
