@@ -50,6 +50,24 @@
                     <span class="text-muted">Hanya berisi angka (0-9)</span>
                 </div>
                 <div class="form-group">
+                    <label>Provinsi <span class="text-danger">*</span></label>
+                    <select class="form-control" name="province_id" required>
+                        <option hidden>Pilih salah satu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Kota <span class="text-danger">*</span></label>
+                    <select class="form-control" name="city_id" required>
+                        <option hidden>Pilih salah satu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Kecamatan <span class="text-danger">*</span></label>
+                    <select class="form-control" name="subdistrict_id" required>
+                        <option hidden>Pilih salah satu</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Alamat Lengkap <span class="text-danger">*</span></label>
                     <textarea class="form-control" name="alamat" required style="resize: none;"></textarea>
                 </div>

@@ -2,6 +2,9 @@
 
 class Home extends MY_Controller {
 
+	private $data = [];
+	private $param = [];
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -132,7 +135,10 @@ class Home extends MY_Controller {
                                 'nama_lengkap' => $this->input->post('nama_lengkap'),
                                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                                 'email' => $this->input->post('email'),
-                                'no_telp' => $this->input->post('no_telp'),
+								'no_telp' => $this->input->post('no_telp'),
+								'province_id' => decrypt_text($this->input->post('province_id')),
+                                'city_id' => decrypt_text($this->input->post('city_id')),
+                                'subdistrict_id' => decrypt_text($this->input->post('subdistrict_id')),
                                 'alamat' => $this->input->post('alamat')
                             ],
                             'table' => 'customer'
@@ -178,6 +184,117 @@ class Home extends MY_Controller {
 			]
 		]);
 		redirect('home','refresh');
+	}
+
+	public function option_province()
+	{
+		$this->param['field'] = '*';
+		$this->param['table'] = 'data_province';
+		$this->param['order_by'] = [
+			'province' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
+				foreach ($this->data['data_parsing'] as $key) {
+					$get_data['html'] .= '
+					<option value="'.encrypt_text($key->province_id).'">'.$key->province.'</option>
+					';
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+    }
+    
+    public function option_city()
+	{
+		$this->param['field'] = '*';
+        $this->param['table'] = 'data_city';
+        $this->param['where'] = [
+			'province_id' => decrypt_text($this->input->post('province_id'))
+		];
+		$this->param['order_by'] = [
+			'city_name' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
+				foreach ($this->data['data_parsing'] as $key) {
+					$get_data['html'] .= '
+					<option value="'.encrypt_text($key->city_id).'">'.$key->city_name.'</option>
+					';
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+    }
+    
+    public function option_subdistrict()
+	{
+		$this->param['field'] = '*';
+        $this->param['table'] = 'data_subdistrict';
+        $this->param['where'] = [
+			'city_id' => decrypt_text($this->input->post('city_id'))
+		];
+		$this->param['order_by'] = [
+			'subdistrict' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
+				foreach ($this->data['data_parsing'] as $key) {
+					$get_data['html'] .= '
+					<option value="'.encrypt_text($key->subdistrict_id).'">'.$key->subdistrict.'</option>
+					';
+				}
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
 	}
 
 }
