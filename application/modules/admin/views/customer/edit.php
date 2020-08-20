@@ -97,6 +97,45 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
+                            Provinsi <span class="text-danger">*</span>
+                            <br>
+                            <span class="help-block" style="font-weight: normal;">
+                                <small><i>Provinsi dari customer</i></small>
+                            </span>
+                        </label>
+                        <div class="col-sm-9 col-md-9 col-xs-12">
+                            <select class="form-control select2" name="province_id" required="" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
+                            Kota <span class="text-danger">*</span>
+                            <br>
+                            <span class="help-block" style="font-weight: normal;">
+                                <small><i>Kota dari customer</i></small>
+                            </span>
+                        </label>
+                        <div class="col-sm-9 col-md-9 col-xs-12">
+                            <select class="form-control select2" name="city_id" required="" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
+                            Kecamatan <span class="text-danger">*</span>
+                            <br>
+                            <span class="help-block" style="font-weight: normal;">
+                                <small><i>Kecamatan dari customer</i></small>
+                            </span>
+                        </label>
+                        <div class="col-sm-9 col-md-9 col-xs-12">
+                            <select class="form-control select2" name="subdistrict_id" required="" style="width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-3 col-md-3 col-xs-12 text-right">
                             Alamat <span class="text-danger">*</span>
                             <br>
                             <span class="help-block" style="font-weight: normal;">
