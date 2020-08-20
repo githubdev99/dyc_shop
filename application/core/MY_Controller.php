@@ -52,13 +52,46 @@ class MY_Controller extends MX_Controller {
 		if ($this->session->userdata('customer')) {
 			$this->data['customer_session'] = $this->master_model->select_data(
 				[
-					'field' => '*',
+					'field' => 'customer.*, data_province.province, data_city.city_name, data_subdistrict.subdistrict',
 					'table' => 'customer',
+					'join' => [
+						[
+							'table' => 'data_province',
+							'on' => 'data_province.province_id = customer.province_id',
+							'type' => 'inner'
+						],
+						[
+							'table' => 'data_city',
+							'on' => 'data_city.city_id = customer.city_id',
+							'type' => 'inner'
+						],
+						[
+							'table' => 'data_subdistrict',
+							'on' => 'data_subdistrict.subdistrict_id = customer.subdistrict_id',
+							'type' => 'inner'
+						]
+					],
 					'where' => [
 						'id_customer' => $this->session->userdata('customer')['id']
 					]
 				]
 			)->row();
+
+			$this->data['order_total'] = $this->master_model->select_data([
+				'field' => 'SUM(cart.qty * produk.harga) AS subtotal',
+				'table' => 'cart',
+				'join' => [
+					[
+						'table' => 'produk',
+						'on' => 'produk.id_produk = cart.id_produk',
+						'type' => 'inner'
+					]
+				],
+				'where' => [
+					'id_customer' => $this->session->userdata('customer')['id'],
+					'status_pilih' => 'Y'
+				]
+			])->row()->subtotal;
 		}
 
 		// Get Data
