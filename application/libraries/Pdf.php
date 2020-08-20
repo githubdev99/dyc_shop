@@ -25,6 +25,3 @@ class Pdf extends Dompdf
 
   }
 }
-
-/* End of file Pdf.php */
-/* Location: ./application/libraries/Pdf.php */

@@ -92,6 +92,15 @@ class MY_Controller extends MX_Controller {
 					'status_pilih' => 'Y'
 				]
 			])->row()->subtotal;
+
+			$this->data['count_pilih'] = $this->master_model->select_data([
+                'field' => '*',
+                'table' => 'cart',
+                'where' => [
+                    'id_customer' => $this->session->userdata('customer')['id'],
+                    'status_pilih' => 'Y'
+                ]
+            ])->num_rows();
 		}
 
 		// Get Data

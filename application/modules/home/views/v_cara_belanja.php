@@ -32,11 +32,11 @@
     <h3>1. Metode Pembayaran</h3>
     <p style="font-size: 16px;">Untuk mempermudah transaksi Anda, kami menyediakan Transfer Bank dengan Metode berupa:
     <br>
-    <b>- Bank Mandiri</b>
+    <b>- BNI (Bank Negara Indonesia)</b>
     <br>
-    <img src="<?= base_url() ?>assets/home/images/mandiri.jpg" width="100">
+    <img src="<?= base_url() ?>assets/home/images/bni.png" width="100">
     <br>
-    No. Rekening: 0000000000000 (Atas Nama : Cynthia Anggraini)</p>
+    No. Rekening : 0971733578  (Atas Nama : Desty Triwilestari)</p>
     <br><br>
     <h3>2. Ketentuan Pembayaran</h3>
     <p style="font-size: 16px;">- Pembayaran dilakukan oleh pembeli dalam jangka waktu yang tertera pada Halaman Pembayaran/Konfirmasi setelah pembeli melakukan check out di <b>DYC Accessories Shop</b>. Jika pembeli belum melakukan pembayaran lebih dari jangka waktu yang ditentukan maka transaksi dianggap batal dan barang dikembalikan ke dalam sistem.<br>
@@ -44,13 +44,13 @@
     - Setelah kami menerima pembayaran Anda, kami akan mengkonfirmasi pembayaran tersebut dan status pesanan Anda akan diganti menjadi <b>"Confirmed"</b>.</p>
     <br><br>
     <h3>3. Cara Pembayaran</h3>
-    <p style="font-size: 16px;">- Kami menerima pembayaran melalui transfer antar <b>Bank Mandiri</b>. Informasi No.Rekening akan muncul pada saat proses transaksi.<br>
+    <p style="font-size: 16px;">- Kami menerima pembayaran melalui transfer antar <b>Bank BNI</b>. Informasi No.Rekening akan muncul pada saat proses transaksi.<br>
     - Jika Anda tidak melakukan pembayaran lewat dalam jangka waktu yang diberikan atas order yang sudah di lakukan, pesanan Anda secara otomatis akan Dibatalkan/Cancel.<br>
     - Jika anda telah mentransfer pembayaran plus ongkos kirim, segera konfirmasikan Bukti Transfer Anda.</p>
     <br><br>
     <h3>4. Cara Pengiriman</h3>
     <p style="font-size: 16px;">- Barang akan dikirimkan setelah kami menerima transfer pembayaran + ongkos kirim (harga yang tercantum di katalog belum termasuk ongkos kirim).<br>
-    - Lama pengiriman tergantung daerah tujuan & jenis paket pengiriman yang anda pilih, kami melakukan pengiriman dengan menggunakan jasa kurir JNE/JNT tergantung masing-masing daerah (tetapi dengan sudah berdiskusi bersama kami melalui kontak Whatsapp).</p>
+    - Lama pengiriman tergantung daerah tujuan & jenis paket pengiriman yang anda pilih, kami melakukan pengiriman dengan menggunakan jasa kurir JNE.</p>
     <br><br>
     <h3>5. Ketentuan Order/Pemesanan Produk</h3>
     <p style="font-size: 16px;">- Pemesanan dapat di lakukan dengan memilih produk yang di ingkinkan dan ikuti langkah selanjutnya.<br>

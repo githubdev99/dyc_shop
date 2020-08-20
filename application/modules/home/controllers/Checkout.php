@@ -35,7 +35,8 @@ class Checkout extends MY_Controller {
             ]
         ];
         $this->param['where'] = [
-            'id_customer' => decrypt_text($this->input->post('id_customer'))
+            'id_customer' => decrypt_text($this->input->post('id_customer')),
+            'status_pilih' => 'Y'
         ];
         $this->param['order_by'] = [
             'nama_produk' => 'asc'
@@ -86,8 +87,6 @@ class Checkout extends MY_Controller {
             ';
 
             foreach ($this->data['data_parsing']->result() as $key) {
-                $checked = ($key->status_pilih == 'Y') ? 'checked' : '';
-
                 $get_data['html'] .= '
                 <tr>
                     <td>
@@ -102,6 +101,62 @@ class Checkout extends MY_Controller {
                         </div>
                     </td>
                     <td class="text-center text-lg text-medium">'.rupiah($key->qty * $key->harga).'</td>
+                </tr>
+                ';
+            }
+            
+            $get_data['html'] .= '
+            </tbody>
+            </table>
+            ';
+
+            $this->data['output'] = [
+                'error' => false,
+                'data' => $get_data
+            ];
+        }
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+    }
+
+    public function pengiriman()
+    {
+        $this->data['data_parsing'] = $this->rajaongkir->cost(decrypt_text($this->input->post('destination')));
+
+        $get_data = [];
+        if ($this->data['data_parsing']->rajaongkir->status->code == 400) {
+            $this->data['output'] = [
+                'error' => true,
+                'data' => $get_data
+            ];
+        } else {
+            $get_data['html'] = '
+            <table class="table table-hover">
+                    <thead class="thead-default">
+                    <tr>
+                        <th></th>
+                        <th>Kurir</th>
+                        <th>Estimasi</th>
+                        <th>Biaya Ongkir</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+            ';
+
+            foreach ($this->data['data_parsing']->rajaongkir->results[0]->costs as $key) {
+                $value = $this->data['data_parsing']->rajaongkir->results[0]->name.':'.$key->service.':'.$key->description.':'.$key->cost[0]->value.':'.$key->cost[0]->etd;
+
+                $get_data['html'] .= '
+                <tr>
+                    <td class="align-middle">
+                        <div class="custom-control custom-radio mb-0">
+                            <input class="custom-control-input" type="radio" id="'.$key->service.'" name="pengiriman" data-biaya="'.$key->cost[0]->value.':'.rupiah($key->cost[0]->value).'" value="'.$value.'" onchange="check_kurir('."'#".$key->service."'".');" required>
+                            <label class="custom-control-label" for="'.$key->service.'"></label>
+                        </div>
+                    </td>
+                    <td class="align-middle"><span class="text-medium">'.$this->data['data_parsing']->rajaongkir->results[0]->name.'</span><br><span class="text-muted text-sm">'.$key->service.' ('.$key->description.')</span></td>
+                    <td class="align-middle">'.$key->cost[0]->etd.' Hari</td>
+                    <td class="align-middle">'.rupiah($key->cost[0]->value).'</td>
                 </tr>
                 ';
             }

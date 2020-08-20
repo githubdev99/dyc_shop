@@ -152,6 +152,14 @@ class Cart extends MY_Controller {
 							'id_customer' => decrypt_text($this->input->post('id_customer'))
 						]
 					])->row()->subtotal;
+					$this->data['count_pilih'] = $this->master_model->select_data([
+						'field' => '*',
+						'table' => 'cart',
+						'where' => [
+							'id_customer' => decrypt_text($this->input->post('id_customer')),
+							'status_pilih' => 'Y'
+						]
+					])->num_rows();
 
 					$get_data['html'] = '
 					<a href="#"></a>
@@ -189,7 +197,7 @@ class Cart extends MY_Controller {
 							<a class="btn btn-sm btn-block btn-secondary" href="'.base_url().'home/cart">View Cart</a>
 						</div>
 						<div class="column">
-							<a class="btn btn-sm btn-block btn-success" href="'.base_url().'home/checkout">Checkout</a>
+							<button type="button" class="btn btn-sm btn-block btn-success" onclick="checkout('.$this->data['count_pilih'].');">Checkout</button>
 						</div>
 					</div>
 					</div>

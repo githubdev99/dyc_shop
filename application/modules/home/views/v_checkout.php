@@ -1,3 +1,16 @@
+<!-- Start Page Preloader -->
+<div id="loading" style="display:none;">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_four"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_one"></div>
+        </div>
+    </div>
+</div>
+<!-- End Page Preloader -->
+
 <!-- Start Page Title -->
 <div class="page-title">
     <div class="container">
@@ -17,6 +30,10 @@
             </div>
             <div class="shopping-cart-footer">
             </div>
+            <h4>Pilih Pengiriman</h4>
+            <hr class="padding-bottom-1x">
+            <div class="table-responsive" id="pengiriman">
+            </div>
             <div class="row padding-top-1x mt-3">
                 <div class="col-sm-6">
                     <h5>Alamat Pengiriman:</h5>
@@ -28,7 +45,14 @@
                 <div class="col-sm-6">
                     <h5>Metode Pembayaran:</h5>
                     <ul class="list-unstyled">
-                        <li><span class="text-muted">Credit Card:</span>**** **** **** 5216</li>
+                        <li>
+                            <span class="text-muted">Transfer Bank:</span><br>
+                            <b>BNI (Bank Negara Indonesia)</b>
+                            <br>
+                            <img src="<?= base_url() ?>assets/home/images/bni.png" width="100">
+                            <br>
+                            No. Rekening : 0971733578  (Atas Nama : Desty Triwilestari)
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +76,7 @@
                         </tr>
                         <tr>
                             <td>Biaya Pengiriman:</td>
-                            <td class="text-medium">Rp. 0</td>
+                            <td class="text-medium" id="biaya_pengiriman">Rp. 0</td>
                         </tr>
                         <tr>
                             <td>Total Seluruh:</td>
