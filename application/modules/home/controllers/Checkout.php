@@ -11,7 +11,7 @@ class Checkout extends MY_Controller {
 		$this->not_login_customer();
 	}
 
-	public function index()
+    public function index()
 	{
 		$title = 'Checkout';
 		$data = [
@@ -20,8 +20,90 @@ class Checkout extends MY_Controller {
 			'get_script' => 'home/script_checkout'
 		];
 
-        $this->master->template_home($data);
-    }
+		if (!$this->input->post()) {
+            $this->master->template_home($data);
+        } else {
+            $process = TRUE;
+
+            if ($this->input->post('checkout')) {
+                if ($process == TRUE) {
+                    $this->db->trans_start();
+
+                    $param['field'] = '*';
+                    $param['table'] = 'cart';
+                    $param['where'] = [
+                        'id_customer' => $this->session->userdata('customer')['id'],
+                        'status_pilih' => 'Y'
+                    ];
+
+                    $data_parsing = $this->master_model->select_data($param);
+
+                    $id_transaksi = $this->master_model->generate_code('T');
+
+                    $total_qty = 0;
+                    foreach ($data_parsing->result() as $key) {
+                        $this->master_model->send_data([
+                            'data' => [
+                                'id_transaksi_detail' => $this->master_model->generate_code('TD'),
+                                'id_transaksi' => $id_transaksi,
+                                'id_produk' => $key->id_produk,
+                                'qty' => $key->qty
+                            ],
+                            'table' => 'transaksi_detail'
+                        ]);
+
+                        $total_qty += $key->qty;
+                    }
+
+                    $data_pengiriman = explode(':', $this->input->post('pengiriman'));
+
+                    $query = $this->master_model->send_data([
+                        'data' => [
+                            'id_transaksi' => $id_transaksi,
+                            'id_customer' => $this->session->userdata('customer')['id'],
+                            'no_order' => $this->master_model->generate_code('INV'),
+                            'total_qty' => $total_qty,
+                            'harga_transaksi' => $this->input->post('harga_transaksi'),
+                            'ongkir' => $data_pengiriman[0],
+                            'jenis_ongkir' => $data_pengiriman[1],
+                            'etd_ongkir' => $data_pengiriman[2],
+                            'harga_ongkir' => $data_pengiriman[3],
+                            'total_transaksi' => $this->input->post('total_transaksi'),
+                            'status' => 'Belum Dibayar',
+                        ],
+                        'table' => 'transaksi'
+                    ]);
+
+                    
+                    if ($query == FALSE) {
+                        $this->alert_popup2([
+                            'name' => 'failed',
+                            'swal' => [
+                                'title' => 'Successfull!',
+                                'text' => 'Pesanan gagal dibuat, silahkan coba lagi!',
+                                'type' => 'error'
+                            ]
+                        ]);
+                        redirect(base_url().'home/checkout','refresh');
+                    } else {
+                        $this->alert_popup2([
+                            'name' => 'success',
+                            'swal' => [
+                                'title' => 'Successfull!',
+                                'text' => 'Pesanan berhasil dibuat, mohon tunggu!',
+                                'type' => 'success'
+                            ]
+                        ]);
+                        redirect(base_url().'home','refresh');
+                    }
+
+                    $this->db->trans_complete();
+                }
+            } else {
+                $process = FALSE;
+            }
+        }
+	}
     
     public function order()
 	{
@@ -143,22 +225,26 @@ class Checkout extends MY_Controller {
                     <tbody>
             ';
 
+            $i = 1;
             foreach ($this->data['data_parsing']->rajaongkir->results[0]->costs as $key) {
-                $value = $this->data['data_parsing']->rajaongkir->results[0]->name.':'.$key->service.':'.$key->description.':'.$key->cost[0]->value.':'.$key->cost[0]->etd;
+                $value = $this->data['data_parsing']->rajaongkir->results[0]->name.':'.$key->description.' ('.$key->service.'):'.$key->cost[0]->etd.' Hari:'.$key->cost[0]->value;
+                $checked = ($i == 1) ? 'checked' : '';
 
                 $get_data['html'] .= '
                 <tr>
                     <td class="align-middle">
                         <div class="custom-control custom-radio mb-0">
-                            <input class="custom-control-input" type="radio" id="'.$key->service.'" name="pengiriman" data-biaya="'.$key->cost[0]->value.':'.rupiah($key->cost[0]->value).'" value="'.$value.'" onchange="check_kurir('."'#".$key->service."'".');" required>
+                            <input class="custom-control-input check_pengiriman" type="radio" id="'.$key->service.'" name="pengiriman" data-biaya="'.$key->cost[0]->value.':'.rupiah($key->cost[0]->value).'" value="'.$value.'" onchange="check_kurir('."'#".$key->service."'".');" '.$checked.' required>
                             <label class="custom-control-label" for="'.$key->service.'"></label>
                         </div>
                     </td>
-                    <td class="align-middle"><span class="text-medium">'.$this->data['data_parsing']->rajaongkir->results[0]->name.'</span><br><span class="text-muted text-sm">'.$key->service.' ('.$key->description.')</span></td>
+                    <td class="align-middle"><span class="text-medium">'.$this->data['data_parsing']->rajaongkir->results[0]->name.'</span><br><span class="text-muted text-sm">'.$key->description.' ('.$key->service.')</span></td>
                     <td class="align-middle">'.$key->cost[0]->etd.' Hari</td>
                     <td class="align-middle">'.rupiah($key->cost[0]->value).'</td>
                 </tr>
                 ';
+
+                $i++;
             }
             
             $get_data['html'] .= '
