@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Agu 2020 pada 01.29
+-- Waktu pembuatan: 22 Agu 2020 pada 11.41
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `username`, `password`) VALUES
-('ADMIN', 'Admin DYC Shop', 'admin', '$2y$10$w17rhAc1XoRRPz1k3nZozuY0WfAZbLowMHoLjW415z5mYwhWKHU6y');
+('ADMIN', 'Admin DYC Shop', 'admin', '$2y$10$iztJcGE.HNEwHEn8wjLp.O/DcJbqgE07yNbwZF/YGvLtCv6UnIPIO');
 
 -- --------------------------------------------------------
 
@@ -60,10 +60,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_produk`, `id_customer`, `qty`, `status_pilih`) VALUES
-('PC-202008182413', 'P-202008025954', 'C-202008112064', 4, 'T'),
-('PC-202008185591', 'P-202008025183', 'C-202008112064', 1, 'T'),
-('PC-202008188510', 'P-202008021278', 'C-202008112064', 1, 'T'),
-('PC-202008188614', 'P-202008027504', 'C-202008112064', 3, 'T');
+('PC-202008206152', 'P-202008025183', 'C-202008206781', 3, 'Y'),
+('PC-202008209203', 'P-202008024698', 'C-202008206781', 2, 'Y');
 
 -- --------------------------------------------------------
 
@@ -79,6 +77,9 @@ CREATE TABLE `customer` (
   `jenis_kelamin` enum('Laki-Laki','Perempuan') NOT NULL,
   `email` varchar(20) NOT NULL,
   `no_telp` varchar(20) NOT NULL,
+  `province_id` int(11) NOT NULL COMMENT 'Provinsi',
+  `city_id` int(11) NOT NULL COMMENT 'Kota',
+  `subdistrict_id` int(11) NOT NULL COMMENT 'Kecamatan',
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -86,120 +87,16 @@ CREATE TABLE `customer` (
 -- Dumping data untuk tabel `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `email`, `no_telp`, `alamat`) VALUES
-('C-202008112064', 'devan', '$2y$10$Qf/J5vPE3wQvBtRKkYhhWOS7VYQhvxGWxvbNKwZjr7sBEW4Nalldy', 'Devan Ramadhan', 'Laki-Laki', 'devan@gmail.com', '012345', 'Jl. Bintara'),
-('C-202008117553', 'dycyeni', '$2y$10$iuVfHNirHM3ownA.KBhcN.dE5KlOwg64lEkBKT8l9Ca1D4byxUcVu', 'Yeni Anggraini', 'Perempuan', 'ayeni0566@gmail.com', '082112422030', 'Jl. Bintara 14 Rt 001/Rw 014, Bekasi Barat');
+INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `email`, `no_telp`, `province_id`, `city_id`, `subdistrict_id`, `alamat`) VALUES
+('C-202008206781', 'devan', '$2y$10$xiJ5tYZ5tFlf02ZjrZRaZO02YchdPYKKTH.3U2vuqJDDICqllJBSe', 'Devan Ramadhan', 'Laki-Laki', 'devan@gmail.com', '012345', 9, 55, 750, 'Jl. Bintara 14');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Struktur dari tabel `data_city`
 --
 
-CREATE TABLE `produk` (
-  `id_produk` char(20) NOT NULL,
-  `id_kategori` char(20) NOT NULL,
-  `id_sub_kategori` char(20) DEFAULT NULL,
-  `kode_sku` varchar(50) NOT NULL,
-  `nama_produk` varchar(50) NOT NULL,
-  `harga` int(11) NOT NULL,
-  `foto` varchar(255) DEFAULT NULL,
-  `stok` int(11) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `created_datetime` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `produk`
---
-
-INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`, `created_datetime`) VALUES
-('P-202008021278', 'K-202007318991', 'KS-202007311787', 'TN-1994502', 'Gelang Bandul Bening', 31000, 'IMG-202008118516.jpg', 50, 'Gelang Titanium dengan bandul resin bening.', '2020-08-02 11:18:18'),
-('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Oval Orange', 37500, 'IMG-202008116607.jpeg', 40, 'Ikat Rambut dengan bandul resin yang berbentuk oval dengan gliter warna orange.', '2020-08-02 11:20:32'),
-('P-202008021826', 'K-202007312495', 'KS-202007314022', 'IN-173405', 'Kalung Coklat Bunga Hitam', 30000, 'IMG-202008106382.jpg', 20, 'Kalung Resin dengan warna coklat dihiasi manik bunga hitam.', '2020-08-02 10:59:36'),
-('P-202008022019', 'K-202007318991', 'KS-202007311787', 'TN-1994503', 'Gelang Bulat Merah dan Bening', 31000, 'IMG-202008113977.jpeg', 50, 'Gelang Titanium dengan bandul resin bening dan didalamnya ditambahkan gradasi warna merah dan orange.', '2020-08-02 10:55:40'),
-('P-202008023302', 'K-202007318991', 'KS-202007311787', 'TN-1994501', 'Gelang Bintang Biru', 31000, 'IMG-202008111687.jpg', 55, 'Gelang Titanium dengan bandul resin bintang yang berwarna biru.', '2020-08-02 11:17:46'),
-('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Kipas Sakura', 21500, 'IMG-202008118670.jpeg', 50, 'Bros Resin dengan bingkai kipas sakura jepang.', '2020-08-02 11:16:38'),
-('P-202008023788', 'K-202007312495', 'KS-202007314022', 'IN-173404', 'Kalung Love Pink', 30000, 'IMG-202008102682.jpg', 20, 'Kalung Resin dengan Bentuk Love dengan Manik bibir menambah kesan cute dan feminin.', '2020-08-02 10:58:28'),
-('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Batu Kristal', 21500, 'IMG-202008117279.jpeg', 80, 'Bros resin dengan bingkai batu kristal dan dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:16:06'),
-('P-202008024698', 'K-202007318991', 'KS-202007316483', 'BF-561440403', 'Gelang Daun Bening', 29000, 'IMG-202008117380.jpg', 30, 'Gelang Rantai dengan bandul resin yang berbentuk daun berwarna bening dan didalamnya terdapat tangkai/ranting tanaman.', '2020-08-02 10:57:16'),
-('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Balon Kerlip Ungu', 42500, 'IMG-202008025886.jpg', 34, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
-('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Batu Permata', 42500, 'IMG-202008109405.jpeg', 45, 'Anting Resin dengan desain bingkai batu permata dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:14:54'),
-('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Glassy', 37500, 'IMG-202008116443.jpg', 40, 'Ikat Rambut dengan bandul resin yang perpaduan gradasi warna merah dan kuning.', '2020-08-02 11:19:53'),
-('P-202008025954', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Bening', 32000, 'IMG-202008102710.jpeg', 30, 'Anting Resin bening yang dihiasi dengan bunga kering berwarna pink yang cantik.', '2020-08-02 10:53:06'),
-('P-202008026160', 'K-202007312495', 'KS-202007319193', 'ST-188903', 'Kalung Bunga Sakura', 34500, 'IMG-202008111166.jpg', 20, 'Kalung Resin dengan desain bingkai bunga sakura membuat penampilan terlihat semakin menawan.', '2020-08-02 11:21:13'),
-('P-202008026377', 'K-202007312820', 'KS-202007312744', 'CH-800106', 'Ikat Rambut Bulan Sabit Kerlip', 37500, 'IMG-202008115409.jpeg', 30, 'Ikat Rambut dengan bandul resin bentuk bulan sabit dengan hiasan pernak-pernik permata.', '2020-08-02 11:17:08'),
-('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233006', 'Anting Daun Pelangi', 42500, 'IMG-202008103224.jpeg', 35, 'Anting Resin dengan bingkai daun dan dihiasi berbagai macam warna seperti pelangi.', '2020-08-02 11:13:31'),
-('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Rantai Panjang', 32000, 'IMG-202008108160.jpeg', 85, 'Anting Resin dengan desain panjang dan dihiasi manik bunga', '2020-08-02 10:54:45'),
-('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 42500, 'IMG-202008024800.jpg', 35, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
-('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 42500, 'IMG-202008025461.jpg', 35, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
-('P-202008027809', 'K-202007318991', 'KS-202007316483', 'BF-561440402', 'Gelang Segitiga Biru', 29000, 'IMG-202008117874.jpg', 30, 'Gelang Rantai dengan bandul resin berbentuk segitiga yang berwarna biru.', '2020-08-02 10:57:45'),
-('P-202008028080', 'K-202007312495', 'KS-202007319193', 'ST-188901', 'Kalung Kunci Bintang Biru', 34500, 'IMG-202008104183.jpeg', 20, 'Kalung Resin dengan desain kunci bulan sabit dengan gradasi warna biru dan hijau.', '2020-08-02 11:00:13'),
-('P-202008028396', 'K-202007312495', 'KS-202007314022', 'IN-173402', 'Kalung Love', 30000, 'IMG-202008104752.jpg', 20, 'Kalung Resin dengan bentuk Love.', '2020-08-02 11:08:32'),
-('P-202008028485', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Oval Batu Bening', 29000, 'IMG-202008111890.jpeg', 30, 'Gelang Rantai Resin dengan bandul oval bening.', '2020-08-02 11:21:51'),
-('P-202008028601', 'K-202007312495', 'KS-202007319193', 'ST-188902', 'Kalung Kunci Bintang', 34500, 'IMG-202008107470.jpeg', 20, 'Kalung Resin dengan desain kunci bintang', '2020-08-02 11:23:00'),
-('P-202008028933', 'K-202007312495', 'KS-202007314022', 'IN-173403', 'Kalung Oval Langit', 30000, 'IMG-202008106296.jpg', 20, 'Kalung Resin dengan warna biru seperti langit.', '2020-08-02 10:58:51'),
-('P-202008029581', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bunga Biru', 30000, 'IMG-202008101119.jpg', 50, 'Anting Resin bulat dengan warna biru muda dihiasi dengan manik bunga.', '2020-08-02 10:56:27'),
-('P-202008103200', 'K-202007312495', 'KS-202007319193', 'ST-188904', 'Kalung Kunci Bulan Sabit Cutie', 34500, 'IMG-202008117819.jpg', 20, 'Kalung Resin dengan bingkai kunci bulan sabit dan perpaduan warna pink dan biru.', '2020-08-10 00:08:01'),
-('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Bunga Hijau', 29000, 'IMG-202008111375.jpeg', 40, 'Gelang Rantai Resin dengan bandul bunga hijau', '2020-08-10 00:09:15'),
-('P-202008103433', 'K-202007312495', 'KS-202007319193', 'ST-188905', 'Kalung Kunci Love', 34500, 'IMG-202008111976.jpg', 20, 'Kalung Resin dengan bingkai kunci love dan perpaduan warna biru dan pink.', '2020-08-10 00:05:28');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `produk_kategori`
---
-
-CREATE TABLE `produk_kategori` (
-  `id_kategori` char(20) NOT NULL,
-  `nama_kategori` varchar(50) NOT NULL,
-  `created_datetime` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `produk_kategori`
---
-
-INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime`) VALUES
-('K-202007312495', 'Kalung', '2020-07-31 23:22:59'),
-('K-202007312820', 'Ikat Rambut', '2020-07-31 23:23:08'),
-('K-202007314314', 'Bros', '2020-08-01 19:10:43'),
-('K-202007318991', 'Gelang', '2020-07-31 23:46:30'),
-('K-202007319642', 'Anting', '2020-07-31 23:22:56');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `produk_sub_kategori`
---
-
-CREATE TABLE `produk_sub_kategori` (
-  `id_sub_kategori` char(20) NOT NULL,
-  `id_kategori` char(20) NOT NULL,
-  `nama_sub_kategori` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `produk_sub_kategori`
---
-
-INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_kategori`) VALUES
-('KS-202007311787', 'K-202007318991', 'Titanium Bracelets'),
-('KS-202007312650', 'K-202007319642', 'Pretty Earrings'),
-('KS-202007312744', 'K-202007312820', 'Charming Hairbands'),
-('KS-202007314022', 'K-202007312495', 'Interesting Necklaces'),
-('KS-202007316483', 'K-202007318991', 'Beautiful Bracelets'),
-('KS-202007316494', 'K-202007314314', 'Sparkle Broochs'),
-('KS-202007317214', 'K-202007319642', 'Perfect Earrings'),
-('KS-202007319193', 'K-202007312495', 'Stunning Necklaces');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `ro_city`
---
-
-CREATE TABLE `ro_city` (
+CREATE TABLE `data_city` (
   `city_id` int(11) NOT NULL,
   `province_id` int(11) NOT NULL,
   `province_kd` varchar(15) NOT NULL,
@@ -208,13 +105,13 @@ CREATE TABLE `ro_city` (
   `city_kd` varchar(7) NOT NULL,
   `postal_code` int(6) NOT NULL,
   `type` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Kota';
 
 --
--- Dumping data untuk tabel `ro_city`
+-- Dumping data untuk tabel `data_city`
 --
 
-INSERT INTO `ro_city` (`city_id`, `province_id`, `province_kd`, `province`, `city_name`, `city_kd`, `postal_code`, `type`) VALUES
+INSERT INTO `data_city` (`city_id`, `province_id`, `province_kd`, `province`, `city_name`, `city_kd`, `postal_code`, `type`) VALUES
 (1, 21, '060000', 'Prov. Aceh', 'Kab. Aceh Barat', '060600', 23681, 'Kabupaten'),
 (2, 21, '060000', 'Prov. Aceh', 'Kab. Aceh Barat Daya', '061700', 23764, 'Kabupaten'),
 (3, 21, '060000', 'Prov. Aceh', 'Kab. Aceh Besar', '060100', 23951, 'Kabupaten'),
@@ -720,20 +617,20 @@ INSERT INTO `ro_city` (`city_id`, `province_id`, `province_kd`, `province`, `cit
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ro_province`
+-- Struktur dari tabel `data_province`
 --
 
-CREATE TABLE `ro_province` (
+CREATE TABLE `data_province` (
   `province_id` int(11) NOT NULL,
   `province` varchar(50) NOT NULL,
   `province_kd` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Provinsi';
 
 --
--- Dumping data untuk tabel `ro_province`
+-- Dumping data untuk tabel `data_province`
 --
 
-INSERT INTO `ro_province` (`province_id`, `province`, `province_kd`) VALUES
+INSERT INTO `data_province` (`province_id`, `province`, `province_kd`) VALUES
 (1, 'Prov. Bali', '220000'),
 (2, 'Prov. Kepulauan Bangka Belitung', '290000'),
 (3, 'Prov. Banten', '280000'),
@@ -772,10 +669,10 @@ INSERT INTO `ro_province` (`province_id`, `province`, `province_kd`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ro_subdistrict`
+-- Struktur dari tabel `data_subdistrict`
 --
 
-CREATE TABLE `ro_subdistrict` (
+CREATE TABLE `data_subdistrict` (
   `subdistrict_id` int(11) NOT NULL,
   `province_id` int(11) NOT NULL,
   `province_kd` varchar(15) NOT NULL,
@@ -786,13 +683,13 @@ CREATE TABLE `ro_subdistrict` (
   `type` varchar(12) NOT NULL,
   `subdistrict` varchar(100) NOT NULL,
   `subdistrict_kd` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='kecamatan';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Kecamatan';
 
 --
--- Dumping data untuk tabel `ro_subdistrict`
+-- Dumping data untuk tabel `data_subdistrict`
 --
 
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (1, 21, '060000', 'Prov. Aceh', 1, '060600', 'Kab. Aceh Barat', 'Kabupaten', 'Arongan Lambalek', '060611'),
 (2, 21, '060000', 'Prov. Aceh', 1, '060600', 'Kab. Aceh Barat', 'Kabupaten', 'Bubon', '060610'),
 (3, 21, '060000', 'Prov. Aceh', 1, '060600', 'Kab. Aceh Barat', 'Kabupaten', 'Johan Pahlawan', '060605'),
@@ -1258,7 +1155,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (464, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Kwanyar', '052903'),
 (465, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Labang', '052902'),
 (466, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Modung', '052904');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (467, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Sepulu', '052917'),
 (468, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Socah', '052910'),
 (469, 11, '050000', 'Prov. Jawa Timur', 31, '052900', 'Kab. Bangkalan', 'Kabupaten', 'Tanah Merah', '052908'),
@@ -1713,7 +1610,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (918, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Madapangga', '230613'),
 (919, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Monta', '230601'),
 (920, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Palibelo', '230618');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (921, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Parado', '230616'),
 (922, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Sanggar', '230609'),
 (923, 22, '230000', 'Prov. Nusa Tenggara Barat', 68, '230600', 'Kab. Bima', 'Kabupaten', 'Sape', '230606'),
@@ -2172,7 +2069,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (1376, 30, '200000', 'Prov. Sulawesi Tenggara', 102, '201000', 'Kab. Buton Utara', 'Kabupaten', 'Kulisusu Barat', '201002'),
 (1377, 30, '200000', 'Prov. Sulawesi Tenggara', 102, '201000', 'Kab. Buton Utara', 'Kabupaten', 'Kulisusu Utara', '201003'),
 (1378, 30, '200000', 'Prov. Sulawesi Tenggara', 102, '201000', 'Kab. Buton Utara', 'Kabupaten', 'Wakorumba Utara', '201006');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (1379, 9, '020000', 'Prov. Jawa Barat', 103, '021400', 'Kab. Ciamis', 'Kabupaten', 'Banjarsari', '021410'),
 (1380, 9, '020000', 'Prov. Jawa Barat', 103, '021400', 'Kab. Ciamis', 'Kabupaten', 'Baregbeg', '021434'),
 (1381, 9, '020000', 'Prov. Jawa Barat', 103, '021400', 'Kab. Ciamis', 'Kabupaten', 'Ciamis', '021421'),
@@ -2631,7 +2528,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (1835, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Gresik', '050110'),
 (1836, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Kebomas', '050109'),
 (1837, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Kedamean', '050103');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (1838, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Manyar', '050111'),
 (1839, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Menganti', '050104'),
 (1840, 11, '050000', 'Prov. Jawa Timur', 133, '050100', 'Kab. Gresik', 'Kabupaten', 'Panceng', '050115'),
@@ -3078,7 +2975,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (2282, 11, '050000', 'Prov. Jawa Timur', 164, '050400', 'Kab. Jombang', 'Kabupaten', 'Sumobito', '050410'),
 (2283, 11, '050000', 'Prov. Jawa Timur', 164, '050400', 'Kab. Jombang', 'Kabupaten', 'Tembelang', '050415'),
 (2284, 11, '050000', 'Prov. Jawa Timur', 164, '050400', 'Kab. Jombang', 'Kabupaten', 'Wonosalam', '032108');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (2285, 25, '320000', 'Prov. Papua Barat', 165, '320200', 'Kab. Kaimana', 'Kabupaten', 'Buruway', '320201'),
 (2286, 25, '320000', 'Prov. Papua Barat', 165, '320200', 'Kab. Kaimana', 'Kabupaten', 'Kaimana', '320204'),
 (2287, 25, '320000', 'Prov. Papua Barat', 165, '320200', 'Kab. Kaimana', 'Kabupaten', 'Kambraw (Kamberau)', '320205'),
@@ -3523,7 +3420,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (2726, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Gantiwarno', '031002'),
 (2727, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Jatinom', '031022'),
 (2728, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Jogonalan', '031009');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (2729, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Juwiring', '031016'),
 (2730, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Kalikotes', '031007'),
 (2731, 10, '030000', 'Prov. Jawa Tengah', 196, '031000', 'Kab. Klaten', 'Kabupaten', 'Karanganom', '031020'),
@@ -3956,7 +3853,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (3158, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Kalianda', '120126'),
 (3159, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Katibung', '120109'),
 (3160, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Ketapang', '120120');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (3161, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Merbau Mataram', '120116'),
 (3162, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Natar', '120106'),
 (3163, 18, '120000', 'Prov. Lampung', 224, '120100', 'Kab. Lampung Selatan', 'Kabupaten', 'Palas', '120112'),
@@ -4404,7 +4301,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (3605, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Dau', '051830'),
 (3606, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Donomulyo', '051801'),
 (3607, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Gedangan', '051805');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (3608, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Gondanglegi', '051814'),
 (3609, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Jabung', '120706'),
 (3610, 11, '050000', 'Prov. Jawa Timur', 255, '051800', 'Kab. Malang', 'Kabupaten', 'Kalipare', '051802'),
@@ -4850,7 +4747,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (4050, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Pusomaen', '171002'),
 (4051, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Ratahan', '171004'),
 (4052, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Ratahan Timur', '171012');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (4053, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Ratatotok', '171001'),
 (4054, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Silian Raya', '171008'),
 (4055, 31, '170000', 'Prov. Sulawesi Utara', 287, '171000', 'Kab. Minahasa Tenggara', 'Kabupaten', 'Tombatu', '171005'),
@@ -5289,7 +5186,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (4494, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Muaradua Kisam', '110903'),
 (4495, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Pulau Beringin', '110902'),
 (4496, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Runjung Agung', '110914');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (4497, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Simpang', '110905'),
 (4498, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Sindang Danau', '110916'),
 (4499, 33, '110000', 'Prov. Sumatera Selatan', 315, '110900', 'Kab. Ogan Komering Ulu Selatan', 'Kabupaten', 'Sungai Are', '110915'),
@@ -5729,7 +5626,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (4934, 26, '090000', 'Prov. Riau', 351, '090800', 'Kab. Pelalawan', 'Kabupaten', 'Pangkalan Lesung', '090807'),
 (4935, 26, '090000', 'Prov. Riau', 351, '090800', 'Kab. Pelalawan', 'Kabupaten', 'Pelalawan', '090809'),
 (4936, 26, '090000', 'Prov. Riau', 351, '090800', 'Kab. Pelalawan', 'Kabupaten', 'Teluk Meranti', '090810');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (4937, 26, '090000', 'Prov. Riau', 351, '090800', 'Kab. Pelalawan', 'Kabupaten', 'Ukui', '090806'),
 (4938, 10, '030000', 'Prov. Jawa Tengah', 352, '032700', 'Kab. Pemalang', 'Kabupaten', 'Ampelgading', '051809'),
 (4939, 10, '030000', 'Prov. Jawa Tengah', 352, '032700', 'Kab. Pemalang', 'Kabupaten', 'Bantarbolang', '032706'),
@@ -6178,7 +6075,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (5382, 12, '130000', 'Prov. Kalimantan Barat', 388, '130100', 'Kab. Sambas', 'Kabupaten', 'Tebas', '130103'),
 (5383, 12, '130000', 'Prov. Kalimantan Barat', 388, '130100', 'Kab. Sambas', 'Kabupaten', 'Tekarang', '130113'),
 (5384, 12, '130000', 'Prov. Kalimantan Barat', 388, '130100', 'Kab. Sambas', 'Kabupaten', 'Teluk Keramat', '130106');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (5385, 34, '070000', 'Prov. Sumatera Utara', 389, '072000', 'Kab. Samosir', 'Kabupaten', 'Harian', '072001'),
 (5386, 34, '070000', 'Prov. Sumatera Utara', 389, '072000', 'Kab. Samosir', 'Kabupaten', 'Nainggolan', '072007'),
 (5387, 34, '070000', 'Prov. Sumatera Utara', 389, '072000', 'Kab. Samosir', 'Kabupaten', 'Onan Runggu', '072003'),
@@ -6629,7 +6526,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (5832, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Klawak', '320717'),
 (5833, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Klayili', '320720'),
 (5834, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Makbon', '320706');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (5835, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Mariat', '320719'),
 (5836, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Maudus', '320718'),
 (5837, 25, '320000', 'Prov. Papua Barat', 424, '320700', 'Kab. Sorong', 'Kabupaten', 'Mayamuk', '320710'),
@@ -7080,7 +6977,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (6283, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Mekar Baru', '280339'),
 (6284, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Pagedangan', '280307'),
 (6285, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Pakuhaji', '280319');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (6286, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Panongan', '280304'),
 (6287, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Pasar Kemis', '280312'),
 (6288, 3, '280000', 'Prov. Banten', 455, '280300', 'Kab. Tangerang', 'Kabupaten', 'Rajeg', '280317'),
@@ -7519,7 +7416,7 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 (6722, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Timori', '251811'),
 (6723, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Umagi', '251830'),
 (6724, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Wakuwo', '251819');
-INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
+INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
 (6725, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Wari (Taiyeve)', '251827'),
 (6726, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Wenam', '251839'),
 (6727, 24, '250000', 'Prov. Papua', 484, '251800', 'Kab. Tolikara', 'Kabupaten', 'Wina', '251823'),
@@ -7794,6 +7691,109 @@ INSERT INTO `ro_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `p
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` char(20) NOT NULL,
+  `id_kategori` char(20) NOT NULL,
+  `id_sub_kategori` char(20) DEFAULT NULL,
+  `kode_sku` varchar(50) NOT NULL,
+  `nama_produk` varchar(50) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `stok` int(11) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `created_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`, `created_datetime`) VALUES
+('P-202008021278', 'K-202007318991', 'KS-202007311787', 'TN-1994502', 'Gelang Bandul Bening', 31000, 'IMG-202008118516.jpg', 50, 'Gelang Titanium dengan bandul resin bening.', '2020-08-02 11:18:18'),
+('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Oval Orange', 37500, 'IMG-202008116607.jpeg', 40, 'Ikat Rambut dengan bandul resin yang berbentuk oval dengan gliter warna orange.', '2020-08-02 11:20:32'),
+('P-202008021826', 'K-202007312495', 'KS-202007314022', 'IN-173405', 'Kalung Coklat Bunga Hitam', 30000, 'IMG-202008106382.jpg', 20, 'Kalung Resin dengan warna coklat dihiasi manik bunga hitam.', '2020-08-02 10:59:36'),
+('P-202008022019', 'K-202007318991', 'KS-202007311787', 'TN-1994503', 'Gelang Bulat Merah dan Bening', 31000, 'IMG-202008113977.jpeg', 50, 'Gelang Titanium dengan bandul resin bening dan didalamnya ditambahkan gradasi warna merah dan orange.', '2020-08-02 10:55:40'),
+('P-202008023302', 'K-202007318991', 'KS-202007311787', 'TN-1994501', 'Gelang Bintang Biru', 31000, 'IMG-202008111687.jpg', 55, 'Gelang Titanium dengan bandul resin bintang yang berwarna biru.', '2020-08-02 11:17:46'),
+('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Kipas Sakura', 21500, 'IMG-202008118670.jpeg', 50, 'Bros Resin dengan bingkai kipas sakura jepang.', '2020-08-02 11:16:38'),
+('P-202008023788', 'K-202007312495', 'KS-202007314022', 'IN-173404', 'Kalung Love Pink', 30000, 'IMG-202008102682.jpg', 20, 'Kalung Resin dengan Bentuk Love dengan Manik bibir menambah kesan cute dan feminin.', '2020-08-02 10:58:28'),
+('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Batu Kristal', 21500, 'IMG-202008117279.jpeg', 80, 'Bros resin dengan bingkai batu kristal dan dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:16:06'),
+('P-202008024698', 'K-202007318991', 'KS-202007316483', 'BF-561440403', 'Gelang Daun Bening', 29000, 'IMG-202008117380.jpg', 30, 'Gelang Rantai dengan bandul resin yang berbentuk daun berwarna bening dan didalamnya terdapat tangkai/ranting tanaman.', '2020-08-02 10:57:16'),
+('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Balon Kerlip Ungu', 42500, 'IMG-202008025886.jpg', 34, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
+('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Batu Permata', 42500, 'IMG-202008109405.jpeg', 45, 'Anting Resin dengan desain bingkai batu permata dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:14:54'),
+('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Glassy', 37500, 'IMG-202008116443.jpg', 40, 'Ikat Rambut dengan bandul resin yang perpaduan gradasi warna merah dan kuning.', '2020-08-02 11:19:53'),
+('P-202008025954', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Bening', 32000, 'IMG-202008102710.jpeg', 30, 'Anting Resin bening yang dihiasi dengan bunga kering berwarna pink yang cantik.', '2020-08-02 10:53:06'),
+('P-202008026160', 'K-202007312495', 'KS-202007319193', 'ST-188903', 'Kalung Bunga Sakura', 34500, 'IMG-202008111166.jpg', 20, 'Kalung Resin dengan desain bingkai bunga sakura membuat penampilan terlihat semakin menawan.', '2020-08-02 11:21:13'),
+('P-202008026377', 'K-202007312820', 'KS-202007312744', 'CH-800106', 'Ikat Rambut Bulan Sabit Kerlip', 37500, 'IMG-202008115409.jpeg', 30, 'Ikat Rambut dengan bandul resin bentuk bulan sabit dengan hiasan pernak-pernik permata.', '2020-08-02 11:17:08'),
+('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233006', 'Anting Daun Pelangi', 42500, 'IMG-202008103224.jpeg', 35, 'Anting Resin dengan bingkai daun dan dihiasi berbagai macam warna seperti pelangi.', '2020-08-02 11:13:31'),
+('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Rantai Panjang', 32000, 'IMG-202008108160.jpeg', 85, 'Anting Resin dengan desain panjang dan dihiasi manik bunga', '2020-08-02 10:54:45'),
+('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 42500, 'IMG-202008024800.jpg', 35, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
+('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 42500, 'IMG-202008025461.jpg', 35, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
+('P-202008027809', 'K-202007318991', 'KS-202007316483', 'BF-561440402', 'Gelang Segitiga Biru', 29000, 'IMG-202008117874.jpg', 30, 'Gelang Rantai dengan bandul resin berbentuk segitiga yang berwarna biru.', '2020-08-02 10:57:45'),
+('P-202008028080', 'K-202007312495', 'KS-202007319193', 'ST-188901', 'Kalung Kunci Bintang Biru', 34500, 'IMG-202008104183.jpeg', 20, 'Kalung Resin dengan desain kunci bulan sabit dengan gradasi warna biru dan hijau.', '2020-08-02 11:00:13'),
+('P-202008028396', 'K-202007312495', 'KS-202007314022', 'IN-173402', 'Kalung Love', 30000, 'IMG-202008104752.jpg', 20, 'Kalung Resin dengan bentuk Love.', '2020-08-02 11:08:32'),
+('P-202008028485', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Oval Batu Bening', 29000, 'IMG-202008111890.jpeg', 30, 'Gelang Rantai Resin dengan bandul oval bening.', '2020-08-02 11:21:51'),
+('P-202008028601', 'K-202007312495', 'KS-202007319193', 'ST-188902', 'Kalung Kunci Bintang', 34500, 'IMG-202008107470.jpeg', 20, 'Kalung Resin dengan desain kunci bintang', '2020-08-02 11:23:00'),
+('P-202008028933', 'K-202007312495', 'KS-202007314022', 'IN-173403', 'Kalung Oval Langit', 30000, 'IMG-202008106296.jpg', 20, 'Kalung Resin dengan warna biru seperti langit.', '2020-08-02 10:58:51'),
+('P-202008029581', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bunga Biru', 30000, 'IMG-202008101119.jpg', 50, 'Anting Resin bulat dengan warna biru muda dihiasi dengan manik bunga.', '2020-08-02 10:56:27'),
+('P-202008103200', 'K-202007312495', 'KS-202007319193', 'ST-188904', 'Kalung Kunci Bulan Sabit Cutie', 34500, 'IMG-202008117819.jpg', 20, 'Kalung Resin dengan bingkai kunci bulan sabit dan perpaduan warna pink dan biru.', '2020-08-10 00:08:01'),
+('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Bunga Hijau', 29000, 'IMG-202008111375.jpeg', 40, 'Gelang Rantai Resin dengan bandul bunga hijau', '2020-08-10 00:09:15'),
+('P-202008103433', 'K-202007312495', 'KS-202007319193', 'ST-188905', 'Kalung Kunci Love', 34500, 'IMG-202008111976.jpg', 20, 'Kalung Resin dengan bingkai kunci love dan perpaduan warna biru dan pink.', '2020-08-10 00:05:28');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `produk_kategori`
+--
+
+CREATE TABLE `produk_kategori` (
+  `id_kategori` char(20) NOT NULL,
+  `nama_kategori` varchar(50) NOT NULL,
+  `created_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `produk_kategori`
+--
+
+INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime`) VALUES
+('K-202007312495', 'Kalung', '2020-07-31 23:22:59'),
+('K-202007312820', 'Ikat Rambut', '2020-07-31 23:23:08'),
+('K-202007314314', 'Bros', '2020-08-01 19:10:43'),
+('K-202007318991', 'Gelang', '2020-07-31 23:46:30'),
+('K-202007319642', 'Anting', '2020-07-31 23:22:56');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `produk_sub_kategori`
+--
+
+CREATE TABLE `produk_sub_kategori` (
+  `id_sub_kategori` char(20) NOT NULL,
+  `id_kategori` char(20) NOT NULL,
+  `nama_sub_kategori` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `produk_sub_kategori`
+--
+
+INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_kategori`) VALUES
+('KS-202007311787', 'K-202007318991', 'Titanium Bracelets'),
+('KS-202007312650', 'K-202007319642', 'Pretty Earrings'),
+('KS-202007312744', 'K-202007312820', 'Charming Hairbands'),
+('KS-202007314022', 'K-202007312495', 'Interesting Necklaces'),
+('KS-202007316483', 'K-202007318991', 'Beautiful Bracelets'),
+('KS-202007316494', 'K-202007314314', 'Sparkle Broochs'),
+('KS-202007317214', 'K-202007319642', 'Perfect Earrings'),
+('KS-202007319193', 'K-202007312495', 'Stunning Necklaces');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `transaksi`
 --
 
@@ -7834,7 +7834,31 @@ ALTER TABLE `cart`
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_customer`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `province_id` (`province_id`),
+  ADD KEY `city_id` (`city_id`),
+  ADD KEY `subdistrict_id` (`subdistrict_id`);
+
+--
+-- Indeks untuk tabel `data_city`
+--
+ALTER TABLE `data_city`
+  ADD PRIMARY KEY (`city_id`),
+  ADD KEY `city_id` (`city_id`),
+  ADD KEY `province_id` (`province_id`),
+  ADD KEY `province` (`province`);
+
+--
+-- Indeks untuk tabel `data_province`
+--
+ALTER TABLE `data_province`
+  ADD PRIMARY KEY (`province_id`);
+
+--
+-- Indeks untuk tabel `data_subdistrict`
+--
+ALTER TABLE `data_subdistrict`
+  ADD PRIMARY KEY (`subdistrict_id`);
 
 --
 -- Indeks untuk tabel `produk`
@@ -7858,27 +7882,6 @@ ALTER TABLE `produk_sub_kategori`
   ADD KEY `id_kategori` (`id_kategori`);
 
 --
--- Indeks untuk tabel `ro_city`
---
-ALTER TABLE `ro_city`
-  ADD PRIMARY KEY (`city_id`),
-  ADD KEY `city_id` (`city_id`),
-  ADD KEY `province_id` (`province_id`),
-  ADD KEY `province` (`province`);
-
---
--- Indeks untuk tabel `ro_province`
---
-ALTER TABLE `ro_province`
-  ADD PRIMARY KEY (`province_id`);
-
---
--- Indeks untuk tabel `ro_subdistrict`
---
-ALTER TABLE `ro_subdistrict`
-  ADD PRIMARY KEY (`subdistrict_id`);
-
---
 -- Indeks untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
@@ -7891,21 +7894,21 @@ ALTER TABLE `transaksi`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `ro_city`
+-- AUTO_INCREMENT untuk tabel `data_city`
 --
-ALTER TABLE `ro_city`
+ALTER TABLE `data_city`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
--- AUTO_INCREMENT untuk tabel `ro_province`
+-- AUTO_INCREMENT untuk tabel `data_province`
 --
-ALTER TABLE `ro_province`
+ALTER TABLE `data_province`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT untuk tabel `ro_subdistrict`
+-- AUTO_INCREMENT untuk tabel `data_subdistrict`
 --
-ALTER TABLE `ro_subdistrict`
+ALTER TABLE `data_subdistrict`
   MODIFY `subdistrict_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6998;
 
 --
@@ -7918,6 +7921,14 @@ ALTER TABLE `ro_subdistrict`
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
+
+--
+-- Ketidakleluasaan untuk tabel `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `data_province` (`province_id`),
+  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `data_city` (`city_id`),
+  ADD CONSTRAINT `customer_ibfk_3` FOREIGN KEY (`subdistrict_id`) REFERENCES `data_subdistrict` (`subdistrict_id`);
 
 --
 -- Ketidakleluasaan untuk tabel `produk_sub_kategori`
