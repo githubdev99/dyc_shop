@@ -22,7 +22,7 @@
 <!-- End Page Title -->
 <!-- Start Page Content -->
 <div class="container padding-bottom-3x">
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="post" action="<?= base_url() ?>home/checkout" enctype="multipart/form-data" name="checkout">
         <input type="hidden" name="harga_transaksi" value="<?= $setup_app['order_total'] ?>">
         <input type="hidden" name="total_transaksi" value="">
         <div class="row">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="checkout-footer margin-top-1x">
                     <div class="column hidden-xs-down"><a class="btn btn-outline-secondary" href="<?= base_url() ?>home/cart"><i class="icon-arrow-left"></i>&nbsp;Kembali ke keranjang</a></div>
-                    <div class="column"><button class="btn btn-primary" type="submit" name="checkout" value="checkout">Buat Pesanan</button></div>
+                    <div class="column"><button class="btn btn-primary" type="button" name="checkout" value="checkout"><i class="fas fa-circle-notch fa-spin"></i></button></div>
                 </div>
             </div>
             <!-- End Checkout Review -->

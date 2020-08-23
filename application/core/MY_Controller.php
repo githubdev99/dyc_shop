@@ -100,7 +100,15 @@ class MY_Controller extends MX_Controller {
                     'id_customer' => $this->session->userdata('customer')['id'],
                     'status_pilih' => 'Y'
                 ]
-            ])->num_rows();
+			])->num_rows();
+			
+			$this->data['count_pesanan'] = $this->master_model->select_data([
+				'field' => '*',
+				'table' => 'transaksi',
+				'where' => [
+					'id_customer' => $this->session->userdata('customer')['id']
+				]
+			])->num_rows();
 		}
 
 		// Get Data

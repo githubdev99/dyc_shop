@@ -25,83 +25,94 @@ class Checkout extends MY_Controller {
         } else {
             $process = TRUE;
 
-            if ($this->input->post('checkout')) {
-                if ($process == TRUE) {
-                    $this->db->trans_start();
+            if ($process == TRUE) {
+                $this->db->trans_start();
 
-                    $param['field'] = '*';
-                    $param['table'] = 'cart';
-                    $param['where'] = [
+                $id_transaksi = $this->master_model->generate_code('T');
+                $data_pengiriman = explode(':', $this->input->post('pengiriman'));
+                $total_qty = 0;
+
+                $query = $this->master_model->send_data([
+                    'data' => [
+                        'id_transaksi' => $id_transaksi,
                         'id_customer' => $this->session->userdata('customer')['id'],
-                        'status_pilih' => 'Y'
-                    ];
+                        'no_order' => $this->master_model->generate_code('INV'),
+                        'total_qty' => $total_qty,
+                        'harga_transaksi' => $this->input->post('harga_transaksi'),
+                        'ongkir' => $data_pengiriman[0],
+                        'jenis_ongkir' => $data_pengiriman[1],
+                        'etd_ongkir' => $data_pengiriman[2],
+                        'harga_ongkir' => $data_pengiriman[3],
+                        'total_transaksi' => $this->input->post('total_transaksi'),
+                        'status' => 'Belum Dibayar',
+                        'created_datetime' => date('Y-m-d H:i:s')
+                    ],
+                    'table' => 'transaksi'
+                ]);
 
-                    $data_parsing = $this->master_model->select_data($param);
+                $param['field'] = '*';
+                $param['table'] = 'cart';
+                $param['where'] = [
+                    'id_customer' => $this->session->userdata('customer')['id'],
+                    'status_pilih' => 'Y'
+                ];
 
-                    $id_transaksi = $this->master_model->generate_code('T');
+                $data_parsing = $this->master_model->select_data($param);
 
-                    $total_qty = 0;
-                    foreach ($data_parsing->result() as $key) {
-                        $this->master_model->send_data([
-                            'data' => [
-                                'id_transaksi_detail' => $this->master_model->generate_code('TD'),
-                                'id_transaksi' => $id_transaksi,
-                                'id_produk' => $key->id_produk,
-                                'qty' => $key->qty
-                            ],
-                            'table' => 'transaksi_detail'
-                        ]);
-
-                        $total_qty += $key->qty;
-                    }
-
-                    $data_pengiriman = explode(':', $this->input->post('pengiriman'));
-
-                    $query = $this->master_model->send_data([
+                foreach ($data_parsing->result() as $key) {
+                    $query2 = $this->master_model->send_data([
                         'data' => [
+                            'id_transaksi_detail' => $this->master_model->generate_code('TD'),
                             'id_transaksi' => $id_transaksi,
-                            'id_customer' => $this->session->userdata('customer')['id'],
-                            'no_order' => $this->master_model->generate_code('INV'),
-                            'total_qty' => $total_qty,
-                            'harga_transaksi' => $this->input->post('harga_transaksi'),
-                            'ongkir' => $data_pengiriman[0],
-                            'jenis_ongkir' => $data_pengiriman[1],
-                            'etd_ongkir' => $data_pengiriman[2],
-                            'harga_ongkir' => $data_pengiriman[3],
-                            'total_transaksi' => $this->input->post('total_transaksi'),
-                            'status' => 'Belum Dibayar',
+                            'id_produk' => $key->id_produk,
+                            'qty' => $key->qty
                         ],
-                        'table' => 'transaksi'
+                        'table' => 'transaksi_detail'
                     ]);
 
-                    
-                    if ($query == FALSE) {
-                        $this->alert_popup2([
-                            'name' => 'failed',
-                            'swal' => [
-                                'title' => 'Successfull!',
-                                'text' => 'Pesanan gagal dibuat, silahkan coba lagi!',
-                                'type' => 'error'
-                            ]
-                        ]);
-                        redirect(base_url().'home/checkout','refresh');
-                    } else {
-                        $this->alert_popup2([
-                            'name' => 'success',
-                            'swal' => [
-                                'title' => 'Successfull!',
-                                'text' => 'Pesanan berhasil dibuat, mohon tunggu!',
-                                'type' => 'success'
-                            ]
-                        ]);
-                        redirect(base_url().'home','refresh');
-                    }
-
-                    $this->db->trans_complete();
+                    $total_qty += $key->qty;
                 }
+
+                $query3 = $this->master_model->send_data([
+                    'where' => [
+                        'id_transaksi' => $id_transaksi,
+                    ],
+                    'data' => [
+                        'total_qty' => $total_qty
+                    ],
+                    'table' => 'transaksi'
+                ]);
+
+                $query4 = $this->master_model->delete_data([
+					'where' => [
+						'id_customer' => $this->session->userdata('customer')['id']
+					],
+					'table' => 'cart'
+				]);
+                
+                if ($query == FALSE || $query2 == FALSE || $query3 == FALSE || $query4 == FALSE) {
+                    $output = [
+						'error' => true,
+						'title' => 'Failed!',
+						'text' => 'Ada kesalahan teknis!',
+						'type' => 'error'
+					];
+                } else {
+                    $output = [
+						'error' => false,
+						'title' => 'Successfull!',
+                        'text' => 'Pesanan berhasil dibuat, mohon tunggu!',
+                        'type' => 'success',
+                        'callback' => base_url().'home/pesanan'
+                    ];
+                }
+
+                $this->db->trans_complete();
             } else {
                 $process = FALSE;
             }
+
+            $this->output->set_content_type('application/json')->set_output(json_encode($output));
         }
 	}
     

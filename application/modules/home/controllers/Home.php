@@ -115,7 +115,7 @@ class Home extends MY_Controller {
 					$this->alert_popup2([
 						'name' => 'failed',
 						'swal' => [
-							'title' => 'Successfull!',
+							'title' => 'Failed!',
 							'text' => 'Akun telah terdaftar, silahkan coba lagi',
 							'type' => 'error'
 						]
@@ -147,7 +147,7 @@ class Home extends MY_Controller {
 							$this->alert_popup2([
 								'name' => 'failed',
 								'swal' => [
-									'title' => 'Successfull!',
+									'title' => 'Failed!',
 									'text' => 'Akun gagal didaftarkan, silahkan coba lagi',
 									'type' => 'error'
 								]
@@ -170,6 +170,82 @@ class Home extends MY_Controller {
                 $process = FALSE;
             }
         }
+	}
+
+	public function profil()
+	{
+		$this->not_login_customer();
+
+		$title = 'Profil Saya';
+		$data = [
+			'setup_app' => $this->setup_app($title),
+			'get_view' => 'home/v_profil',
+			'get_script' => 'home/script_profil'
+		];
+
+		if (!$this->input->post()) {
+            $this->master->template_home($data);
+        } else {
+            $process = TRUE;
+
+			if ($this->input->post('update')) {
+                if ($process == TRUE) {
+                    $query = $this->master_model->send_data([
+                        'where' => [
+                            'id_customer' => $this->session->userdata('customer')['id'],
+                        ],
+                        'data' => [
+                            'nama_lengkap' => $this->input->post('nama_lengkap'),
+                            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                            'email' => $this->input->post('email'),
+                            'no_telp' => $this->input->post('no_telp'),
+                            'province_id' => decrypt_text($this->input->post('province_id')),
+                            'city_id' => decrypt_text($this->input->post('city_id')),
+                            'subdistrict_id' => decrypt_text($this->input->post('subdistrict_id')),
+                            'alamat' => $this->input->post('alamat')
+                        ],
+                        'table' => 'customer'
+                    ]);
+                    if ($query == FALSE) {
+                        $this->alert_popup2([
+                            'name' => 'failed',
+                            'swal' => [
+								'title' => 'Failed!',
+                                'text' => 'Profil gagal di edit!',
+                                'type' => 'error'
+                            ]
+                        ]);
+                        redirect(base_url().'home/profil','refresh');
+                    } else {
+                        $this->alert_popup2([
+                            'name' => 'success',
+                            'swal' => [
+								'title' => 'Successfull!',
+                                'text' => 'Profil berhasil di edit!',
+                                'type' => 'success'
+                            ]
+                        ]);
+                        redirect(base_url().'home/profil','refresh');
+                    }
+                }
+            } else {
+                $process = FALSE;
+            }
+        }
+	}
+
+	public function pesanan()
+	{
+		$this->not_login_customer();
+
+		$title = 'Pesanan Saya';
+		$data = [
+			'setup_app' => $this->setup_app($title),
+			'get_view' => 'home/v_pesanan',
+			'get_script' => 'home/script_pesanan'
+		];
+
+		$this->master->template_home($data);
 	}
 
 	public function logout()
@@ -206,8 +282,10 @@ class Home extends MY_Controller {
 			} else {
 				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
 				foreach ($this->data['data_parsing'] as $key) {
+					$selected = (decrypt_text($this->input->post('province_id')) == $key->province_id) ? 'selected' : '';
+
 					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->province_id).'">'.$key->province.'</option>
+					<option value="'.encrypt_text($key->province_id).'" '.$selected.'>'.$key->province.'</option>
 					';
 				}
 
@@ -244,8 +322,10 @@ class Home extends MY_Controller {
 			} else {
 				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
 				foreach ($this->data['data_parsing'] as $key) {
+					$selected = (decrypt_text($this->input->post('city_id')) == $key->city_id) ? 'selected' : '';
+
 					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->city_id).'">'.$key->city_name.'</option>
+					<option value="'.encrypt_text($key->city_id).'" '.$selected.'>'.$key->city_name.'</option>
 					';
 				}
 
@@ -282,8 +362,10 @@ class Home extends MY_Controller {
 			} else {
 				$get_data['html'] = '<option hidden>Pilih salah satu</option>';
 				foreach ($this->data['data_parsing'] as $key) {
+					$selected = (decrypt_text($this->input->post('subdistrict_id')) == $key->subdistrict_id) ? 'selected' : '';
+
 					$get_data['html'] .= '
-					<option value="'.encrypt_text($key->subdistrict_id).'">'.$key->subdistrict.'</option>
+					<option value="'.encrypt_text($key->subdistrict_id).'" '.$selected.'>'.$key->subdistrict.'</option>
 					';
 				}
 
@@ -293,6 +375,121 @@ class Home extends MY_Controller {
 				];
 			}
 		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+	}
+
+	public function list_pesanan()
+	{
+		$data_distinct = $this->master_model->select_data([
+			'distinct' => 'id_transaksi',
+			'table' => 'transaksi',
+			'where' => [
+				'id_customer' => $this->session->userdata('customer')['id']
+			],
+			'order_by' => [
+				'no_order' => 'asc'
+			]
+		])->result();
+
+		$get_data = [];
+		$get_data['html'] = '';
+		if (empty($data_distinct)) {
+			$get_data['html'] = 'Pesanan anda kosong. Silahkan berbelanja di <a href="'.base_url().'" style="text-decoration: none;">DYC Shop</a>';
+		} else {
+			foreach ($data_distinct as $key_distinct) {
+				$this->param['field'] = 'transaksi_detail.*, transaksi.*, produk.nama_produk, produk.foto, produk.harga';
+				$this->param['table'] = 'transaksi_detail';
+				$this->param['join'] = [
+					[
+						'table' => 'transaksi',
+						'on' => 'transaksi.id_transaksi = transaksi_detail.id_transaksi',
+						'type' => 'inner'
+					],
+					[
+						'table' => 'produk',
+						'on' => 'produk.id_produk = transaksi_detail.id_produk',
+						'type' => 'inner'
+					]
+				];
+				$this->param['where'] = [
+					'transaksi_detail.id_transaksi' => $key_distinct->id_transaksi
+				];
+
+				$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
+
+				if (!empty($this->data['data_parsing'])) {
+					if ($this->data['data_parsing'] == FALSE) {
+						$this->data['output'] = [
+							'error' => true,
+							'data' => $get_data
+						];
+					} else {
+						if ($key_distinct->status == 'Belum Dibayar') {
+							$status_pesanan = '<span class="badge badge-pill badge-warning float-right">'.$key_distinct->status.'</span>';
+						}
+
+						$get_data['html'] .= '
+						<div class="card mb-4">
+							<div class="card-header">
+								<b class="float-left">'.$key_distinct->no_order.'</b>
+								'.$status_pesanan.'
+								<div class="clearfix"></div>
+							</div>
+						';
+						foreach ($this->data['data_parsing'] as $key) {
+							$get_data['html'] .= '
+							<div class="card-body">
+								<div class="d-flex float-left">
+									<a class="pr-4 hidden-xs-down search-products" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">
+										<img src="'.base_url().'assets/admin/images/upload/'.$key->foto.'">
+									</a>
+									<div>
+										<h5><a class="navi-link" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">'.$key->nama_produk.'</a></h5>
+										<h6>
+											'.rupiah($key->harga).' x '.$key->qty.'
+										</h6>
+										<p>ascasc</p>
+									</div>
+								</div>
+								<div class="float-right">
+									Subtotal : <b>'.rupiah($key->harga * $key->qty).'</b>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<hr>
+							';
+						}
+						$get_data['html'] .= '
+							<div class="text-right p-3">
+								<p style="font-size: 16px;">
+									Pengiriman oleh '.$key->ongkir.' : '.rupiah($key->harga_ongkir).'<br>
+									Tipe Pengiriman : '.$key->jenis_ongkir.'
+								</p>
+								<p><i class="fas fa-shipping-fast mr-2"></i> Estimasi : '.$key->etd_ongkir.' kedepan</p>
+								<hr>
+								<p class="mt-2" style="font-size: 20px;">
+									Jumlah yang harus dibayar : <span style="color: #ff54a3; border: #ff54a3 dashed 1px; padding: 2px 5px; background: #ffdeed; border-radius: 3px;">'.rupiah($key->total_transaksi).'</span>
+								</p>
+							</div>
+							<hr>
+							<div class="p-3">
+								<button class="btn btn-primary" type="button" name="konfirmasi">
+									<i class="fas fa-receipt mr-2"></i> Konfirmasi Pembayaran
+								</button>
+							</div>
+						</div>
+						';
+					}
+				}
+			}
+		}
+		
+
+		$this->data['output'] = [
+			'error' => false,
+			'data' => $get_data
+		];
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
 	}

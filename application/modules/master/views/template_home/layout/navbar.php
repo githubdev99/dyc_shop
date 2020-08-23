@@ -92,8 +92,10 @@
                                     <span class="text-xs text-muted">Customer</span>
                                 </div>
                             </li>
+                            <li><a href="<?= base_url() ?>home/profil">Profil Saya</a></li>
+                            <li><a href="<?= base_url() ?>home/pesanan">Pesanan Saya</a></li>
                             <li class="sub-menu-separator"></li>
-                            <li><a href="<?= base_url() ?>home/logout"><i class="fa fa-lock"></i> Sign Out</a></li>
+                            <li><a href="<?= base_url() ?>home/logout"><i class="fa fa-lock"></i> Keluar</a></li>
                         </ul>
                     </div>
                     <!-- End Account -->

@@ -21,7 +21,7 @@
                         <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center hidden-md-down">
                             <div class="from-bottom">
                                 <div class="h2 text-body text-normal mb-2 pt-1"><?= $key_produk_banner->nama_produk ?></div>
-                                <div class="h2 text-body text-normal mb-4 pb-1">Mulai dari <span class="text-bold"><?= rupiah($key_produk_banner->harga) ?></span></div>
+                                <div class="h2 text-body text-normal mb-4 pb-1">Harga <span class="text-bold"><?= rupiah($key_produk_banner->harga) ?></span></div>
                             </div>
                             <a class="btn btn-primary scale-up delay-1" href="<?= base_url() ?>home/produk/detail/<?= encrypt_text($key_produk_banner->id_produk) ?>">Lihat Produk</a>
                         </div>
@@ -51,7 +51,13 @@
                             </div>
                             <div class="card-body text-center">
                                 <h4 class="card-title"><?= $key_kategori->nama_kategori ?></h4>
-                                <p class="text-muted">Mulai dari <?= rupiah($key_produk_thumbnail->harga) ?></p>
+                                <p class="text-muted">Jumlah Produk : <?= $this->master_model->select_data([
+                                    'field' => 'COUNT(id_kategori) as count',
+                                    'table' => 'produk',
+                                    'where' => [
+                                        'id_kategori' => $key_kategori->id_kategori,
+                                    ]
+                                ])->row()->count ?></p>
                                 <a class="btn btn-outline-primary btn-sm" href="<?= base_url() ?>home/produk?kategori=<?= encrypt_text($key_kategori->id_kategori) ?>">View Products</a>
                             </div>
                         <?php endif ?>

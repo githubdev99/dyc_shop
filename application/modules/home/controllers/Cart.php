@@ -197,7 +197,7 @@ class Cart extends MY_Controller {
 							<a class="btn btn-sm btn-block btn-secondary" href="'.base_url().'home/cart">View Cart</a>
 						</div>
 						<div class="column">
-							<button type="button" class="btn btn-sm btn-block btn-success" onclick="checkout('.$this->data['count_pilih'].');">Checkout</button>
+							<button type="button" class="btn btn-sm btn-block btn-primary" onclick="checkout('.$this->data['count_pilih'].');">Checkout</button>
 						</div>
 					</div>
 					</div>

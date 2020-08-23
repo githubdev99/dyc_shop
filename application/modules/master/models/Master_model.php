@@ -94,7 +94,12 @@ class Master_model extends CI_Model {
 
 	public function select_data($param)
 	{
-		$this->db->select($param['field']);
+		if (!empty($param['field'])) {
+			$this->db->select($param['field']);
+		}
+		if (!empty($param['distinct'])) {
+			$this->db->distinct($param['distinct']);
+		}
 		$this->db->from($param['table']);
 		if (!empty($param['join'])) {
 			foreach ($param['join'] as $key) {
@@ -104,11 +109,11 @@ class Master_model extends CI_Model {
 		if (!empty($param['where'])) {
 			$this->db->where($param['where']);
 		}
-		if (!empty($param['order_by'])) {
-			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
-		}
 		if (!empty($param['group_by'])) {
 			$this->db->group_by($param['group_by']);
+		}
+		if (!empty($param['order_by'])) {
+			$this->db->order_by(key($param['order_by']), $param['order_by'][key($param['order_by'])]);
 		}
 		if (!empty($param['limit'])) {
 			$this->db->limit($param['limit']);

@@ -2,6 +2,52 @@
     $(document).ready(function () {
         load_cart();
 
+        $('form[name="checkout"]').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Konfirmasi!',
+                text: 'Anda yakin ingin membuat pesanan ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f261a3',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Buat Pesanan',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: $(this).attr('method'),
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.error == true) {
+                                Swal.fire({
+                                    title: response.title,
+                                    icon: response.type,
+                                    html: response.text,
+                                    showCloseButton: true,
+                                    showConfirmButton: false
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: response.title,
+                                    icon: response.type,
+                                    html: response.text,
+                                    timer: 2000,
+                                    showCloseButton: true,
+                                    showConfirmButton: false
+                                }).then(function() {
+                                    window.location = response.callback;
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
         $.ajax({
             type: "post",
             url: "<?= base_url() ?>home/checkout/pengiriman",
@@ -28,6 +74,9 @@
                             $('#total_transaksi').text(formatRupiah(total_transaksi.toString(), 'Rp. '));
 
                             $('input[name="total_transaksi"]').val(total_transaksi);
+
+                            $('button[name="checkout"]').attr('type', 'submit');
+                            $('button[name="checkout"]').html('Buat Pesanan');
                         }
                     });
                 } else {

@@ -17,6 +17,7 @@
 
     <!-- Plugin JS -->
     <script src="<?= base_url() ?>assets/home/libs/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="<?= base_url() ?>assets/home/js/font-awesome.js" crossorigin="anonymous"></script>
     
     <script>
         // Alert
