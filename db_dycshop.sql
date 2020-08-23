@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Agu 2020 pada 11.41
+-- Waktu pembuatan: 23 Agu 2020 pada 12.19
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.4
 
@@ -54,14 +54,6 @@ CREATE TABLE `cart` (
   `qty` int(11) NOT NULL,
   `status_pilih` enum('Y','T') CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `cart`
---
-
-INSERT INTO `cart` (`id_cart`, `id_produk`, `id_customer`, `qty`, `status_pilih`) VALUES
-('PC-202008206152', 'P-202008025183', 'C-202008206781', 3, 'Y'),
-('PC-202008209203', 'P-202008024698', 'C-202008206781', 2, 'Y');
 
 -- --------------------------------------------------------
 
@@ -7800,13 +7792,29 @@ INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_k
 CREATE TABLE `transaksi` (
   `id_transaksi` char(20) NOT NULL,
   `id_customer` char(20) NOT NULL,
-  `id_produk` char(20) NOT NULL,
   `no_order` varchar(20) NOT NULL,
-  `qty` int(11) NOT NULL,
+  `total_qty` int(11) NOT NULL,
   `harga_transaksi` int(11) NOT NULL,
+  `ongkir` varchar(50) NOT NULL,
+  `jenis_ongkir` varchar(50) NOT NULL,
+  `etd_ongkir` varchar(50) NOT NULL,
   `harga_ongkir` int(11) NOT NULL,
   `total_transaksi` int(11) NOT NULL,
-  `status` enum('Belum Dibayar','Sudah Dibayar') NOT NULL
+  `status` enum('Belum Dibayar','Menunggu Konfirmasi','Sudah Dibayar') NOT NULL,
+  `created_datetime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi_detail`
+--
+
+CREATE TABLE `transaksi_detail` (
+  `id_transaksi_detail` char(20) NOT NULL,
+  `id_transaksi` char(20) NOT NULL,
+  `id_produk` char(20) NOT NULL,
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -7886,7 +7894,14 @@ ALTER TABLE `produk_sub_kategori`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_customer` (`id_customer`),
+  ADD KEY `id_customer` (`id_customer`);
+
+--
+-- Indeks untuk tabel `transaksi_detail`
+--
+ALTER TABLE `transaksi_detail`
+  ADD PRIMARY KEY (`id_transaksi_detail`),
+  ADD KEY `id_transaksi` (`id_transaksi`),
   ADD KEY `id_produk` (`id_produk`);
 
 --
@@ -7940,8 +7955,14 @@ ALTER TABLE `produk_sub_kategori`
 -- Ketidakleluasaan untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
-  ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
+  ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
+
+--
+-- Ketidakleluasaan untuk tabel `transaksi_detail`
+--
+ALTER TABLE `transaksi_detail`
+  ADD CONSTRAINT `transaksi_detail_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaksi_detail_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
