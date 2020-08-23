@@ -385,7 +385,8 @@ class Home extends MY_Controller {
 			'distinct' => 'id_transaksi',
 			'table' => 'transaksi',
 			'where' => [
-				'id_customer' => $this->session->userdata('customer')['id']
+				'id_customer' => $this->session->userdata('customer')['id'],
+				'status' => $this->input->post('status')
 			],
 			'order_by' => [
 				'no_order' => 'asc'
@@ -395,10 +396,16 @@ class Home extends MY_Controller {
 		$get_data = [];
 		$get_data['html'] = '';
 		if (empty($data_distinct)) {
-			$get_data['html'] = 'Pesanan anda kosong. Silahkan berbelanja di <a href="'.base_url().'" style="text-decoration: none;">DYC Shop</a>';
+			if ($this->input->post('status') == 'Belum Dibayar') {
+				$get_data['html'] = 'Kamu tidak memiliki pesanan yang belum dibayar.';
+			} elseif ($this->input->post('status') == 'Menunggu Konfirmasi') {
+				$get_data['html'] = 'Kamu tidak memiliki pesanan yang menunggu konfirmasi.';
+			} elseif ($this->input->post('status') == 'Sudah Dibayar') {
+				$get_data['html'] = 'Kamu tidak memiliki pesanan yang sudah dibayar.';
+			}
 		} else {
 			foreach ($data_distinct as $key_distinct) {
-				$this->param['field'] = 'transaksi_detail.*, transaksi.*, produk.nama_produk, produk.foto, produk.harga';
+				$this->param['field'] = 'transaksi_detail.*, transaksi.*, produk.nama_produk, produk.foto, produk.harga, produk.kode_sku';
 				$this->param['table'] = 'transaksi_detail';
 				$this->param['join'] = [
 					[
@@ -426,7 +433,11 @@ class Home extends MY_Controller {
 						];
 					} else {
 						if ($key_distinct->status == 'Belum Dibayar') {
+							$status_pesanan = '<span class="badge badge-pill badge-secondary float-right">'.$key_distinct->status.'</span>';
+						} elseif ($key_distinct->status == 'Menunggu Konfirmasi') {
 							$status_pesanan = '<span class="badge badge-pill badge-warning float-right">'.$key_distinct->status.'</span>';
+						} elseif ($key_distinct->status == 'Sudah Dibayar') {
+							$status_pesanan = '<span class="badge badge-pill badge-success float-right">'.$key_distinct->status.'</span>';
 						}
 
 						$get_data['html'] .= '
@@ -445,11 +456,11 @@ class Home extends MY_Controller {
 										<img src="'.base_url().'assets/admin/images/upload/'.$key->foto.'">
 									</a>
 									<div>
-										<h5><a class="navi-link" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">'.$key->nama_produk.'</a></h5>
+										<h5><a class="navi-link" href="'.base_url().'home/produk/detail/'.encrypt_text($key->id_produk).'">'.shorten_name($key->nama_produk).'</a></h5>
 										<h6>
 											'.rupiah($key->harga).' x '.$key->qty.'
 										</h6>
-										<p>ascasc</p>
+										<p>Kode SKU : '.$key->kode_sku.'</p>
 									</div>
 								</div>
 								<div class="float-right">
@@ -463,13 +474,13 @@ class Home extends MY_Controller {
 						$get_data['html'] .= '
 							<div class="text-right p-3">
 								<p style="font-size: 16px;">
-									Pengiriman oleh '.$key->ongkir.' : '.rupiah($key->harga_ongkir).'<br>
+									Pengiriman Oleh '.$key->ongkir.' : '.rupiah($key->harga_ongkir).'<br>
 									Tipe Pengiriman : '.$key->jenis_ongkir.'
 								</p>
 								<p><i class="fas fa-shipping-fast mr-2"></i> Estimasi : '.$key->etd_ongkir.' kedepan</p>
 								<hr>
 								<p class="mt-2" style="font-size: 20px;">
-									Jumlah yang harus dibayar : <span style="color: #ff54a3; border: #ff54a3 dashed 1px; padding: 2px 5px; background: #ffdeed; border-radius: 3px;">'.rupiah($key->total_transaksi).'</span>
+									Total Pembayaran : <span style="color: #ff54a3; border: #ff54a3 dashed 1px; padding: 2px 5px; background: #ffdeed; border-radius: 3px;">'.rupiah($key->total_transaksi).'</span>
 								</p>
 							</div>
 							<hr>

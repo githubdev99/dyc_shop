@@ -36,9 +36,9 @@
             <h6 class="text-muted text-normal text-uppercase">Pesanan Saya</h6>
             <hr class="margin-bottom-1x">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item"><a class="nav-link active show" href="#" data-toggle="tab" role="tab" aria-selected="true">Belum Dibayar</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false">Menunggu Konfirmasi</a></li>
-                <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false">Sudah Dibayar</a></li>
+                <li class="nav-item"><a class="nav-link active show" href="#" data-toggle="tab" role="tab" aria-selected="true" onclick="load_data('Belum Dibayar');">Belum Dibayar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false" onclick="load_data('Menunggu Konfirmasi');">Menunggu Konfirmasi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false" onclick="load_data('Sudah Dibayar');">Sudah Dibayar</a></li>
             </ul>
             <div class="tab-content" id="list_pesanan">
             </div>

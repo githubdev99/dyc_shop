@@ -26,6 +26,7 @@ class Cart extends MY_Controller {
             $process = TRUE;
 
             if ($process == TRUE) {
+				$this->db->trans_start();
 				$check_data = $this->master_model->select_data([
 					'field' => '*',
 					'table' => 'cart',
@@ -60,7 +61,25 @@ class Cart extends MY_Controller {
 					]);
 				}
 
-				if ($query == FALSE) {
+				$stok = $this->master_model->select_data([
+					'field' => 'stok',
+					'table' => 'produk',
+					'where' => [
+						'id_produk' => decrypt_text($this->input->post('id_produk'))
+					]
+				])->row()->stok;
+
+				$query2 = $this->master_model->send_data([
+					'where' => [
+						'id_produk' => decrypt_text($this->input->post('id_produk')),
+					],
+					'data' => [
+						'stok' => $stok - $this->input->post('qty')
+					],
+					'table' => 'produk'
+				]);
+
+				if ($query == FALSE || $query2 == FALSE) {
 					$output = [
 						'error' => true,
 						'title' => 'Failed!',
@@ -72,6 +91,7 @@ class Cart extends MY_Controller {
 						'error' => false
 					];
 				}
+				$this->db->trans_complete();
 			} else {
 				$process = FALSE;
 			}
@@ -86,13 +106,40 @@ class Cart extends MY_Controller {
 
 		if ($this->input->post('submit') == 'delete') {
 			if ($process == TRUE) {
-				$query = $this->master_model->delete_data([
+				$this->db->trans_start();
+				$get_cart = $this->master_model->select_data([
+					'field' => '*, produk.stok',
+					'table' => 'cart',
+					'join' => [
+						[
+							'table' => 'produk',
+							'on' => 'produk.id_produk = cart.id_produk',
+							'type' => 'inner'
+						],
+					],
+					'where' => [
+						'id_cart' => decrypt_text($this->input->post('id_cart'))
+					]
+				])->row();
+
+				$query = $this->master_model->send_data([
+					'where' => [
+						'id_produk' => decrypt_text($this->input->post('id_produk')),
+					],
+					'data' => [
+						'stok' => $get_cart->stok + $get_cart->qty
+					],
+					'table' => 'produk'
+				]);
+
+				$query2 = $this->master_model->delete_data([
 					'where' => [
 						'id_cart' => decrypt_text($this->input->post('id_cart'))
 					],
 					'table' => 'cart'
 				]);
-				if ($query == FALSE) {
+
+				if ($query == FALSE || $query2 == FALSE) {
 					$this->data['output'] = [
 						'error' => true,
 						'title' => 'Failed!',
@@ -107,6 +154,7 @@ class Cart extends MY_Controller {
 						'type' => 'success'
 					];
 				}
+				$this->db->trans_complete();
 			} else {
 				$process = FALSE;
 			}
@@ -270,13 +318,40 @@ class Cart extends MY_Controller {
 			}
 		} elseif ($this->input->post('submit') == 'delete') {
 			if ($process == TRUE) {
-				$query = $this->master_model->delete_data([
+				$this->db->trans_start();
+				$get_cart = $this->master_model->select_data([
+					'field' => '*, produk.stok',
+					'table' => 'cart',
+					'join' => [
+						[
+							'table' => 'produk',
+							'on' => 'produk.id_produk = cart.id_produk',
+							'type' => 'inner'
+						],
+					],
+					'where' => [
+						'id_cart' => decrypt_text($this->input->post('id_cart'))
+					]
+				])->row();
+
+				$query = $this->master_model->send_data([
+					'where' => [
+						'id_produk' => decrypt_text($this->input->post('id_produk')),
+					],
+					'data' => [
+						'stok' => $get_cart->stok + $get_cart->qty
+					],
+					'table' => 'produk'
+				]);
+
+				$query2 = $this->master_model->delete_data([
 					'where' => [
 						'id_cart' => decrypt_text($this->input->post('id_cart'))
 					],
 					'table' => 'cart'
 				]);
-				if ($query == FALSE) {
+
+				if ($query == FALSE || $query2 == FALSE) {
 					$this->data['output'] = [
 						'error' => true,
 						'title' => 'Failed!',
@@ -291,6 +366,7 @@ class Cart extends MY_Controller {
 						'type' => 'success'
 					];
 				}
+				$this->db->trans_complete();
 			} else {
 				$process = FALSE;
 			}

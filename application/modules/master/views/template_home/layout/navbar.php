@@ -100,7 +100,7 @@
                     </div>
                     <!-- End Account -->
                     <!-- Start Cart -->
-                    <div class="cart">
+                    <div class="cart mr-3">
                     </div>
                     <!-- End Cart -->
                 <?php endif ?>

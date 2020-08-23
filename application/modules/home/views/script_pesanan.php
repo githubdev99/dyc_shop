@@ -1,12 +1,15 @@
 <script>
     $(document).ready(function () {
-        load_data();
+        load_data('Belum Dibayar');
     });
 
-    function load_data() {
+    function load_data(status) {
         $.ajax({
             type: "post",
             url: "<?= base_url() ?>home/list_pesanan",
+            data: {
+                status: status
+            },
             dataType: "json",
             success: function (response) {
                 var data = response.data;
