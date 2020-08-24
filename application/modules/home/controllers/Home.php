@@ -248,6 +248,98 @@ class Home extends MY_Controller {
 		$this->master->template_home($data);
 	}
 
+	public function konfirmasi($id)
+	{
+		$this->not_login_customer();
+
+		$get_data = $this->master_model->select_data([
+			'field' => 'transaksi.*',
+			'table' => 'transaksi',
+			'where' => [
+				'id_transaksi' => decrypt_text($id)
+			]
+		])->row();
+
+		$title = 'Konfirmasi Pembayaran';
+		$data = [
+			'setup_app' => $this->setup_app($title),
+			'get_view' => 'home/v_konfirmasi',
+			'get_script' => 'home/script_konfirmasi',
+			'get_data' => $get_data
+		];
+
+		if (!$this->input->post()) {
+            $this->master->template_home($data);
+        } else {
+            $process = TRUE;
+
+			if ($this->input->post('konfirmasi')) {
+                if ($process == TRUE) {
+					$this->upload->initialize([
+                        'upload_path' => 'assets/home/images/upload/',
+                        'allowed_types' => 'jpg|jpeg|png',
+                        'file_name' => "IMG-".date("Ymd").rand(1111,9999)
+                    ]);
+
+                    if ($this->upload->do_upload('foto_bukti')) {
+                        $upload = $this->upload->data();
+                        $foto_bukti = $upload['file_name'];
+                    } else {
+                        $foto_bukti = NULL;
+					}
+
+					$this->db->trans_start();
+					$query = $this->master_model->send_data([
+                        'where' => [
+                            'id_transaksi' => decrypt_text($id)
+                        ],
+                        'data' => [
+                            'status' => 'Menunggu Konfirmasi'
+                        ],
+                        'table' => 'transaksi'
+					]);
+					
+					$query2 = $this->master_model->send_data([
+                        'data' => [
+							'id_konfirmasi' => $this->master_model->generate_code('K'),
+							'id_transaksi' => decrypt_text($id),
+							'no_rek' => $this->input->post('no_rek'),
+							'atas_nama' => $this->input->post('atas_nama'),
+							'nama_bank' => $this->input->post('nama_bank'),
+							'foto_bukti' => $foto_bukti
+                        ],
+                        'table' => 'konfirmasi'
+					]);
+					$this->db->trans_complete();
+
+                    if ($query == FALSE || $query2 == FALSE) {
+                        $this->alert_popup2([
+                            'name' => 'failed',
+                            'swal' => [
+								'title' => 'Failed!',
+                                'text' => 'Gagal untuk konfirmasi pembayaran!',
+                                'type' => 'error'
+                            ]
+                        ]);
+                        redirect(base_url().'home/konfirmasi','refresh');
+                    } else {
+                        $this->alert_popup2([
+                            'name' => 'success',
+                            'swal' => [
+								'title' => 'Successfull!',
+                                'text' => 'Konfirmasi pembayaran berhasil!',
+                                'type' => 'success'
+                            ]
+                        ]);
+                        redirect(base_url().'home/pesanan','refresh');
+					}
+                }
+            } else {
+                $process = FALSE;
+            }
+        }
+	}
+
 	public function logout()
 	{
 		$this->session->unset_userdata('customer');
@@ -382,7 +474,7 @@ class Home extends MY_Controller {
 	public function list_pesanan()
 	{
 		$data_distinct = $this->master_model->select_data([
-			'distinct' => 'id_transaksi',
+			'distinct' => 'id_transaksi, created_datetime',
 			'table' => 'transaksi',
 			'where' => [
 				'id_customer' => $this->session->userdata('customer')['id'],
@@ -426,6 +518,8 @@ class Home extends MY_Controller {
 				$this->data['data_parsing'] = $this->master_model->select_data($this->param)->result();
 
 				if (!empty($this->data['data_parsing'])) {
+					$get_created = explode(' ', $key_distinct->created_datetime);
+
 					if ($this->data['data_parsing'] == FALSE) {
 						$this->data['output'] = [
 							'error' => true,
@@ -434,16 +528,29 @@ class Home extends MY_Controller {
 					} else {
 						if ($key_distinct->status == 'Belum Dibayar') {
 							$status_pesanan = '<span class="badge badge-pill badge-secondary float-right">'.$key_distinct->status.'</span>';
+							$button = '
+							<hr>
+							<div class="p-3">
+							<a class="btn btn-primary" href="'.base_url().'home/konfirmasi/'.encrypt_text($key_distinct->id_transaksi).'">
+								<i class="fas fa-receipt mr-2"></i> Konfirmasi Pembayaran
+							</a>
+							</div>';
 						} elseif ($key_distinct->status == 'Menunggu Konfirmasi') {
 							$status_pesanan = '<span class="badge badge-pill badge-warning float-right">'.$key_distinct->status.'</span>';
+							$button = '';
 						} elseif ($key_distinct->status == 'Sudah Dibayar') {
 							$status_pesanan = '<span class="badge badge-pill badge-success float-right">'.$key_distinct->status.'</span>';
+							$button = '';
 						}
 
 						$get_data['html'] .= '
 						<div class="card mb-4">
 							<div class="card-header">
 								<b class="float-left">'.$key_distinct->no_order.'</b>
+								<br>
+								<span class="text-muted">
+									'.date_indo($get_created[0]).' '.$get_created[1].'
+								</span>
 								'.$status_pesanan.'
 								<div class="clearfix"></div>
 							</div>
@@ -483,12 +590,7 @@ class Home extends MY_Controller {
 									Total Pembayaran : <span style="color: #ff54a3; border: #ff54a3 dashed 1px; padding: 2px 5px; background: #ffdeed; border-radius: 3px;">'.rupiah($key->total_transaksi).'</span>
 								</p>
 							</div>
-							<hr>
-							<div class="p-3">
-								<button class="btn btn-primary" type="button" name="konfirmasi">
-									<i class="fas fa-receipt mr-2"></i> Konfirmasi Pembayaran
-								</button>
-							</div>
+							'.$button.'
 						</div>
 						';
 					}

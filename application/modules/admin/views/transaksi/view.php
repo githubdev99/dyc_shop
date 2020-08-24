@@ -1,0 +1,76 @@
+<div id="deleteData" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form action="?" method="post" enctype="multipart/form-data" name="delete_produk">
+            <div class="modal-content" style="border: none;">
+                <div class="modal-header bg-danger">
+                    <h4 class="modal-title mt-0 text-white" id="myModalLabel">
+                        <i class="fas fa-bookmark mr-3"></i>Konfirmasi Hapus Data Produk
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <input type="hidden" name="id_produk">
+                        <input type="hidden" name="nama_produk">
+                        <input type="hidden" name="foto">
+                        <h4>Anda yakin ingin menghapus data produk <b>"<span id="nama_produk"></span>"</b> ?</h4>
+                        <p>Data yang sudah dihapus tidak dapat dikembalikan!</p>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="delete" value="delete" class="btn btn-danger waves-effect waves-light">
+                        <i class="far fa-trash-alt mr-2"></i>Hapus Data
+                    </button>
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">
+                        <i class="fas fa-times mr-2"></i>Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-0">Data</h5>
+                <h3 class="mb-0 text-info">Transaksi</h3>
+            </div>
+        </div>
+    </div>
+</div>     
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">List Data</h4>
+                <p class="card-title-desc">Data yang ditampilkan adalah data seluruh transaksi yang ada pada DYC Shop.</p>
+
+                <table id="datatable" class="table table-bordered table-hover dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead class="table-pink">
+                        <tr>
+                            <th>No.</th>
+                            <th>Invoice</th>
+                            <th>Alamat Pengiriman</th>
+                            <th>Total Belanja</th>
+                            <th>Jenis Ongkir</th>
+                            <th>Status</th>
+                            <th>Opsi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
