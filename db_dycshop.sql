@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Agu 2020 pada 12.19
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.4
+-- Generation Time: Aug 29, 2020 at 04:04 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `username`, `password`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `admin` (`id_admin`, `nama_admin`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -55,10 +55,17 @@ CREATE TABLE `cart` (
   `status_pilih` enum('Y','T') CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id_cart`, `id_produk`, `id_customer`, `qty`, `status_pilih`) VALUES
+('PC-202008241301', 'P-202008022019', 'C-202008206781', 1, 'Y');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `customer`
+-- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
@@ -76,7 +83,7 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `customer`
+-- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `email`, `no_telp`, `province_id`, `city_id`, `subdistrict_id`, `alamat`) VALUES
@@ -85,7 +92,7 @@ INSERT INTO `customer` (`id_customer`, `username`, `password`, `nama_lengkap`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_city`
+-- Table structure for table `data_city`
 --
 
 CREATE TABLE `data_city` (
@@ -100,7 +107,7 @@ CREATE TABLE `data_city` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Kota';
 
 --
--- Dumping data untuk tabel `data_city`
+-- Dumping data for table `data_city`
 --
 
 INSERT INTO `data_city` (`city_id`, `province_id`, `province_kd`, `province`, `city_name`, `city_kd`, `postal_code`, `type`) VALUES
@@ -609,7 +616,7 @@ INSERT INTO `data_city` (`city_id`, `province_id`, `province_kd`, `province`, `c
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_province`
+-- Table structure for table `data_province`
 --
 
 CREATE TABLE `data_province` (
@@ -619,7 +626,7 @@ CREATE TABLE `data_province` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Provinsi';
 
 --
--- Dumping data untuk tabel `data_province`
+-- Dumping data for table `data_province`
 --
 
 INSERT INTO `data_province` (`province_id`, `province`, `province_kd`) VALUES
@@ -661,7 +668,7 @@ INSERT INTO `data_province` (`province_id`, `province`, `province_kd`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_subdistrict`
+-- Table structure for table `data_subdistrict`
 --
 
 CREATE TABLE `data_subdistrict` (
@@ -678,7 +685,7 @@ CREATE TABLE `data_subdistrict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Kecamatan';
 
 --
--- Dumping data untuk tabel `data_subdistrict`
+-- Dumping data for table `data_subdistrict`
 --
 
 INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, `province`, `city_id`, `city_kd`, `city`, `type`, `subdistrict`, `subdistrict_kd`) VALUES
@@ -7683,7 +7690,29 @@ INSERT INTO `data_subdistrict` (`subdistrict_id`, `province_id`, `province_kd`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `konfirmasi`
+--
+
+CREATE TABLE `konfirmasi` (
+  `id_konfirmasi` char(20) NOT NULL,
+  `id_transaksi` char(20) NOT NULL,
+  `no_rek` varchar(20) NOT NULL,
+  `atas_nama` varchar(50) NOT NULL,
+  `nama_bank` varchar(50) NOT NULL,
+  `foto_bukti` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `konfirmasi`
+--
+
+INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_transaksi`, `no_rek`, `atas_nama`, `nama_bank`, `foto_bukti`) VALUES
+('K-202008257193', 'T-202008238545', '123123123', 'sdvsdvsdv', 'sdvsdbdsb', 'IMG-202008253336.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produk`
 --
 
 CREATE TABLE `produk` (
@@ -7700,44 +7729,44 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `id_sub_kategori`, `kode_sku`, `nama_produk`, `harga`, `foto`, `stok`, `deskripsi`, `created_datetime`) VALUES
-('P-202008021278', 'K-202007318991', 'KS-202007311787', 'TN-1994502', 'Gelang Bandul Bening', 31000, 'IMG-202008118516.jpg', 50, 'Gelang Titanium dengan bandul resin bening.', '2020-08-02 11:18:18'),
-('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Oval Orange', 37500, 'IMG-202008116607.jpeg', 40, 'Ikat Rambut dengan bandul resin yang berbentuk oval dengan gliter warna orange.', '2020-08-02 11:20:32'),
-('P-202008021826', 'K-202007312495', 'KS-202007314022', 'IN-173405', 'Kalung Coklat Bunga Hitam', 30000, 'IMG-202008106382.jpg', 20, 'Kalung Resin dengan warna coklat dihiasi manik bunga hitam.', '2020-08-02 10:59:36'),
-('P-202008022019', 'K-202007318991', 'KS-202007311787', 'TN-1994503', 'Gelang Bulat Merah dan Bening', 31000, 'IMG-202008113977.jpeg', 50, 'Gelang Titanium dengan bandul resin bening dan didalamnya ditambahkan gradasi warna merah dan orange.', '2020-08-02 10:55:40'),
-('P-202008023302', 'K-202007318991', 'KS-202007311787', 'TN-1994501', 'Gelang Bintang Biru', 31000, 'IMG-202008111687.jpg', 55, 'Gelang Titanium dengan bandul resin bintang yang berwarna biru.', '2020-08-02 11:17:46'),
-('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Kipas Sakura', 21500, 'IMG-202008118670.jpeg', 50, 'Bros Resin dengan bingkai kipas sakura jepang.', '2020-08-02 11:16:38'),
-('P-202008023788', 'K-202007312495', 'KS-202007314022', 'IN-173404', 'Kalung Love Pink', 30000, 'IMG-202008102682.jpg', 20, 'Kalung Resin dengan Bentuk Love dengan Manik bibir menambah kesan cute dan feminin.', '2020-08-02 10:58:28'),
-('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Batu Kristal', 21500, 'IMG-202008117279.jpeg', 80, 'Bros resin dengan bingkai batu kristal dan dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:16:06'),
+('P-202008021278', 'K-202007318991', 'KS-202007311787', 'TN-1994502', 'Gelang Bandul Bening', 31000, 'IMG-202008118516.jpg', 30, 'Gelang Titanium dengan bandul resin bening.', '2020-08-02 11:18:18'),
+('P-202008021569', 'K-202007312820', 'KS-202007312744', 'CH-800102', 'Ikat Rambut Oval Orange', 37500, 'IMG-202008116607.jpeg', 30, 'Ikat Rambut dengan bandul resin yang berbentuk oval dengan gliter warna orange.', '2020-08-02 11:20:32'),
+('P-202008021826', 'K-202007312495', 'KS-202007314022', 'IN-173405', 'Kalung Coklat Bunga Hitam', 30000, 'IMG-202008106382.jpg', 30, 'Kalung Resin dengan warna coklat dihiasi manik bunga hitam.', '2020-08-02 10:59:36'),
+('P-202008022019', 'K-202007318991', 'KS-202007311787', 'TN-1994503', 'Gelang Bulat Merah dan Bening', 31000, 'IMG-202008113977.jpeg', 29, 'Gelang Titanium dengan bandul resin bening dan didalamnya ditambahkan gradasi warna merah dan orange.', '2020-08-02 10:55:40'),
+('P-202008023302', 'K-202007318991', 'KS-202007311787', 'TN-1994501', 'Gelang Bintang Biru', 31000, 'IMG-202008111687.jpg', 30, 'Gelang Titanium dengan bandul resin bintang yang berwarna biru.', '2020-08-02 11:17:46'),
+('P-202008023516', 'K-202007314314', 'KS-202007316494', 'SK-55235902', 'Bros Kipas Sakura', 21500, 'IMG-202008118670.jpeg', 28, 'Bros Resin dengan bingkai kipas sakura jepang.', '2020-08-02 11:16:38'),
+('P-202008023788', 'K-202007312495', 'KS-202007314022', 'IN-173404', 'Kalung Love Pink', 30000, 'IMG-202008102682.jpg', 30, 'Kalung Resin dengan Bentuk Love dengan Manik bibir menambah kesan cute dan feminin.', '2020-08-02 10:58:28'),
+('P-202008024415', 'K-202007314314', 'KS-202007316494', 'SK-55235901', 'Bros Batu Kristal', 21500, 'IMG-202008117279.jpeg', 29, 'Bros resin dengan bingkai batu kristal dan dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:16:06'),
 ('P-202008024698', 'K-202007318991', 'KS-202007316483', 'BF-561440403', 'Gelang Daun Bening', 29000, 'IMG-202008117380.jpg', 30, 'Gelang Rantai dengan bandul resin yang berbentuk daun berwarna bening dan didalamnya terdapat tangkai/ranting tanaman.', '2020-08-02 10:57:16'),
-('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Balon Kerlip Ungu', 42500, 'IMG-202008025886.jpg', 34, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
-('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Batu Permata', 42500, 'IMG-202008109405.jpeg', 45, 'Anting Resin dengan desain bingkai batu permata dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:14:54'),
-('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Glassy', 37500, 'IMG-202008116443.jpg', 40, 'Ikat Rambut dengan bandul resin yang perpaduan gradasi warna merah dan kuning.', '2020-08-02 11:19:53'),
+('P-202008025183', 'K-202007319642', 'KS-202007317214', 'PE-1233004', 'Anting Balon Kerlip Ungu', 42500, 'IMG-202008025886.jpg', 30, 'Anting Balon Kerlip Ungu', '2020-08-02 11:14:27'),
+('P-202008025214', 'K-202007319642', 'KS-202007317214', 'PE-1233005', 'Anting Batu Permata', 42500, 'IMG-202008109405.jpeg', 30, 'Anting Resin dengan desain bingkai batu permata dihiasi berbagai macam warna yang cantik.', '2020-08-02 11:14:54'),
+('P-202008025891', 'K-202007312820', 'KS-202007312744', 'CH-800101', 'Ikat Rambut Glassy', 37500, 'IMG-202008116443.jpg', 30, 'Ikat Rambut dengan bandul resin yang perpaduan gradasi warna merah dan kuning.', '2020-08-02 11:19:53'),
 ('P-202008025954', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Bening', 32000, 'IMG-202008102710.jpeg', 30, 'Anting Resin bening yang dihiasi dengan bunga kering berwarna pink yang cantik.', '2020-08-02 10:53:06'),
-('P-202008026160', 'K-202007312495', 'KS-202007319193', 'ST-188903', 'Kalung Bunga Sakura', 34500, 'IMG-202008111166.jpg', 20, 'Kalung Resin dengan desain bingkai bunga sakura membuat penampilan terlihat semakin menawan.', '2020-08-02 11:21:13'),
+('P-202008026160', 'K-202007312495', 'KS-202007319193', 'ST-188903', 'Kalung Bunga Sakura', 34500, 'IMG-202008111166.jpg', 30, 'Kalung Resin dengan desain bingkai bunga sakura membuat penampilan terlihat semakin menawan.', '2020-08-02 11:21:13'),
 ('P-202008026377', 'K-202007312820', 'KS-202007312744', 'CH-800106', 'Ikat Rambut Bulan Sabit Kerlip', 37500, 'IMG-202008115409.jpeg', 30, 'Ikat Rambut dengan bandul resin bentuk bulan sabit dengan hiasan pernak-pernik permata.', '2020-08-02 11:17:08'),
-('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233006', 'Anting Daun Pelangi', 42500, 'IMG-202008103224.jpeg', 35, 'Anting Resin dengan bingkai daun dan dihiasi berbagai macam warna seperti pelangi.', '2020-08-02 11:13:31'),
-('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Rantai Panjang', 32000, 'IMG-202008108160.jpeg', 85, 'Anting Resin dengan desain panjang dan dihiasi manik bunga', '2020-08-02 10:54:45'),
-('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 42500, 'IMG-202008024800.jpg', 35, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
-('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 42500, 'IMG-202008025461.jpg', 35, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
-('P-202008027809', 'K-202007318991', 'KS-202007316483', 'BF-561440402', 'Gelang Segitiga Biru', 29000, 'IMG-202008117874.jpg', 30, 'Gelang Rantai dengan bandul resin berbentuk segitiga yang berwarna biru.', '2020-08-02 10:57:45'),
-('P-202008028080', 'K-202007312495', 'KS-202007319193', 'ST-188901', 'Kalung Kunci Bintang Biru', 34500, 'IMG-202008104183.jpeg', 20, 'Kalung Resin dengan desain kunci bulan sabit dengan gradasi warna biru dan hijau.', '2020-08-02 11:00:13'),
-('P-202008028396', 'K-202007312495', 'KS-202007314022', 'IN-173402', 'Kalung Love', 30000, 'IMG-202008104752.jpg', 20, 'Kalung Resin dengan bentuk Love.', '2020-08-02 11:08:32'),
-('P-202008028485', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Oval Batu Bening', 29000, 'IMG-202008111890.jpeg', 30, 'Gelang Rantai Resin dengan bandul oval bening.', '2020-08-02 11:21:51'),
-('P-202008028601', 'K-202007312495', 'KS-202007319193', 'ST-188902', 'Kalung Kunci Bintang', 34500, 'IMG-202008107470.jpeg', 20, 'Kalung Resin dengan desain kunci bintang', '2020-08-02 11:23:00'),
-('P-202008028933', 'K-202007312495', 'KS-202007314022', 'IN-173403', 'Kalung Oval Langit', 30000, 'IMG-202008106296.jpg', 20, 'Kalung Resin dengan warna biru seperti langit.', '2020-08-02 10:58:51'),
-('P-202008029581', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bunga Biru', 30000, 'IMG-202008101119.jpg', 50, 'Anting Resin bulat dengan warna biru muda dihiasi dengan manik bunga.', '2020-08-02 10:56:27'),
-('P-202008103200', 'K-202007312495', 'KS-202007319193', 'ST-188904', 'Kalung Kunci Bulan Sabit Cutie', 34500, 'IMG-202008117819.jpg', 20, 'Kalung Resin dengan bingkai kunci bulan sabit dan perpaduan warna pink dan biru.', '2020-08-10 00:08:01'),
-('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Bunga Hijau', 29000, 'IMG-202008111375.jpeg', 40, 'Gelang Rantai Resin dengan bandul bunga hijau', '2020-08-10 00:09:15'),
-('P-202008103433', 'K-202007312495', 'KS-202007319193', 'ST-188905', 'Kalung Kunci Love', 34500, 'IMG-202008111976.jpg', 20, 'Kalung Resin dengan bingkai kunci love dan perpaduan warna biru dan pink.', '2020-08-10 00:05:28');
+('P-202008026811', 'K-202007319642', 'KS-202007317214', 'PE-1233006', 'Anting Daun Pelangi', 42500, 'IMG-202008103224.jpeg', 30, 'Anting Resin dengan bingkai daun dan dihiasi berbagai macam warna seperti pelangi.', '2020-08-02 11:13:31'),
+('P-202008027106', 'K-202007319642', 'KS-202007312650', 'PR-122001', 'Anting Bunga Rantai Panjang', 32000, 'IMG-202008108160.jpeg', 30, 'Anting Resin dengan desain panjang dan dihiasi manik bunga', '2020-08-02 10:54:45'),
+('P-202008027504', 'K-202007319642', 'KS-202007317214', 'PE-1233003', 'Anting Drop Geometri', 42500, 'IMG-202008024800.jpg', 30, 'Anting Drop Geometri', '2020-08-02 11:12:13'),
+('P-202008027578', 'K-202007319642', 'KS-202007317214', 'PE-1233001', 'Anting Black Ketupat', 42500, 'IMG-202008025461.jpg', 30, 'Anting Black Ketupat', '2020-08-02 11:07:51'),
+('P-202008027809', 'K-202007318991', 'KS-202007316483', 'BF-561440402', 'Gelang Segitiga Biru', 29000, 'IMG-202008117874.jpg', 28, 'Gelang Rantai dengan bandul resin berbentuk segitiga yang berwarna biru.', '2020-08-02 10:57:45'),
+('P-202008028080', 'K-202007312495', 'KS-202007319193', 'ST-188901', 'Kalung Kunci Bintang Biru', 34500, 'IMG-202008104183.jpeg', 30, 'Kalung Resin dengan desain kunci bulan sabit dengan gradasi warna biru dan hijau.', '2020-08-02 11:00:13'),
+('P-202008028396', 'K-202007312495', 'KS-202007314022', 'IN-173402', 'Kalung Love', 30000, 'IMG-202008104752.jpg', 30, 'Kalung Resin dengan bentuk Love.', '2020-08-02 11:08:32'),
+('P-202008028485', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Oval Batu Bening', 29000, 'IMG-202008111890.jpeg', 29, 'Gelang Rantai Resin dengan bandul oval bening.', '2020-08-02 11:21:51'),
+('P-202008028601', 'K-202007312495', 'KS-202007319193', 'ST-188902', 'Kalung Kunci Bintang', 34500, 'IMG-202008107470.jpeg', 30, 'Kalung Resin dengan desain kunci bintang', '2020-08-02 11:23:00'),
+('P-202008028933', 'K-202007312495', 'KS-202007314022', 'IN-173403', 'Kalung Oval Langit', 30000, 'IMG-202008106296.jpg', 30, 'Kalung Resin dengan warna biru seperti langit.', '2020-08-02 10:58:51'),
+('P-202008029581', 'K-202007312495', 'KS-202007314022', 'IN-173401', 'Kalung Bunga Biru', 30000, 'IMG-202008101119.jpg', 30, 'Anting Resin bulat dengan warna biru muda dihiasi dengan manik bunga.', '2020-08-02 10:56:27'),
+('P-202008103200', 'K-202007312495', 'KS-202007319193', 'ST-188904', 'Kalung Kunci Bulan Sabit Cutie', 34500, 'IMG-202008117819.jpg', 30, 'Kalung Resin dengan bingkai kunci bulan sabit dan perpaduan warna pink dan biru.', '2020-08-10 00:08:01'),
+('P-202008103286', 'K-202007318991', 'KS-202007316483', 'BF-561440401', 'Gelang Bunga Hijau', 29000, 'IMG-202008111375.jpeg', 29, 'Gelang Rantai Resin dengan bandul bunga hijau', '2020-08-10 00:09:15'),
+('P-202008103433', 'K-202007312495', 'KS-202007319193', 'ST-188905', 'Kalung Kunci Love', 34500, 'IMG-202008111976.jpg', 30, 'Kalung Resin dengan bingkai kunci love dan perpaduan warna biru dan pink.', '2020-08-10 00:05:28');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk_kategori`
+-- Table structure for table `produk_kategori`
 --
 
 CREATE TABLE `produk_kategori` (
@@ -7747,7 +7776,7 @@ CREATE TABLE `produk_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produk_kategori`
+-- Dumping data for table `produk_kategori`
 --
 
 INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime`) VALUES
@@ -7760,7 +7789,7 @@ INSERT INTO `produk_kategori` (`id_kategori`, `nama_kategori`, `created_datetime
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk_sub_kategori`
+-- Table structure for table `produk_sub_kategori`
 --
 
 CREATE TABLE `produk_sub_kategori` (
@@ -7770,7 +7799,7 @@ CREATE TABLE `produk_sub_kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `produk_sub_kategori`
+-- Dumping data for table `produk_sub_kategori`
 --
 
 INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_kategori`) VALUES
@@ -7786,7 +7815,7 @@ INSERT INTO `produk_sub_kategori` (`id_sub_kategori`, `id_kategori`, `nama_sub_k
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -7804,10 +7833,18 @@ CREATE TABLE `transaksi` (
   `created_datetime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_customer`, `no_order`, `total_qty`, `harga_transaksi`, `ongkir`, `jenis_ongkir`, `etd_ongkir`, `harga_ongkir`, `total_transaksi`, `status`, `created_datetime`) VALUES
+('T-202008238545', 'C-202008206781', 'INV-202008234585', 4, 116000, 'Jalur Nugraha Ekakurir (JNE)', 'Layanan Reguler (REG)', '1-2 Hari', 9000, 125000, 'Sudah Dibayar', '2020-08-23 18:24:15'),
+('T-202008247899', 'C-202008206781', 'INV-202008244969', 3, 64500, 'Jalur Nugraha Ekakurir (JNE)', 'Layanan Reguler (REG)', '1-2 Hari', 9000, 73500, 'Belum Dibayar', '2020-08-24 09:59:26');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_detail`
+-- Table structure for table `transaksi_detail`
 --
 
 CREATE TABLE `transaksi_detail` (
@@ -7818,18 +7855,29 @@ CREATE TABLE `transaksi_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `transaksi_detail`
+--
+
+INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `id_transaksi`, `id_produk`, `qty`) VALUES
+('TD-202008232840', 'T-202008238545', 'P-202008028485', 1),
+('TD-202008238052', 'T-202008238545', 'P-202008027809', 2),
+('TD-202008239887', 'T-202008238545', 'P-202008103286', 1),
+('TD-202008242394', 'T-202008247899', 'P-202008023516', 2),
+('TD-202008248332', 'T-202008247899', 'P-202008024415', 1);
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indeks untuk tabel `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id_cart`),
@@ -7837,7 +7885,7 @@ ALTER TABLE `cart`
   ADD KEY `id_customer` (`id_customer`);
 
 --
--- Indeks untuk tabel `customer`
+-- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_customer`),
@@ -7848,7 +7896,7 @@ ALTER TABLE `customer`
   ADD KEY `subdistrict_id` (`subdistrict_id`);
 
 --
--- Indeks untuk tabel `data_city`
+-- Indexes for table `data_city`
 --
 ALTER TABLE `data_city`
   ADD PRIMARY KEY (`city_id`),
@@ -7857,19 +7905,26 @@ ALTER TABLE `data_city`
   ADD KEY `province` (`province`);
 
 --
--- Indeks untuk tabel `data_province`
+-- Indexes for table `data_province`
 --
 ALTER TABLE `data_province`
   ADD PRIMARY KEY (`province_id`);
 
 --
--- Indeks untuk tabel `data_subdistrict`
+-- Indexes for table `data_subdistrict`
 --
 ALTER TABLE `data_subdistrict`
   ADD PRIMARY KEY (`subdistrict_id`);
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `konfirmasi`
+--
+ALTER TABLE `konfirmasi`
+  ADD PRIMARY KEY (`id_konfirmasi`),
+  ADD KEY `id_transaksi` (`id_transaksi`);
+
+--
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`),
@@ -7877,27 +7932,27 @@ ALTER TABLE `produk`
   ADD KEY `id_sub_kategori` (`id_sub_kategori`);
 
 --
--- Indeks untuk tabel `produk_kategori`
+-- Indexes for table `produk_kategori`
 --
 ALTER TABLE `produk_kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indeks untuk tabel `produk_sub_kategori`
+-- Indexes for table `produk_sub_kategori`
 --
 ALTER TABLE `produk_sub_kategori`
   ADD PRIMARY KEY (`id_sub_kategori`),
   ADD KEY `id_kategori` (`id_kategori`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
   ADD KEY `id_customer` (`id_customer`);
 
 --
--- Indeks untuk tabel `transaksi_detail`
+-- Indexes for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
   ADD PRIMARY KEY (`id_transaksi_detail`),
@@ -7905,40 +7960,40 @@ ALTER TABLE `transaksi_detail`
   ADD KEY `id_produk` (`id_produk`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `data_city`
+-- AUTO_INCREMENT for table `data_city`
 --
 ALTER TABLE `data_city`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
--- AUTO_INCREMENT untuk tabel `data_province`
+-- AUTO_INCREMENT for table `data_province`
 --
 ALTER TABLE `data_province`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT untuk tabel `data_subdistrict`
+-- AUTO_INCREMENT for table `data_subdistrict`
 --
 ALTER TABLE `data_subdistrict`
   MODIFY `subdistrict_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6998;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `cart`
+-- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`),
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
 
 --
--- Ketidakleluasaan untuk tabel `customer`
+-- Constraints for table `customer`
 --
 ALTER TABLE `customer`
   ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `data_province` (`province_id`),
@@ -7946,19 +8001,25 @@ ALTER TABLE `customer`
   ADD CONSTRAINT `customer_ibfk_3` FOREIGN KEY (`subdistrict_id`) REFERENCES `data_subdistrict` (`subdistrict_id`);
 
 --
--- Ketidakleluasaan untuk tabel `produk_sub_kategori`
+-- Constraints for table `konfirmasi`
+--
+ALTER TABLE `konfirmasi`
+  ADD CONSTRAINT `konfirmasi_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`);
+
+--
+-- Constraints for table `produk_sub_kategori`
 --
 ALTER TABLE `produk_sub_kategori`
   ADD CONSTRAINT `produk_sub_kategori_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `produk_kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `transaksi`
+-- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
 
 --
--- Ketidakleluasaan untuk tabel `transaksi_detail`
+-- Constraints for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
   ADD CONSTRAINT `transaksi_detail_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
