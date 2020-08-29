@@ -66,27 +66,22 @@ class Transaksi extends MY_Controller {
     public function detail($id)
 	{
         $get_data = $this->master_model->select_data([
-            'field' => 'produk.*, produk_kategori.nama_kategori, produk_sub_kategori.nama_sub_kategori',
-            'table' => 'produk',
+            'field' => 'transaksi.*, customer.nama_lengkap',
+            'table' => 'transaksi',
             'join' => [
                 [
-                    'table' => 'produk_kategori',
-                    'on' => 'produk_kategori.id_kategori = produk.id_kategori',
+                    'table' => 'customer',
+                    'on' => 'transaksi.id_customer = customer.id_customer',
                     'type' => 'inner'
                 ],
-                [
-                    'table' => 'produk_sub_kategori',
-                    'on' => 'produk_sub_kategori.id_sub_kategori = produk.id_sub_kategori',
-                    'type' => 'inner'
-                ]
             ],
             'where' => [
-                'id_produk' => decrypt_text($id)
+                'id_transaksi' => decrypt_text($id)
             ]
         ])->row();
 
         // Check URL
-        if (decrypt_text($id) != $get_data->id_produk) {
+        if (decrypt_text($id) != $get_data->id_transaksi) {
             $this->alert_popup([
                 'name' => 'failed',
                 'swal' => [
@@ -94,15 +89,15 @@ class Transaksi extends MY_Controller {
                     'type' => 'error'
                 ]
             ]);
-            redirect(base_url().'admin/produk','refresh');
+            redirect(base_url().'admin/transaksi','refresh');
         }
 
-		$title = 'Detail Produk';
+		$title = 'Detail Transaksi';
 		$data = [
 			'setup_app' => $this->setup_app($title),
-            'plugin' => ['sweetalert', 'magnific-popup'],
-            'get_view' => 'admin/produk/detail',
-            'get_script' => 'admin/produk/script_detail',
+            'plugin' => ['sweetalert', 'magnific-popup', 'datatable'],
+            'get_view' => 'admin/transaksi/detail',
+            'get_script' => 'admin/transaksi/script_detail',
             'get_data' => $get_data
         ];
         
@@ -111,35 +106,35 @@ class Transaksi extends MY_Controller {
         } else {
             $process = TRUE;
 
-            if ($this->input->post('delete')) {
+            if ($this->input->post('confirm')) {
                 if ($process == TRUE) {
-                    $query = $this->master_model->delete_data([
+                    $query = $this->master_model->send_data([
                         'where' => [
-                            'id_produk' => decrypt_text($this->input->post('id_produk'))
+                            'id_transaksi' => decrypt_text($this->input->post('id_transaksi'))
                         ],
-                        'table' => 'produk'
+                        'data' => [
+                            'status' => 'Sudah Dibayar'
+                        ],
+                        'table' => 'transaksi'
                     ]);
                     if ($query == FALSE) {
                         $this->alert_popup([
                             'name' => 'failed',
                             'swal' => [
-                                'text' => 'Data produk '.$this->input->post('nama_produk').' gagal di hapus.',
+                                'text' => 'Data transaksi gagal di konfirmasi.',
                                 'type' => 'error'
                             ]
                         ]);
-                        redirect(base_url().'admin/produk/edit/'.$id,'refresh');
+                        redirect(base_url().'admin/transaksi/detail/'.$id,'refresh');
                     } else {
-                        if (!empty($this->input->post('foto'))) {
-                            unlink('assets/images/upload/'.$this->input->post('foto'));
-                        }
                         $this->alert_popup([
                             'name' => 'success',
                             'swal' => [
-                                'text' => 'Data produk '.$this->input->post('nama_produk').' berhasil di hapus.',
+                                'text' => 'Data transaksi berhasil di konfirmasi.',
                                 'type' => 'success'
                             ]
                         ]);
-                        redirect(base_url().'admin/produk','refresh');
+                        redirect(base_url().'admin/transaksi/detail/'.$id,'refresh');
                     }
                 }
             } else {
@@ -225,7 +220,7 @@ class Transaksi extends MY_Controller {
                 $nested_data[] = $key->ongkir.'<br>'.$key->jenis_ongkir.'<br>'.$key->etd_ongkir;
                 $nested_data[] = $status;
 				$nested_data[] = '
-				<a href="'.base_url().'admin/produk/detail/'.encrypt_text($key->id_transaksi).'" class="btn btn-info waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Detail Data">
+				<a href="'.base_url().'admin/transaksi/detail/'.encrypt_text($key->id_transaksi).'" class="btn btn-info waves-effect waves-light mt-2 mr-2 mb-2" data-toggle="tooltip" data-placement="top" title="Detail Data">
 					<i class="fas fa-info"></i>
 				</a>';
 
@@ -276,6 +271,118 @@ class Transaksi extends MY_Controller {
 		}
 
 		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
-	}
+    }
+    
+    public function list_transaksi_produk()
+	{
+		if (!empty($_REQUEST['draw'])) {
+			$draw = $_REQUEST['draw'];
+		} else {
+			$draw = 0;
+		}
+
+		$this->param['column_search'] = [
+			'id_produk','kode_sku','nama_produk','harga','qty'
+		];
+		$this->param['column_order'] = [
+			null,null,'nama_produk','harga',null
+		];
+		$this->param['field'] = 'produk.*, transaksi_detail.*';
+        $this->param['table'] = 'transaksi_detail';
+
+        $this->param['join'] = [
+            [
+                'table' => 'produk',
+                'on' => 'produk.id_produk = transaksi_detail.id_produk',
+                'type' => 'inner'
+            ]
+        ];
+
+        $this->param['where'] = [
+            'id_transaksi' => decrypt_text($this->input->post('id_transaksi'))
+        ];
+        
+		$this->param['order_by'] = [
+			'nama_produk' => 'asc'
+		];
+
+		$this->data['data_parsing'] = $this->master_model->get_datatable($this->param);
+		$this->data['total_filtered'] = $this->master_model->get_total_filtered($this->param);
+		$this->data['total_data'] = $this->master_model->get_total_data($this->param);
+
+		$get_data = [];
+		if (!empty($this->data['data_parsing'])) {
+			$no = $_REQUEST['start'];
+			foreach ($this->data['data_parsing'] as $key) {
+				$nested_data = [];
+				$no++;
+                
+                if ($key->foto != NULL) {
+					$url_foto = base_url().'assets/admin/images/upload/'.$key->foto;
+				} else {
+					$url_foto = base_url().'assets/admin/images/img-thumbnail.svg';
+				}
+
+                $nested_data[] = $no;
+                $nested_data[] = '
+				<a class="image-popup" href="'.$url_foto.'">
+					<img class="img-thumbnail" width="100" src="'.$url_foto.'" data-holder-rendered="true">
+				</a>';
+				$nested_data[] = '
+				<a href="'.base_url().'admin/produk/detail/'.encrypt_text($key->id_produk).'">
+					'.$key->nama_produk.'
+				</a><br>
+				<span class="text-muted">
+                    Kode SKU : '.$key->kode_sku.'
+                </span>';
+                $nested_data[] = rupiah($key->harga).' x '.$key->qty;
+                $nested_data[] = rupiah($key->harga * $key->qty);
+
+				$get_data[] = $nested_data;
+			}
+		}
+
+		$this->data['output'] = [
+			'draw' => intval($draw),
+			'recordsTotal' => intval($this->data['total_data']),
+			'recordsFiltered' => intval($this->data['total_filtered']),
+			'data' => $get_data
+		];
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+    }
+    
+    public function get_konfirmasi()
+	{
+		$this->param['field'] = '*';
+		$this->param['table'] = 'konfirmasi';
+		$this->param['where'] = [
+			'id_transaksi' => decrypt_text($this->input->post('id'))
+		];
+
+		$this->data['data_parsing'] = $this->master_model->select_data($this->param)->row();
+
+		if (!empty($this->data['data_parsing'])) {
+			$get_data = [];
+			if ($this->data['data_parsing'] == FALSE) {
+				$this->data['output'] = [
+					'error' => true,
+					'data' => $get_data
+				];
+			} else {
+				$get_data['no_rek'] = $this->data['data_parsing']->no_rek;
+				$get_data['atas_nama'] = $this->data['data_parsing']->atas_nama;
+				$get_data['nama_bank'] = $this->data['data_parsing']->nama_bank;
+				$get_data['foto_bukti'] = $this->data['data_parsing']->foto_bukti;
+
+				$this->data['output'] = [
+					'error' => false,
+					'data' => $get_data
+				];
+			}
+		}
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($this->data['output']));
+    }
 
 }
